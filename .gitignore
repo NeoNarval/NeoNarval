@@ -1,0 +1,6 @@
+**.fts
+**.fits
+**.p
+**.pyc
+!/DATA/*.fts
+/SRC/script.py
