@@ -1,0 +1,5 @@
+Brut : /home/main/Documents/DRS/Brut
+FILES : /home/main/Documents/DRS/FILES
+TEMP : /home/main/Documents/DRS/TEMP
+
+

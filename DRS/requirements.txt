@@ -1,0 +1,6 @@
+pyfits == 3.4
+numpy == 1.12.1
+scipy == 0.19.0
+matplotlib == 2.0.0
+lmfit == 0.9.6
+PeakUtils == 1.0.3

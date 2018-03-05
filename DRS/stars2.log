@@ -1,0 +1,3571 @@
+en attente
+/home/main/Documents/DRS/SRC/stars2.sh: ligne 40: 1=0 : commande introuvable
+Script thorium lance
+en attente
+Couldn't watch last: No such file or directory
+one finish
+..\/TEMP
+/home/main/Documents/DRS/SRC/stars2.sh: ligne 36: 1=0 : commande introuvable
+Script etoile lance
+en attente
+./stars3.sh: ligne 9: n : commande introuvable
+Couldn't watch last: No such file or directory
+one finish
+..\/TEMP
+/home/main/Documents/DRS/SRC/stars2.sh: ligne 40: 1=0 : commande introuvable
+Script thorium lance
+en attente
+./stars3.sh: ligne 9: n : commande introuvable
+Couldn't watch last: No such file or directory
+/usr/local/lib/python2.7/dist-packages/pyfits/file.py:372: UserWarning: Overwriting existing file '/home/main/Documents/DRS/FILES/Narval_20170609_175308_th1.fts'.
+  warnings.warn("Overwriting existing file %r." % self.name)
+one finish
+..\/TEMP
+/home/main/Documents/DRS/SRC/stars2.sh: ligne 40: 1=0 : commande introuvable
+Script thorium lance
+en attente
+./stars3.sh: ligne 9: n : commande introuvable
+Couldn't watch last: No such file or directory
+/usr/local/lib/python2.7/dist-packages/pyfits/file.py:372: UserWarning: Overwriting existing file '/home/main/Documents/DRS/FILES/Narval_20170609_175308_th1.fts'.
+  warnings.warn("Overwriting existing file %r." % self.name)
+one finish
+..\/TEMP
+/home/main/Documents/DRS/SRC/stars2.sh: ligne 40: 1=0 : commande introuvable
+Script thorium lance
+en attente
+./stars3.sh: ligne 9: n : commande introuvable
+Couldn't watch last: No such file or directory
+/usr/local/lib/python2.7/dist-packages/pyfits/file.py:372: UserWarning: Overwriting existing file '/home/main/Documents/DRS/FILES/Narval_20170609_175308_th1.fts'.
+  warnings.warn("Overwriting existing file %r." % self.name)
+/home/main/Documents/DRS/SRC/stars2.sh: ligne 40: 1=0 : commande introuvable
+Script thorium lance
+en attente
+./stars3.sh: ligne 9: n : commande introuvable
+Couldn't watch last: No such file or directory
+one finish
+..\/TEMP
+/usr/local/lib/python2.7/dist-packages/pyfits/file.py:372: UserWarning: Overwriting existing file '/home/main/Documents/DRS/FILES/Narval_20170609_175308_th1.fts'.
+  warnings.warn("Overwriting existing file %r." % self.name)
+one finish
+..\/TEMP
+/home/main/Documents/DRS/SRC/stars2.sh: ligne 40: 1=0 : commande introuvable
+Script thorium lance
+en attente
+./stars3.sh: ligne 9: n : commande introuvable
+Couldn't watch last: No such file or directory
+/usr/local/lib/python2.7/dist-packages/pyfits/file.py:372: UserWarning: Overwriting existing file '/home/main/Documents/DRS/FILES/Narval_20170609_175308_th1.fts'.
+  warnings.warn("Overwriting existing file %r." % self.name)
+one finish
+..\/TEMP
+../FILES/Narval_20170609_175308_th1.fts
+(23702.0, 97990.0)
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 160, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 155, in create_spectrum
+    spectrum = generate_spectrum(test_data, A_matrix)
+  File "generate_lane_spectrum.py", line 68, in generate_spectrum
+    G = np.linalg.cholesky(F)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 612, in cholesky
+    r = gufunc(a, signature=signature, extobj=extobj)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 93, in _raise_linalgerror_nonposdef
+    raise LinAlgError("Matrix is not positive definite")
+numpy.linalg.linalg.LinAlgError: Matrix is not positive definite
+Closing remaining open files:CArray.h5.../home/main/Documents/DRS/FILES/Narval_20170609_233751_st1.fts
+(23678.0, 97966.0)
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 160, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 155, in create_spectrum
+    spectrum = generate_spectrum(test_data, A_matrix)
+  File "generate_lane_spectrum.py", line 68, in generate_spectrum
+    G = np.linalg.cholesky(F)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 612, in cholesky
+    r = gufunc(a, signature=signature, extobj=extobj)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 93, in _raise_linalgerror_nonposdef
+    raise LinAlgError("Matrix is not positive definite")
+numpy.linalg.linalg.LinAlgError: Matrix is not positive definite
+Closing remaining open files:CArray.h5.../home/main/Documents/DRS/FILES/Narval_20170609_233751_st1.fts
+(23678.0, 97966.0)
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 160, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 155, in create_spectrum
+    spectrum = generate_spectrum(test_data, A_matrix)
+  File "generate_lane_spectrum.py", line 68, in generate_spectrum
+    G = np.linalg.cholesky(F)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 612, in cholesky
+    r = gufunc(a, signature=signature, extobj=extobj)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 93, in _raise_linalgerror_nonposdef
+    raise LinAlgError("Matrix is not positive definite")
+numpy.linalg.linalg.LinAlgError: Matrix is not positive definite
+Closing remaining open files:CArray.h5...done
+0 spectres faits
+done
+done
+0 spectres faits
+0 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170609_233751_st1.fts
+(23678.0, 97966.0)
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 160, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 155, in create_spectrum
+    spectrum = generate_spectrum(test_data, A_matrix)
+  File "generate_lane_spectrum.py", line 68, in generate_spectrum
+    G = np.linalg.cholesky(F)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 612, in cholesky
+    r = gufunc(a, signature=signature, extobj=extobj)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 93, in _raise_linalgerror_nonposdef
+    raise LinAlgError("Matrix is not positive definite")
+numpy.linalg.linalg.LinAlgError: Matrix is not positive definite
+Closing remaining open files:CArray.h5...done
+0 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170609_233751_st1.fts
+(23678.0, 97966.0)
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 160, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 155, in create_spectrum
+    spectrum = generate_spectrum(test_data, A_matrix)
+  File "generate_lane_spectrum.py", line 68, in generate_spectrum
+    G = np.linalg.cholesky(F)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 612, in cholesky
+    r = gufunc(a, signature=signature, extobj=extobj)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 93, in _raise_linalgerror_nonposdef
+    raise LinAlgError("Matrix is not positive definite")
+numpy.linalg.linalg.LinAlgError: Matrix is not positive definite
+Closing remaining open files:CArray.h5...done
+/home/main/Documents/DRS/FILES/Narval_20170609_233751_st1.fts
+(23678.0, 97966.0)
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 160, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 155, in create_spectrum
+    spectrum = generate_spectrum(test_data, A_matrix)
+  File "generate_lane_spectrum.py", line 68, in generate_spectrum
+    G = np.linalg.cholesky(F)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 612, in cholesky
+    r = gufunc(a, signature=signature, extobj=extobj)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 93, in _raise_linalgerror_nonposdef
+    raise LinAlgError("Matrix is not positive definite")
+numpy.linalg.linalg.LinAlgError: Matrix is not positive definite
+Closing remaining open files:CArray.h5...done
+0 spectres faits
+0 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170609_233751_st1.fts
+(23678.0, 97966.0)
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 160, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 155, in create_spectrum
+    spectrum = generate_spectrum(test_data, A_matrix)
+  File "generate_lane_spectrum.py", line 68, in generate_spectrum
+    G = np.linalg.cholesky(F)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 612, in cholesky
+    r = gufunc(a, signature=signature, extobj=extobj)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 93, in _raise_linalgerror_nonposdef
+    raise LinAlgError("Matrix is not positive definite")
+numpy.linalg.linalg.LinAlgError: Matrix is not positive definite
+Closing remaining open files:CArray.h5...done
+0 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170609_233751_st1.fts
+(23678.0, 97966.0)
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 160, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 155, in create_spectrum
+    spectrum = generate_spectrum(test_data, A_matrix)
+  File "generate_lane_spectrum.py", line 68, in generate_spectrum
+    G = np.linalg.cholesky(F)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 612, in cholesky
+    r = gufunc(a, signature=signature, extobj=extobj)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 93, in _raise_linalgerror_nonposdef
+    raise LinAlgError("Matrix is not positive definite")
+numpy.linalg.linalg.LinAlgError: Matrix is not positive definite
+Closing remaining open files:CArray.h5...done
+0 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170609_233751_st1.fts
+(23678.0, 97966.0)
+(4204, 4612)
+1
+1 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170609_233751_st1.fts
+(23678.0, 97966.0)
+(4204, 4612)
+1
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 160, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 155, in create_spectrum
+    spectrum = generate_spectrum(test_data, A_matrix)
+  File "generate_lane_spectrum.py", line 76, in generate_spectrum
+    os.remove(C_file)
+OSError: [Errno 2] No such file or directory: 'CArray.h5'
+0 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170609_233751_st1.fts
+(23678.0, 97966.0)
+(4204, 4612)
+1
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 160, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 155, in create_spectrum
+    spectrum = generate_spectrum(test_data, A_matrix)
+  File "generate_lane_spectrum.py", line 76, in generate_spectrum
+    os.remove(C_file)
+OSError: [Errno 2] No such file or directory: 'CArray.h5'
+0 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170609_233751_st1.fts
+(23678.0, 97966.0)
+(4204, 4612)
+1
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 160, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 155, in create_spectrum
+    spectrum = generate_spectrum(test_data, A_matrix)
+  File "generate_lane_spectrum.py", line 76, in generate_spectrum
+    os.remove(C_file)
+OSError: [Errno 2] No such file or directory: 'CArray.h5'
+0 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170609_233751_st1.fts
+(23678.0, 97966.0)
+(4204, 4612)
+1
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 160, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 155, in create_spectrum
+    spectrum = generate_spectrum(test_data, A_matrix)
+  File "generate_lane_spectrum.py", line 76, in generate_spectrum
+    os.remove(C_file)
+OSError: [Errno 2] No such file or directory: 'CArray.h5'
+0 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170609_233751_st1.fts
+(23678.0, 97966.0)
+(4204, 4612)
+1
+1 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170609_233751_st1.fts
+(23678.0, 97966.0)
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 160, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 155, in create_spectrum
+    spectrum = generate_spectrum(test_data, A_matrix)
+  File "generate_lane_spectrum.py", line 45, in generate_spectrum
+    h5f_C = tables.open_file(C_file, 'w')
+  File "/usr/local/lib/python2.7/dist-packages/tables/file.py", line 320, in open_file
+    return File(filename, mode, title, root_uep, filters, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/tables/file.py", line 784, in __init__
+    self._g_new(filename, mode, **params)
+  File "tables/hdf5extension.pyx", line 487, in tables.hdf5extension.File._g_new (tables/hdf5extension.c:5940)
+tables.exceptions.HDF5ExtError: HDF5 error back trace
+
+  File "H5F.c", line 522, in H5Fcreate
+    unable to create file
+  File "H5Fint.c", line 1087, in H5F_open
+    unable to read superblock
+  File "H5Fsuper.c", line 277, in H5F_super_read
+    file signature not found
+
+End of HDF5 error back trace
+
+Unable to open/create file 'CArray.h5'
+0 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170609_233751_st1.fts
+(23678.0, 97966.0)
+(2854, 119912)
+26
+1 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170609_233751_st1.fts
+(23678.0, 97966.0)
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 160, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 155, in create_spectrum
+    spectrum = generate_spectrum(test_data, A_matrix)
+  File "generate_lane_spectrum.py", line 68, in generate_spectrum
+    G = np.linalg.cholesky(F)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 612, in cholesky
+    r = gufunc(a, signature=signature, extobj=extobj)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 93, in _raise_linalgerror_nonposdef
+    raise LinAlgError("Matrix is not positive definite")
+numpy.linalg.linalg.LinAlgError: Matrix is not positive definite
+Closing remaining open files:CArray.h5...done
+0 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170609_233751_st1.fts
+(23678.0, 97966.0)
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 160, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 155, in create_spectrum
+    spectrum = generate_spectrum(test_data, A_matrix)
+  File "generate_lane_spectrum.py", line 68, in generate_spectrum
+    G = np.linalg.cholesky(F)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 612, in cholesky
+    r = gufunc(a, signature=signature, extobj=extobj)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 93, in _raise_linalgerror_nonposdef
+    raise LinAlgError("Matrix is not positive definite")
+numpy.linalg.linalg.LinAlgError: Matrix is not positive definite
+Closing remaining open files:CArray.h5...done
+/home/main/Documents/DRS/FILES/Narval_20170609_233751_st1.fts
+(23678.0, 97966.0)
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 160, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 155, in create_spectrum
+    spectrum = generate_spectrum(test_data, A_matrix)
+  File "generate_lane_spectrum.py", line 68, in generate_spectrum
+    G = np.linalg.cholesky(F)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 612, in cholesky
+    r = gufunc(a, signature=signature, extobj=extobj)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 93, in _raise_linalgerror_nonposdef
+    raise LinAlgError("Matrix is not positive definite")
+numpy.linalg.linalg.LinAlgError: Matrix is not positive definite
+Closing remaining open files:CArray.h5...done
+1 spectres faits
+1 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170609_233751_st1.fts
+(23678.0, 97966.0)
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 160, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 155, in create_spectrum
+    spectrum = generate_spectrum(test_data, A_matrix)
+  File "generate_lane_spectrum.py", line 68, in generate_spectrum
+    G = np.linalg.cholesky(F)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 612, in cholesky
+    r = gufunc(a, signature=signature, extobj=extobj)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 93, in _raise_linalgerror_nonposdef
+    raise LinAlgError("Matrix is not positive definite")
+numpy.linalg.linalg.LinAlgError: Matrix is not positive definite
+Closing remaining open files:CArray.h5...done
+/home/main/Documents/DRS/FILES/Narval_20170609_233751_st1.fts
+(23678.0, 97966.0)
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 160, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 155, in create_spectrum
+    spectrum = generate_spectrum(test_data, A_matrix)
+  File "generate_lane_spectrum.py", line 68, in generate_spectrum
+    G = np.linalg.cholesky(F)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 612, in cholesky
+    r = gufunc(a, signature=signature, extobj=extobj)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 93, in _raise_linalgerror_nonposdef
+    raise LinAlgError("Matrix is not positive definite")
+numpy.linalg.linalg.LinAlgError: Matrix is not positive definite
+Closing remaining open files:CArray.h5...done
+0 spectres faits
+0 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170609_233751_st1.fts
+(23678.0, 97966.0)
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 160, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 155, in create_spectrum
+    spectrum = generate_spectrum(test_data, A_matrix)
+  File "generate_lane_spectrum.py", line 68, in generate_spectrum
+    G = np.linalg.cholesky(F)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 612, in cholesky
+    r = gufunc(a, signature=signature, extobj=extobj)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 93, in _raise_linalgerror_nonposdef
+    raise LinAlgError("Matrix is not positive definite")
+numpy.linalg.linalg.LinAlgError: Matrix is not positive definite
+Closing remaining open files:CArray.h5...done
+0 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170609_233751_st1.fts
+(23678.0, 97966.0)
+(2819, 23060)
+5
+2 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170609_233751_st1.fts
+(23678.0, 97966.0)
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 160, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 155, in create_spectrum
+    spectrum = generate_spectrum(test_data, A_matrix)
+  File "generate_lane_spectrum.py", line 68, in generate_spectrum
+    G = np.linalg.cholesky(F)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 612, in cholesky
+    r = gufunc(a, signature=signature, extobj=extobj)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 93, in _raise_linalgerror_nonposdef
+    raise LinAlgError("Matrix is not positive definite")
+numpy.linalg.linalg.LinAlgError: Matrix is not positive definite
+Closing remaining open files:CArray.h5...done
+0 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170609_233751_st1.fts
+(23678.0, 97966.0)
+(2819, 23060)
+5
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 160, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 155, in create_spectrum
+    spectrum = generate_spectrum(test_data, A_matrix)
+  File "generate_lane_spectrum.py", line 76, in generate_spectrum
+    os.remove(C_file)
+OSError: [Errno 2] No such file or directory: 'CArray.h5'
+0 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170609_233751_st1.fts
+(23678.0, 97966.0)
+(2819, 23060)
+5
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 160, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 155, in create_spectrum
+    spectrum = generate_spectrum(test_data, A_matrix)
+  File "generate_lane_spectrum.py", line 76, in generate_spectrum
+    os.remove(C_file)
+OSError: [Errno 2] No such file or directory: 'CArray.h5'
+/home/main/Documents/DRS/FILES/Narval_20170609_233751_st1.fts
+(23678.0, 97966.0)
+(2819, 23060)
+5
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 160, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 155, in create_spectrum
+    spectrum = generate_spectrum(test_data, A_matrix)
+  File "generate_lane_spectrum.py", line 76, in generate_spectrum
+    os.remove(C_file)
+OSError: [Errno 2] No such file or directory: 'CArray.h5'
+1 spectres faits
+0 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170609_233751_st1.fts
+(23678.0, 97966.0)
+(2819, 23060)
+5
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 160, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 155, in create_spectrum
+    spectrum = generate_spectrum(test_data, A_matrix)
+  File "generate_lane_spectrum.py", line 76, in generate_spectrum
+    os.remove(C_file)
+OSError: [Errno 2] No such file or directory: 'CArray.h5'
+/home/main/Documents/DRS/FILES/Narval_20170609_233751_st1.fts
+(23678.0, 97966.0)
+(2819, 23060)
+5
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 160, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 155, in create_spectrum
+    spectrum = generate_spectrum(test_data, A_matrix)
+  File "generate_lane_spectrum.py", line 76, in generate_spectrum
+    os.remove(C_file)
+OSError: [Errno 2] No such file or directory: 'CArray.h5'
+0 spectres faits
+1 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170609_233751_st1.fts
+(23678.0, 97966.0)
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 160, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 155, in create_spectrum
+    spectrum = generate_spectrum(test_data, A_matrix)
+  File "generate_lane_spectrum.py", line 45, in generate_spectrum
+    h5f_C = tables.open_file(C_file, 'w')
+  File "/usr/local/lib/python2.7/dist-packages/tables/file.py", line 320, in open_file
+    return File(filename, mode, title, root_uep, filters, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/tables/file.py", line 784, in __init__
+    self._g_new(filename, mode, **params)
+  File "tables/hdf5extension.pyx", line 487, in tables.hdf5extension.File._g_new (tables/hdf5extension.c:5940)
+tables.exceptions.HDF5ExtError: HDF5 error back trace
+
+  File "H5F.c", line 522, in H5Fcreate
+    unable to create file
+  File "H5Fint.c", line 1087, in H5F_open
+    unable to read superblock
+  File "H5Fsuper.c", line 277, in H5F_super_read
+    file signature not found
+
+End of HDF5 error back trace
+
+Unable to open/create file 'CArray.h5'
+0 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170609_233751_st1.fts
+(23678.0, 97966.0)
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 160, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 155, in create_spectrum
+    spectrum = generate_spectrum(test_data, A_matrix)
+  File "generate_lane_spectrum.py", line 68, in generate_spectrum
+    G = np.linalg.cholesky(F)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 612, in cholesky
+    r = gufunc(a, signature=signature, extobj=extobj)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 93, in _raise_linalgerror_nonposdef
+    raise LinAlgError("Matrix is not positive definite")
+numpy.linalg.linalg.LinAlgError: Matrix is not positive definite
+Closing remaining open files:CArray.h5...done
+0 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170609_233751_st1.fts
+(23678.0, 97966.0)
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 160, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 155, in create_spectrum
+    spectrum = generate_spectrum(test_data, A_matrix)
+  File "generate_lane_spectrum.py", line 68, in generate_spectrum
+    G = np.linalg.cholesky(F)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 612, in cholesky
+    r = gufunc(a, signature=signature, extobj=extobj)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 93, in _raise_linalgerror_nonposdef
+    raise LinAlgError("Matrix is not positive definite")
+numpy.linalg.linalg.LinAlgError: Matrix is not positive definite
+Closing remaining open files:CArray.h5...done
+/home/main/Documents/DRS/FILES/Narval_20170609_233751_st1.fts
+(23678.0, 97966.0)
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 160, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 155, in create_spectrum
+    spectrum = generate_spectrum(test_data, A_matrix)
+  File "generate_lane_spectrum.py", line 68, in generate_spectrum
+    G = np.linalg.cholesky(F)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 612, in cholesky
+    r = gufunc(a, signature=signature, extobj=extobj)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 93, in _raise_linalgerror_nonposdef
+    raise LinAlgError("Matrix is not positive definite")
+numpy.linalg.linalg.LinAlgError: Matrix is not positive definite
+Closing remaining open files:CArray.h5...done
+/home/main/Documents/DRS/FILES/Narval_20170609_233751_st1.fts
+(23678.0, 97966.0)
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 160, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 155, in create_spectrum
+    spectrum = generate_spectrum(test_data, A_matrix)
+  File "generate_lane_spectrum.py", line 68, in generate_spectrum
+    G = np.linalg.cholesky(F)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 612, in cholesky
+    r = gufunc(a, signature=signature, extobj=extobj)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 93, in _raise_linalgerror_nonposdef
+    raise LinAlgError("Matrix is not positive definite")
+numpy.linalg.linalg.LinAlgError: Matrix is not positive definite
+Closing remaining open files:CArray.h5...done
+1 spectres faits
+1 spectres faits
+0 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170609_233751_st1.fts
+(23678.0, 97966.0)
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 160, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 155, in create_spectrum
+    spectrum = generate_spectrum(test_data, A_matrix)
+  File "generate_lane_spectrum.py", line 45, in generate_spectrum
+    h5f_C = tables.open_file(C_file, 'w')
+  File "/usr/local/lib/python2.7/dist-packages/tables/file.py", line 320, in open_file
+    return File(filename, mode, title, root_uep, filters, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/tables/file.py", line 784, in __init__
+    self._g_new(filename, mode, **params)
+  File "tables/hdf5extension.pyx", line 487, in tables.hdf5extension.File._g_new (tables/hdf5extension.c:5940)
+tables.exceptions.HDF5ExtError: HDF5 error back trace
+
+  File "H5F.c", line 522, in H5Fcreate
+    unable to create file
+  File "H5Fint.c", line 1087, in H5F_open
+    unable to read superblock
+  File "H5Fsuper.c", line 277, in H5F_super_read
+    file signature not found
+
+End of HDF5 error back trace
+
+Unable to open/create file 'CArray.h5'
+1 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170609_233751_st1.fts
+(23678.0, 97966.0)
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 160, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 155, in create_spectrum
+    spectrum = generate_spectrum(test_data, A_matrix)
+  File "generate_lane_spectrum.py", line 45, in generate_spectrum
+    h5f_C = tables.open_file(C_file, 'w')
+  File "/usr/local/lib/python2.7/dist-packages/tables/file.py", line 320, in open_file
+    return File(filename, mode, title, root_uep, filters, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/tables/file.py", line 784, in __init__
+    self._g_new(filename, mode, **params)
+  File "tables/hdf5extension.pyx", line 487, in tables.hdf5extension.File._g_new (tables/hdf5extension.c:5940)
+tables.exceptions.HDF5ExtError: HDF5 error back trace
+
+  File "H5F.c", line 522, in H5Fcreate
+    unable to create file
+  File "H5Fint.c", line 1087, in H5F_open
+    unable to read superblock
+  File "H5Fsuper.c", line 277, in H5F_super_read
+    file signature not found
+
+End of HDF5 error back trace
+
+Unable to open/create file 'CArray.h5'
+1 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170609_233751_st1.fts
+(23678.0, 97966.0)
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 160, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 155, in create_spectrum
+    spectrum = generate_spectrum(test_data, A_matrix)
+  File "generate_lane_spectrum.py", line 68, in generate_spectrum
+    G = np.linalg.cholesky(F)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 612, in cholesky
+    r = gufunc(a, signature=signature, extobj=extobj)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 93, in _raise_linalgerror_nonposdef
+    raise LinAlgError("Matrix is not positive definite")
+numpy.linalg.linalg.LinAlgError: Matrix is not positive definite
+Closing remaining open files:CArray.h5.../home/main/Documents/DRS/FILES/Narval_20170609_233751_st1.fts
+(23678.0, 97966.0)
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 160, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 155, in create_spectrum
+    spectrum = generate_spectrum(test_data, A_matrix)
+  File "generate_lane_spectrum.py", line 68, in generate_spectrum
+    G = np.linalg.cholesky(F)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 612, in cholesky
+    r = gufunc(a, signature=signature, extobj=extobj)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 93, in _raise_linalgerror_nonposdef
+    raise LinAlgError("Matrix is not positive definite")
+numpy.linalg.linalg.LinAlgError: Matrix is not positive definite
+Closing remaining open files:CArray.h5...done
+1 spectres faits
+done
+1 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170609_233751_st1.fts
+(23678.0, 97966.0)
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 160, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 155, in create_spectrum
+    spectrum = generate_spectrum(test_data, A_matrix)
+  File "generate_lane_spectrum.py", line 68, in generate_spectrum
+    G = np.linalg.cholesky(F)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 612, in cholesky
+    r = gufunc(a, signature=signature, extobj=extobj)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 93, in _raise_linalgerror_nonposdef
+    raise LinAlgError("Matrix is not positive definite")
+numpy.linalg.linalg.LinAlgError: Matrix is not positive definite
+Closing remaining open files:CArray.h5...done
+2 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170609_233751_st1.fts
+(23678.0, 97966.0)
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 160, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 155, in create_spectrum
+    spectrum = generate_spectrum(test_data, A_matrix)
+  File "generate_lane_spectrum.py", line 68, in generate_spectrum
+    G = np.linalg.cholesky(F)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 612, in cholesky
+    r = gufunc(a, signature=signature, extobj=extobj)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 93, in _raise_linalgerror_nonposdef
+    raise LinAlgError("Matrix is not positive definite")
+numpy.linalg.linalg.LinAlgError: Matrix is not positive definite
+Closing remaining open files:CArray.h5...done
+0 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170609_233751_st1.fts
+(23678.0, 97966.0)
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 160, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 155, in create_spectrum
+    spectrum = generate_spectrum(test_data, A_matrix)
+  File "generate_lane_spectrum.py", line 68, in generate_spectrum
+    G = np.linalg.cholesky(F)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 612, in cholesky
+    r = gufunc(a, signature=signature, extobj=extobj)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 93, in _raise_linalgerror_nonposdef
+    raise LinAlgError("Matrix is not positive definite")
+numpy.linalg.linalg.LinAlgError: Matrix is not positive definite
+Closing remaining open files:CArray.h5...done
+0 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170609_233751_st1.fts
+(23678.0, 97966.0)
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 160, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 155, in create_spectrum
+    spectrum = generate_spectrum(test_data, A_matrix)
+  File "generate_lane_spectrum.py", line 68, in generate_spectrum
+    G = np.linalg.cholesky(F)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 612, in cholesky
+    r = gufunc(a, signature=signature, extobj=extobj)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 93, in _raise_linalgerror_nonposdef
+    raise LinAlgError("Matrix is not positive definite")
+numpy.linalg.linalg.LinAlgError: Matrix is not positive definite
+Closing remaining open files:CArray.h5...done
+/home/main/Documents/DRS/FILES/Narval_20170609_233751_st1.fts
+(23678.0, 97966.0)
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 160, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 155, in create_spectrum
+    spectrum = generate_spectrum(test_data, A_matrix)
+  File "generate_lane_spectrum.py", line 68, in generate_spectrum
+    G = np.linalg.cholesky(F)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 612, in cholesky
+    r = gufunc(a, signature=signature, extobj=extobj)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 93, in _raise_linalgerror_nonposdef
+    raise LinAlgError("Matrix is not positive definite")
+numpy.linalg.linalg.LinAlgError: Matrix is not positive definite
+Closing remaining open files:CArray.h5...done
+0 spectres faits
+0 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170609_233751_st1.fts
+(23678.0, 97966.0)
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 160, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 155, in create_spectrum
+    spectrum = generate_spectrum(test_data, A_matrix)
+  File "generate_lane_spectrum.py", line 68, in generate_spectrum
+    G = np.linalg.cholesky(F)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 612, in cholesky
+    r = gufunc(a, signature=signature, extobj=extobj)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 93, in _raise_linalgerror_nonposdef
+    raise LinAlgError("Matrix is not positive definite")
+numpy.linalg.linalg.LinAlgError: Matrix is not positive definite
+Closing remaining open files:CArray.h5...done
+1 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170609_233751_st1.fts
+(23678.0, 97966.0)
+(2588, 27672)
+6
+2 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170609_233751_st1.fts
+(23678.0, 97966.0)
+(2588, 27672)
+6
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 160, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 155, in create_spectrum
+    spectrum = generate_spectrum(test_data, A_matrix)
+  File "generate_lane_spectrum.py", line 76, in generate_spectrum
+    os.remove(C_file)
+OSError: [Errno 2] No such file or directory: 'CArray.h5'
+/home/main/Documents/DRS/FILES/Narval_20170609_233751_st1.fts
+(23678.0, 97966.0)
+(2588, 27672)
+6
+3 spectres faits
+0 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170609_233751_st1.fts
+(23678.0, 97966.0)
+(2588, 27672)
+6
+1 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170609_233751_st1.fts
+(23678.0, 97966.0)
+(2588, 27672)
+6
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 160, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 155, in create_spectrum
+    spectrum = generate_spectrum(test_data, A_matrix)
+  File "generate_lane_spectrum.py", line 76, in generate_spectrum
+    os.remove(C_file)
+OSError: [Errno 2] No such file or directory: 'CArray.h5'
+0 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170609_233751_st1.fts
+(23678.0, 97966.0)
+(4574, 32284)
+7
+1 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170609_233751_st1.fts
+(23678.0, 97966.0)
+(4574, 32284)
+7
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 160, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 155, in create_spectrum
+    spectrum = generate_spectrum(test_data, A_matrix)
+  File "generate_lane_spectrum.py", line 76, in generate_spectrum
+    os.remove(C_file)
+OSError: [Errno 2] No such file or directory: 'CArray.h5'
+1 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170609_233751_st1.fts
+(23678.0, 97966.0)
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 160, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 155, in create_spectrum
+    spectrum = generate_spectrum(test_data, A_matrix)
+  File "generate_lane_spectrum.py", line 68, in generate_spectrum
+    G = np.linalg.cholesky(F)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 612, in cholesky
+    r = gufunc(a, signature=signature, extobj=extobj)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 93, in _raise_linalgerror_nonposdef
+    raise LinAlgError("Matrix is not positive definite")
+numpy.linalg.linalg.LinAlgError: Matrix is not positive definite
+Closing remaining open files:CArray.h5.../home/main/Documents/DRS/FILES/Narval_20170609_233751_st1.fts
+(23678.0, 97966.0)
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 160, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 155, in create_spectrum
+    spectrum = generate_spectrum(test_data, A_matrix)
+  File "generate_lane_spectrum.py", line 68, in generate_spectrum
+    G = np.linalg.cholesky(F)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 612, in cholesky
+    r = gufunc(a, signature=signature, extobj=extobj)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 93, in _raise_linalgerror_nonposdef
+    raise LinAlgError("Matrix is not positive definite")
+numpy.linalg.linalg.LinAlgError: Matrix is not positive definite
+Closing remaining open files:CArray.h5.../home/main/Documents/DRS/FILES/Narval_20170609_233751_st1.fts
+(23678.0, 97966.0)
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 160, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 155, in create_spectrum
+    spectrum = generate_spectrum(test_data, A_matrix)
+  File "generate_lane_spectrum.py", line 68, in generate_spectrum
+    G = np.linalg.cholesky(F)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 612, in cholesky
+    r = gufunc(a, signature=signature, extobj=extobj)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 93, in _raise_linalgerror_nonposdef
+    raise LinAlgError("Matrix is not positive definite")
+numpy.linalg.linalg.LinAlgError: Matrix is not positive definite
+Closing remaining open files:CArray.h5.../home/main/Documents/DRS/FILES/Narval_20170609_233751_st1.fts
+(23678.0, 97966.0)
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 160, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 155, in create_spectrum
+    spectrum = generate_spectrum(test_data, A_matrix)
+  File "generate_lane_spectrum.py", line 68, in generate_spectrum
+    G = np.linalg.cholesky(F)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 612, in cholesky
+    r = gufunc(a, signature=signature, extobj=extobj)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 93, in _raise_linalgerror_nonposdef
+    raise LinAlgError("Matrix is not positive definite")
+numpy.linalg.linalg.LinAlgError: Matrix is not positive definite
+Closing remaining open files:CArray.h5...donedone
+
+donedone
+
+0 spectres faits
+1 spectres faits
+3 spectres faits
+2 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170609_233751_st1.fts
+(23678.0, 97966.0)
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 160, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 155, in create_spectrum
+    spectrum = generate_spectrum(test_data, A_matrix)
+  File "generate_lane_spectrum.py", line 68, in generate_spectrum
+    G = np.linalg.cholesky(F)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 612, in cholesky
+    r = gufunc(a, signature=signature, extobj=extobj)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 93, in _raise_linalgerror_nonposdef
+    raise LinAlgError("Matrix is not positive definite")
+numpy.linalg.linalg.LinAlgError: Matrix is not positive definite
+Closing remaining open files:CArray.h5...sed: cannot rename ../DATA/Amatrix_DATA.txt: No such file or directory
+done
+0 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170609_233751_st1.fts
+(23678.0, 97966.0)
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 160, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 155, in create_spectrum
+    spectrum = generate_spectrum(test_data, A_matrix)
+  File "generate_lane_spectrum.py", line 68, in generate_spectrum
+    G = np.linalg.cholesky(F)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 612, in cholesky
+    r = gufunc(a, signature=signature, extobj=extobj)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 93, in _raise_linalgerror_nonposdef
+    raise LinAlgError("Matrix is not positive definite")
+numpy.linalg.linalg.LinAlgError: Matrix is not positive definite
+Closing remaining open files:CArray.h5...done
+1 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170609_233751_st1.fts
+(23678.0, 97966.0)
+(4576, 115300)
+25
+2 spectres faits
+./stars3.sh : ligne 45 :  8651 Terminated              python generate_lane_spectrum.py
+2 spectres faits
+./stars3.sh : ligne 45 :  8637 Terminated              python generate_lane_spectrum.py
+1 spectres faits
+./stars3.sh : ligne 45 :  8570 Terminated              python generate_lane_spectrum.py
+2 spectres faits
+./stars3.sh : ligne 45 :  8571 Terminated              python generate_lane_spectrum.py
+0 spectres faits
+./stars3.sh : ligne 45 :  8573 Terminated              python generate_lane_spectrum.py
+1 spectres faits
+./stars3.sh : ligne 45 :  8589 Terminated              python generate_lane_spectrum.py
+0 spectres faits
+sed: can't read ../DATA/Amatrix_DATA.txt: No such file or directory
+sed: cannot rename ../DATA/Amatrix_DATA.txt: No such file or directory
+./stars3.sh : ligne 45 :  8565 Terminated              python generate_lane_spectrum.py
+3 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170609_233751_st1.fts
+(23678.0, 97966.0)
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 160, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 155, in create_spectrum
+    spectrum = generate_spectrum(test_data, A_matrix)
+  File "generate_lane_spectrum.py", line 68, in generate_spectrum
+    G = np.linalg.cholesky(F)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 612, in cholesky
+    r = gufunc(a, signature=signature, extobj=extobj)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 93, in _raise_linalgerror_nonposdef
+    raise LinAlgError("Matrix is not positive definite")
+numpy.linalg.linalg.LinAlgError: Matrix is not positive definite
+Closing remaining open files:CArray.h5.../home/main/Documents/DRS/FILES/Narval_20170609_233751_st1.fts
+(23678.0, 97966.0)
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 160, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 155, in create_spectrum
+    spectrum = generate_spectrum(test_data, A_matrix)
+  File "generate_lane_spectrum.py", line 68, in generate_spectrum
+    G = np.linalg.cholesky(F)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 612, in cholesky
+    r = gufunc(a, signature=signature, extobj=extobj)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 93, in _raise_linalgerror_nonposdef
+    raise LinAlgError("Matrix is not positive definite")
+numpy.linalg.linalg.LinAlgError: Matrix is not positive definite
+Closing remaining open files:CArray.h5.../home/main/Documents/DRS/FILES/Narval_20170609_233751_st1.fts
+(23678.0, 97966.0)
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 160, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 155, in create_spectrum
+    spectrum = generate_spectrum(test_data, A_matrix)
+  File "generate_lane_spectrum.py", line 68, in generate_spectrum
+    G = np.linalg.cholesky(F)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 612, in cholesky
+    r = gufunc(a, signature=signature, extobj=extobj)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 93, in _raise_linalgerror_nonposdef
+    raise LinAlgError("Matrix is not positive definite")
+numpy.linalg.linalg.LinAlgError: Matrix is not positive definite
+Closing remaining open files:CArray.h5.../home/main/Documents/DRS/FILES/Narval_20170609_233751_st1.fts
+(23678.0, 97966.0)
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 160, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 155, in create_spectrum
+    spectrum = generate_spectrum(test_data, A_matrix)
+  File "generate_lane_spectrum.py", line 68, in generate_spectrum
+    G = np.linalg.cholesky(F)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 612, in cholesky
+    r = gufunc(a, signature=signature, extobj=extobj)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 93, in _raise_linalgerror_nonposdef
+    raise LinAlgError("Matrix is not positive definite")
+numpy.linalg.linalg.LinAlgError: Matrix is not positive definite
+Closing remaining open files:CArray.h5.../home/main/Documents/DRS/FILES/Narval_20170609_233751_st1.fts
+(23678.0, 97966.0)
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 160, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 155, in create_spectrum
+    spectrum = generate_spectrum(test_data, A_matrix)
+  File "generate_lane_spectrum.py", line 68, in generate_spectrum
+    G = np.linalg.cholesky(F)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 612, in cholesky
+    r = gufunc(a, signature=signature, extobj=extobj)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 93, in _raise_linalgerror_nonposdef
+    raise LinAlgError("Matrix is not positive definite")
+numpy.linalg.linalg.LinAlgError: Matrix is not positive definite
+Closing remaining open files:CArray.h5.../home/main/Documents/DRS/FILES/Narval_20170609_233751_st1.fts
+(23678.0, 97966.0)
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 160, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 155, in create_spectrum
+    spectrum = generate_spectrum(test_data, A_matrix)
+  File "generate_lane_spectrum.py", line 68, in generate_spectrum
+    G = np.linalg.cholesky(F)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 612, in cholesky
+    r = gufunc(a, signature=signature, extobj=extobj)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 93, in _raise_linalgerror_nonposdef
+    raise LinAlgError("Matrix is not positive definite")
+numpy.linalg.linalg.LinAlgError: Matrix is not positive definite
+Closing remaining open files:CArray.h5.../home/main/Documents/DRS/FILES/Narval_20170609_233751_st1.fts
+(23678.0, 97966.0)
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 160, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 155, in create_spectrum
+    spectrum = generate_spectrum(test_data, A_matrix)
+  File "generate_lane_spectrum.py", line 68, in generate_spectrum
+    G = np.linalg.cholesky(F)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 612, in cholesky
+    r = gufunc(a, signature=signature, extobj=extobj)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 93, in _raise_linalgerror_nonposdef
+    raise LinAlgError("Matrix is not positive definite")
+numpy.linalg.linalg.LinAlgError: Matrix is not positive definite
+Closing remaining open files:CArray.h5...done
+done
+done
+done
+donedonedone
+
+
+0 spectres faits
+3 spectres faits
+2 spectres faits
+0 spectres faits
+1 spectres faits
+1 spectres faits
+2 spectres faits
+sed: cannot rename ../DATA/Amatrix_DATA.txt: No such file or directory
+sed: cannot rename ../DATA/Amatrix_DATA.txt: No such file or directory
+sed: cannot rename ../DATA/Amatrix_DATA.txt: No such file or directory
+sed: cannot rename ../DATA/Amatrix_DATA.txt: No such file or directory
+/home/main/Documents/DRS/FILES/Narval_20170609_233751_st1.fts
+(23678.0, 97966.0)
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 160, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 155, in create_spectrum
+    spectrum = generate_spectrum(test_data, A_matrix)
+  File "generate_lane_spectrum.py", line 45, in generate_spectrum
+    h5f_C = tables.open_file(C_file, 'w')
+  File "/usr/local/lib/python2.7/dist-packages/tables/file.py", line 320, in open_file
+    return File(filename, mode, title, root_uep, filters, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/tables/file.py", line 784, in __init__
+    self._g_new(filename, mode, **params)
+  File "tables/hdf5extension.pyx", line 487, in tables.hdf5extension.File._g_new (tables/hdf5extension.c:5940)
+tables.exceptions.HDF5ExtError: HDF5 error back trace
+
+  File "H5F.c", line 522, in H5Fcreate
+    unable to create file
+  File "H5Fint.c", line 1087, in H5F_open
+    unable to read superblock
+  File "H5Fsuper.c", line 277, in H5F_super_read
+    file signature not found
+
+End of HDF5 error back trace
+
+Unable to open/create file 'CArray.h5'
+1 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170609_233751_st1.fts
+(23678.0, 97966.0)
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 160, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 155, in create_spectrum
+    spectrum = generate_spectrum(test_data, A_matrix)
+  File "generate_lane_spectrum.py", line 45, in generate_spectrum
+    h5f_C = tables.open_file(C_file, 'w')
+  File "/usr/local/lib/python2.7/dist-packages/tables/file.py", line 320, in open_file
+    return File(filename, mode, title, root_uep, filters, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/tables/file.py", line 784, in __init__
+    self._g_new(filename, mode, **params)
+  File "tables/hdf5extension.pyx", line 487, in tables.hdf5extension.File._g_new (tables/hdf5extension.c:5940)
+tables.exceptions.HDF5ExtError: HDF5 error back trace
+
+  File "H5F.c", line 522, in H5Fcreate
+    unable to create file
+  File "H5Fint.c", line 1087, in H5F_open
+    unable to read superblock
+  File "H5Fsuper.c", line 277, in H5F_super_read
+    file signature not found
+
+End of HDF5 error back trace
+
+Unable to open/create file 'CArray.h5'
+1 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170609_233751_st1.fts
+(23678.0, 97966.0)
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 160, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 155, in create_spectrum
+    spectrum = generate_spectrum(test_data, A_matrix)
+  File "generate_lane_spectrum.py", line 68, in generate_spectrum
+    G = np.linalg.cholesky(F)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 612, in cholesky
+    r = gufunc(a, signature=signature, extobj=extobj)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 93, in _raise_linalgerror_nonposdef
+    raise LinAlgError("Matrix is not positive definite")
+numpy.linalg.linalg.LinAlgError: Matrix is not positive definite
+Closing remaining open files:CArray.h5...done
+1 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170609_233751_st1.fts
+(23678.0, 97966.0)
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 160, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 155, in create_spectrum
+    spectrum = generate_spectrum(test_data, A_matrix)
+  File "generate_lane_spectrum.py", line 68, in generate_spectrum
+    G = np.linalg.cholesky(F)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 612, in cholesky
+    r = gufunc(a, signature=signature, extobj=extobj)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 93, in _raise_linalgerror_nonposdef
+    raise LinAlgError("Matrix is not positive definite")
+numpy.linalg.linalg.LinAlgError: Matrix is not positive definite
+Closing remaining open files:CArray.h5...done
+0 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170609_233751_st1.fts
+(23678.0, 97966.0)
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 160, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 155, in create_spectrum
+    spectrum = generate_spectrum(test_data, A_matrix)
+  File "generate_lane_spectrum.py", line 68, in generate_spectrum
+    G = np.linalg.cholesky(F)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 612, in cholesky
+    r = gufunc(a, signature=signature, extobj=extobj)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 93, in _raise_linalgerror_nonposdef
+    raise LinAlgError("Matrix is not positive definite")
+numpy.linalg.linalg.LinAlgError: Matrix is not positive definite
+Closing remaining open files:CArray.h5...done
+/home/main/Documents/DRS/FILES/Narval_20170609_233751_st1.fts
+(23678.0, 97966.0)
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 160, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 155, in create_spectrum
+    spectrum = generate_spectrum(test_data, A_matrix)
+  File "generate_lane_spectrum.py", line 68, in generate_spectrum
+    G = np.linalg.cholesky(F)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 612, in cholesky
+    r = gufunc(a, signature=signature, extobj=extobj)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 93, in _raise_linalgerror_nonposdef
+    raise LinAlgError("Matrix is not positive definite")
+numpy.linalg.linalg.LinAlgError: Matrix is not positive definite
+Closing remaining open files:CArray.h5...done
+/home/main/Documents/DRS/FILES/Narval_20170609_233751_st1.fts
+(23678.0, 97966.0)
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 160, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 155, in create_spectrum
+    spectrum = generate_spectrum(test_data, A_matrix)
+  File "generate_lane_spectrum.py", line 68, in generate_spectrum
+    G = np.linalg.cholesky(F)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 612, in cholesky
+    r = gufunc(a, signature=signature, extobj=extobj)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 93, in _raise_linalgerror_nonposdef
+    raise LinAlgError("Matrix is not positive definite")
+numpy.linalg.linalg.LinAlgError: Matrix is not positive definite
+Closing remaining open files:CArray.h5...done
+0 spectres faits
+3 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170609_233751_st1.fts
+(23678.0, 97966.0)
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 160, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 155, in create_spectrum
+    spectrum = generate_spectrum(test_data, A_matrix)
+  File "generate_lane_spectrum.py", line 68, in generate_spectrum
+    G = np.linalg.cholesky(F)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 612, in cholesky
+    r = gufunc(a, signature=signature, extobj=extobj)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 93, in _raise_linalgerror_nonposdef
+    raise LinAlgError("Matrix is not positive definite")
+numpy.linalg.linalg.LinAlgError: Matrix is not positive definite
+Closing remaining open files:CArray.h5...2 spectres faits
+done
+2 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170609_233751_st1.fts
+(23678.0, 97966.0)
+(4526, 32284)
+7
+2 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170609_233751_st1.fts
+(23678.0, 97966.0)
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 160, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 155, in create_spectrum
+    spectrum = generate_spectrum(test_data, A_matrix)
+  File "generate_lane_spectrum.py", line 68, in generate_spectrum
+    G = np.linalg.cholesky(F)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 612, in cholesky
+    r = gufunc(a, signature=signature, extobj=extobj)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 93, in _raise_linalgerror_nonposdef
+    raise LinAlgError("Matrix is not positive definite")
+numpy.linalg.linalg.LinAlgError: Matrix is not positive definite
+Closing remaining open files:CArray.h5...done
+/home/main/Documents/DRS/FILES/Narval_20170609_233751_st1.fts
+(23678.0, 97966.0)
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 160, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 155, in create_spectrum
+    spectrum = generate_spectrum(test_data, A_matrix)
+  File "generate_lane_spectrum.py", line 68, in generate_spectrum
+    G = np.linalg.cholesky(F)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 612, in cholesky
+    r = gufunc(a, signature=signature, extobj=extobj)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 93, in _raise_linalgerror_nonposdef
+    raise LinAlgError("Matrix is not positive definite")
+numpy.linalg.linalg.LinAlgError: Matrix is not positive definite
+Closing remaining open files:CArray.h5...done
+/home/main/Documents/DRS/FILES/Narval_20170609_233751_st1.fts
+(23678.0, 97966.0)
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 160, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 155, in create_spectrum
+    spectrum = generate_spectrum(test_data, A_matrix)
+  File "generate_lane_spectrum.py", line 68, in generate_spectrum
+    G = np.linalg.cholesky(F)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 612, in cholesky
+    r = gufunc(a, signature=signature, extobj=extobj)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 93, in _raise_linalgerror_nonposdef
+    raise LinAlgError("Matrix is not positive definite")
+numpy.linalg.linalg.LinAlgError: Matrix is not positive definite
+Closing remaining open files:CArray.h5...done
+0 spectres faits
+1 spectres faits
+3 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170609_233751_st1.fts
+(23678.0, 97966.0)
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 160, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 155, in create_spectrum
+    spectrum = generate_spectrum(test_data, A_matrix)
+  File "generate_lane_spectrum.py", line 68, in generate_spectrum
+    G = np.linalg.cholesky(F)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 612, in cholesky
+    r = gufunc(a, signature=signature, extobj=extobj)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 93, in _raise_linalgerror_nonposdef
+    raise LinAlgError("Matrix is not positive definite")
+numpy.linalg.linalg.LinAlgError: Matrix is not positive definite
+Closing remaining open files:CArray.h5...done
+/home/main/Documents/DRS/FILES/Narval_20170609_233751_st1.fts
+(23678.0, 97966.0)
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 160, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 155, in create_spectrum
+    spectrum = generate_spectrum(test_data, A_matrix)
+  File "generate_lane_spectrum.py", line 68, in generate_spectrum
+    G = np.linalg.cholesky(F)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 612, in cholesky
+    r = gufunc(a, signature=signature, extobj=extobj)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 93, in _raise_linalgerror_nonposdef
+    raise LinAlgError("Matrix is not positive definite")
+numpy.linalg.linalg.LinAlgError: Matrix is not positive definite
+Closing remaining open files:CArray.h5...done
+0 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170609_233751_st1.fts
+(23678.0, 97966.0)
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 160, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 155, in create_spectrum
+    spectrum = generate_spectrum(test_data, A_matrix)
+  File "generate_lane_spectrum.py", line 68, in generate_spectrum
+    G = np.linalg.cholesky(F)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 612, in cholesky
+2 spectres faits
+    r = gufunc(a, signature=signature, extobj=extobj)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 93, in _raise_linalgerror_nonposdef
+    raise LinAlgError("Matrix is not positive definite")
+numpy.linalg.linalg.LinAlgError: Matrix is not positive definite
+Closing remaining open files:CArray.h5...done
+2 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170609_233751_st1.fts
+(23678.0, 97966.0)
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 160, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 155, in create_spectrum
+    spectrum = generate_spectrum(test_data, A_matrix)
+  File "generate_lane_spectrum.py", line 68, in generate_spectrum
+    G = np.linalg.cholesky(F)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 612, in cholesky
+    r = gufunc(a, signature=signature, extobj=extobj)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 93, in _raise_linalgerror_nonposdef
+    raise LinAlgError("Matrix is not positive definite")
+numpy.linalg.linalg.LinAlgError: Matrix is not positive definite
+Closing remaining open files:CArray.h5.../home/main/Documents/DRS/FILES/Narval_20170609_233751_st1.fts
+(23678.0, 97966.0)
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 160, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 155, in create_spectrum
+    spectrum = generate_spectrum(test_data, A_matrix)
+  File "generate_lane_spectrum.py", line 68, in generate_spectrum
+    G = np.linalg.cholesky(F)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 612, in cholesky
+    r = gufunc(a, signature=signature, extobj=extobj)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 93, in _raise_linalgerror_nonposdef
+    raise LinAlgError("Matrix is not positive definite")
+numpy.linalg.linalg.LinAlgError: Matrix is not positive definite
+Closing remaining open files:CArray.h5.../home/main/Documents/DRS/FILES/Narval_20170609_233751_st1.fts
+(23678.0, 97966.0)
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 160, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 155, in create_spectrum
+    spectrum = generate_spectrum(test_data, A_matrix)
+  File "generate_lane_spectrum.py", line 68, in generate_spectrum
+    G = np.linalg.cholesky(F)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 612, in cholesky
+    r = gufunc(a, signature=signature, extobj=extobj)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 93, in _raise_linalgerror_nonposdef
+    raise LinAlgError("Matrix is not positive definite")
+numpy.linalg.linalg.LinAlgError: Matrix is not positive definite
+Closing remaining open files:CArray.h5.../home/main/Documents/DRS/FILES/Narval_20170609_233751_st1.fts
+(23678.0, 97966.0)
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 160, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 155, in create_spectrum
+    spectrum = generate_spectrum(test_data, A_matrix)
+  File "generate_lane_spectrum.py", line 68, in generate_spectrum
+    G = np.linalg.cholesky(F)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 612, in cholesky
+    r = gufunc(a, signature=signature, extobj=extobj)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 93, in _raise_linalgerror_nonposdef
+    raise LinAlgError("Matrix is not positive definite")
+numpy.linalg.linalg.LinAlgError: Matrix is not positive definite
+Closing remaining open files:CArray.h5.../home/main/Documents/DRS/FILES/Narval_20170609_233751_st1.fts
+(23678.0, 97966.0)
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 160, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 155, in create_spectrum
+    spectrum = generate_spectrum(test_data, A_matrix)
+  File "generate_lane_spectrum.py", line 68, in generate_spectrum
+    G = np.linalg.cholesky(F)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 612, in cholesky
+    r = gufunc(a, signature=signature, extobj=extobj)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 93, in _raise_linalgerror_nonposdef
+    raise LinAlgError("Matrix is not positive definite")
+numpy.linalg.linalg.LinAlgError: Matrix is not positive definite
+Closing remaining open files:CArray.h5.../home/main/Documents/DRS/FILES/Narval_20170609_233751_st1.fts
+(23678.0, 97966.0)
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 160, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 155, in create_spectrum
+    spectrum = generate_spectrum(test_data, A_matrix)
+  File "generate_lane_spectrum.py", line 68, in generate_spectrum
+    G = np.linalg.cholesky(F)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 612, in cholesky
+    r = gufunc(a, signature=signature, extobj=extobj)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 93, in _raise_linalgerror_nonposdef
+    raise LinAlgError("Matrix is not positive definite")
+numpy.linalg.linalg.LinAlgError: Matrix is not positive definite
+Closing remaining open files:CArray.h5...done
+donedone
+
+/home/main/Documents/DRS/FILES/Narval_20170609_233751_st1.fts
+(23678.0, 97966.0)
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 160, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 155, in create_spectrum
+    spectrum = generate_spectrum(test_data, A_matrix)
+  File "generate_lane_spectrum.py", line 68, in generate_spectrum
+    G = np.linalg.cholesky(F)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 612, in cholesky
+    r = gufunc(a, signature=signature, extobj=extobj)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 93, in _raise_linalgerror_nonposdef
+    raise LinAlgError("Matrix is not positive definite")
+numpy.linalg.linalg.LinAlgError: Matrix is not positive definite
+Closing remaining open files:CArray.h5...done
+done
+donedone
+
+2 spectres faits
+0 spectres faits
+0 spectres faits
+2 spectres faits
+3 spectres faits
+2 spectres faits
+1 spectres faits
+sed: cannot rename ../DATA/Amatrix_DATA.txt: No such file or directory
+sed: cannot rename ../DATA/Amatrix_DATA.txt: No such file or directory
+sed: can't read ../DATA/Amatrix_DATA.txt: No such file or directory
+sed: can't read ../DATA/Amatrix_DATA.txt: No such file or directory
+/home/main/Documents/DRS/FILES/Narval_20170609_233751_st1.fts
+(23678.0, 97966.0)
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 160, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 155, in create_spectrum
+    spectrum = generate_spectrum(test_data, A_matrix)
+  File "generate_lane_spectrum.py", line 68, in generate_spectrum
+    G = np.linalg.cholesky(F)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 612, in cholesky
+    r = gufunc(a, signature=signature, extobj=extobj)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 93, in _raise_linalgerror_nonposdef
+    raise LinAlgError("Matrix is not positive definite")
+numpy.linalg.linalg.LinAlgError: Matrix is not positive definite
+Closing remaining open files:CArray.h5.../home/main/Documents/DRS/FILES/Narval_20170609_233751_st1.fts
+(23678.0, 97966.0)
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 160, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 155, in create_spectrum
+    spectrum = generate_spectrum(test_data, A_matrix)
+  File "generate_lane_spectrum.py", line 68, in generate_spectrum
+    G = np.linalg.cholesky(F)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 612, in cholesky
+    r = gufunc(a, signature=signature, extobj=extobj)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 93, in _raise_linalgerror_nonposdef
+    raise LinAlgError("Matrix is not positive definite")
+numpy.linalg.linalg.LinAlgError: Matrix is not positive definite
+Closing remaining open files:CArray.h5.../home/main/Documents/DRS/FILES/Narval_20170609_233751_st1.fts
+(23678.0, 97966.0)
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 160, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 155, in create_spectrum
+    spectrum = generate_spectrum(test_data, A_matrix)
+  File "generate_lane_spectrum.py", line 68, in generate_spectrum
+    G = np.linalg.cholesky(F)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 612, in cholesky
+    r = gufunc(a, signature=signature, extobj=extobj)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 93, in _raise_linalgerror_nonposdef
+    raise LinAlgError("Matrix is not positive definite")
+numpy.linalg.linalg.LinAlgError: Matrix is not positive definite
+Closing remaining open files:CArray.h5.../home/main/Documents/DRS/FILES/Narval_20170609_233751_st1.fts
+(23678.0, 97966.0)
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 160, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 155, in create_spectrum
+    spectrum = generate_spectrum(test_data, A_matrix)
+  File "generate_lane_spectrum.py", line 68, in generate_spectrum
+    G = np.linalg.cholesky(F)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 612, in cholesky
+    r = gufunc(a, signature=signature, extobj=extobj)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 93, in _raise_linalgerror_nonposdef
+    raise LinAlgError("Matrix is not positive definite")
+numpy.linalg.linalg.LinAlgError: Matrix is not positive definite
+Closing remaining open files:CArray.h5.../home/main/Documents/DRS/FILES/Narval_20170609_233751_st1.fts
+(23678.0, 97966.0)
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 160, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 155, in create_spectrum
+    spectrum = generate_spectrum(test_data, A_matrix)
+  File "generate_lane_spectrum.py", line 68, in generate_spectrum
+    G = np.linalg.cholesky(F)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 612, in cholesky
+    r = gufunc(a, signature=signature, extobj=extobj)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 93, in _raise_linalgerror_nonposdef
+    raise LinAlgError("Matrix is not positive definite")
+numpy.linalg.linalg.LinAlgError: Matrix is not positive definite
+Closing remaining open files:CArray.h5.../home/main/Documents/DRS/FILES/Narval_20170609_233751_st1.fts
+(23678.0, 97966.0)
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 160, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 155, in create_spectrum
+    spectrum = generate_spectrum(test_data, A_matrix)
+  File "generate_lane_spectrum.py", line 68, in generate_spectrum
+    G = np.linalg.cholesky(F)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 612, in cholesky
+    r = gufunc(a, signature=signature, extobj=extobj)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 93, in _raise_linalgerror_nonposdef
+    raise LinAlgError("Matrix is not positive definite")
+numpy.linalg.linalg.LinAlgError: Matrix is not positive definite
+Closing remaining open files:CArray.h5.../home/main/Documents/DRS/FILES/Narval_20170609_233751_st1.fts
+(23678.0, 97966.0)
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 160, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 155, in create_spectrum
+    spectrum = generate_spectrum(test_data, A_matrix)
+  File "generate_lane_spectrum.py", line 68, in generate_spectrum
+    G = np.linalg.cholesky(F)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 612, in cholesky
+    r = gufunc(a, signature=signature, extobj=extobj)
+  File "/home/main/.local/lib/python2.7/site-packages/numpy/linalg/linalg.py", line 93, in _raise_linalgerror_nonposdef
+    raise LinAlgError("Matrix is not positive definite")
+numpy.linalg.linalg.LinAlgError: Matrix is not positive definite
+Closing remaining open files:CArray.h5...donedone
+donedone
+
+
+done
+done
+done
+en attente
+Script etoile lance
+en attente
+ls: cannot access '.star*': No such file or directory
+No files specified to watch!
+/usr/local/lib/python2.7/dist-packages/pyfits/file.py:319: UserWarning: File may have been truncated: actual file length (49699648) is smaller than the expected size (77411520)
+  (self.size, pos))
+Traceback (most recent call last):
+  File "Search_star.py", line 149, in <module>
+    stars_unbiased("Brut")
+  File "Search_star.py", line 115, in stars_unbiased
+    image_ref = hdulist[0].data.astype(np.float32)		# We store the data of the current star file
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/util.py", line 245, in __get__
+    val = self._fget(obj)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/image.py", line 207, in data
+    data = self._get_scaled_image_data(self._data_offset, self.shape)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/image.py", line 620, in _get_scaled_image_data
+    raw_data = self._get_raw_data(shape, code, offset)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/base.py", line 515, in _get_raw_data
+    return self._file.readarray(offset=offset, dtype=code, shape=shape)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 265, in readarray
+    buffer=self._mmap)
+TypeError: buffer is too small for requested array
+..\/TEMP
+/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 163, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 138, in create_spectrum
+    image_file = pyfits.open(test_file)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 124, in fitsopen
+    return HDUList.fromfile(name, mode, memmap, save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 266, in fromfile
+    save_backup=save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 786, in _readfrom
+    ffo = _File(fileobj, mode=mode, memmap=memmap)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 132, in __init__
+    self._open_filename(fileobj, mode, clobber)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 487, in _open_filename
+    self._file = fileobj_open(self.name, PYFITS_MODES[mode])
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/util.py", line 754, in fileobj_open
+    return open(filename, mode)
+IOError: [Errno 2] No such file or directory: '/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts'
+0 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 163, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 138, in create_spectrum
+    image_file = pyfits.open(test_file)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 124, in fitsopen
+    return HDUList.fromfile(name, mode, memmap, save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 266, in fromfile
+    save_backup=save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 786, in _readfrom
+    ffo = _File(fileobj, mode=mode, memmap=memmap)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 132, in __init__
+    self._open_filename(fileobj, mode, clobber)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 487, in _open_filename
+    self._file = fileobj_open(self.name, PYFITS_MODES[mode])
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/util.py", line 754, in fileobj_open
+    return open(filename, mode)
+IOError: [Errno 2] No such file or directory: '/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts'
+0 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 163, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 138, in create_spectrum
+    image_file = pyfits.open(test_file)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 124, in fitsopen
+    return HDUList.fromfile(name, mode, memmap, save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 266, in fromfile
+    save_backup=save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 786, in _readfrom
+    ffo = _File(fileobj, mode=mode, memmap=memmap)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 132, in __init__
+    self._open_filename(fileobj, mode, clobber)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 487, in _open_filename
+    self._file = fileobj_open(self.name, PYFITS_MODES[mode])
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/util.py", line 754, in fileobj_open
+    return open(filename, mode)
+IOError: [Errno 2] No such file or directory: '/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts'
+0 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 163, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 138, in create_spectrum
+    image_file = pyfits.open(test_file)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 124, in fitsopen
+    return HDUList.fromfile(name, mode, memmap, save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 266, in fromfile
+    save_backup=save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 786, in _readfrom
+    ffo = _File(fileobj, mode=mode, memmap=memmap)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 132, in __init__
+    self._open_filename(fileobj, mode, clobber)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 487, in _open_filename
+    self._file = fileobj_open(self.name, PYFITS_MODES[mode])
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/util.py", line 754, in fileobj_open
+    return open(filename, mode)
+IOError: [Errno 2] No such file or directory: '/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts'
+0 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 163, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 138, in create_spectrum
+    image_file = pyfits.open(test_file)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 124, in fitsopen
+    return HDUList.fromfile(name, mode, memmap, save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 266, in fromfile
+    save_backup=save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 786, in _readfrom
+    ffo = _File(fileobj, mode=mode, memmap=memmap)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 132, in __init__
+    self._open_filename(fileobj, mode, clobber)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 487, in _open_filename
+    self._file = fileobj_open(self.name, PYFITS_MODES[mode])
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/util.py", line 754, in fileobj_open
+    return open(filename, mode)
+IOError: [Errno 2] No such file or directory: '/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts'
+0 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 163, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 138, in create_spectrum
+    image_file = pyfits.open(test_file)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 124, in fitsopen
+    return HDUList.fromfile(name, mode, memmap, save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 266, in fromfile
+    save_backup=save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 786, in _readfrom
+    ffo = _File(fileobj, mode=mode, memmap=memmap)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 132, in __init__
+    self._open_filename(fileobj, mode, clobber)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 487, in _open_filename
+    self._file = fileobj_open(self.name, PYFITS_MODES[mode])
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/util.py", line 754, in fileobj_open
+    return open(filename, mode)
+IOError: [Errno 2] No such file or directory: '/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts'
+0 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 163, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 138, in create_spectrum
+    image_file = pyfits.open(test_file)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 124, in fitsopen
+    return HDUList.fromfile(name, mode, memmap, save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 266, in fromfile
+    save_backup=save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 786, in _readfrom
+    ffo = _File(fileobj, mode=mode, memmap=memmap)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 132, in __init__
+    self._open_filename(fileobj, mode, clobber)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 487, in _open_filename
+    self._file = fileobj_open(self.name, PYFITS_MODES[mode])
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/util.py", line 754, in fileobj_open
+    return open(filename, mode)
+IOError: [Errno 2] No such file or directory: '/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts'
+0 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 163, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 138, in create_spectrum
+    image_file = pyfits.open(test_file)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 124, in fitsopen
+    return HDUList.fromfile(name, mode, memmap, save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 266, in fromfile
+    save_backup=save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 786, in _readfrom
+    ffo = _File(fileobj, mode=mode, memmap=memmap)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 132, in __init__
+    self._open_filename(fileobj, mode, clobber)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 487, in _open_filename
+    self._file = fileobj_open(self.name, PYFITS_MODES[mode])
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/util.py", line 754, in fileobj_open
+    return open(filename, mode)
+IOError: [Errno 2] No such file or directory: '/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts'
+0 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 163, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 138, in create_spectrum
+    image_file = pyfits.open(test_file)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 124, in fitsopen
+    return HDUList.fromfile(name, mode, memmap, save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 266, in fromfile
+    save_backup=save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 786, in _readfrom
+    ffo = _File(fileobj, mode=mode, memmap=memmap)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 132, in __init__
+    self._open_filename(fileobj, mode, clobber)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 487, in _open_filename
+    self._file = fileobj_open(self.name, PYFITS_MODES[mode])
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/util.py", line 754, in fileobj_open
+    return open(filename, mode)
+IOError: [Errno 2] No such file or directory: '/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts'
+0 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 163, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 138, in create_spectrum
+    image_file = pyfits.open(test_file)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 124, in fitsopen
+    return HDUList.fromfile(name, mode, memmap, save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 266, in fromfile
+    save_backup=save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 786, in _readfrom
+    ffo = _File(fileobj, mode=mode, memmap=memmap)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 132, in __init__
+    self._open_filename(fileobj, mode, clobber)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 487, in _open_filename
+    self._file = fileobj_open(self.name, PYFITS_MODES[mode])
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/util.py", line 754, in fileobj_open
+    return open(filename, mode)
+IOError: [Errno 2] No such file or directory: '/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts'
+0 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 163, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 138, in create_spectrum
+    image_file = pyfits.open(test_file)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 124, in fitsopen
+    return HDUList.fromfile(name, mode, memmap, save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 266, in fromfile
+    save_backup=save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 786, in _readfrom
+    ffo = _File(fileobj, mode=mode, memmap=memmap)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 132, in __init__
+    self._open_filename(fileobj, mode, clobber)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 487, in _open_filename
+    self._file = fileobj_open(self.name, PYFITS_MODES[mode])
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/util.py", line 754, in fileobj_open
+    return open(filename, mode)
+IOError: [Errno 2] No such file or directory: '/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts'
+0 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 163, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 138, in create_spectrum
+    image_file = pyfits.open(test_file)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 124, in fitsopen
+    return HDUList.fromfile(name, mode, memmap, save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 266, in fromfile
+    save_backup=save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 786, in _readfrom
+    ffo = _File(fileobj, mode=mode, memmap=memmap)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 132, in __init__
+    self._open_filename(fileobj, mode, clobber)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 487, in _open_filename
+    self._file = fileobj_open(self.name, PYFITS_MODES[mode])
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/util.py", line 754, in fileobj_open
+    return open(filename, mode)
+IOError: [Errno 2] No such file or directory: '/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts'
+0 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 163, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 138, in create_spectrum
+    image_file = pyfits.open(test_file)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 124, in fitsopen
+    return HDUList.fromfile(name, mode, memmap, save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 266, in fromfile
+    save_backup=save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 786, in _readfrom
+    ffo = _File(fileobj, mode=mode, memmap=memmap)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 132, in __init__
+    self._open_filename(fileobj, mode, clobber)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 487, in _open_filename
+    self._file = fileobj_open(self.name, PYFITS_MODES[mode])
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/util.py", line 754, in fileobj_open
+    return open(filename, mode)
+IOError: [Errno 2] No such file or directory: '/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts'
+0 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 163, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 138, in create_spectrum
+    image_file = pyfits.open(test_file)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 124, in fitsopen
+    return HDUList.fromfile(name, mode, memmap, save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 266, in fromfile
+    save_backup=save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 786, in _readfrom
+    ffo = _File(fileobj, mode=mode, memmap=memmap)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 132, in __init__
+    self._open_filename(fileobj, mode, clobber)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 487, in _open_filename
+    self._file = fileobj_open(self.name, PYFITS_MODES[mode])
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/util.py", line 754, in fileobj_open
+    return open(filename, mode)
+IOError: [Errno 2] No such file or directory: '/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts'
+0 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 163, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 138, in create_spectrum
+    image_file = pyfits.open(test_file)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 124, in fitsopen
+    return HDUList.fromfile(name, mode, memmap, save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 266, in fromfile
+    save_backup=save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 786, in _readfrom
+    ffo = _File(fileobj, mode=mode, memmap=memmap)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 132, in __init__
+    self._open_filename(fileobj, mode, clobber)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 487, in _open_filename
+    self._file = fileobj_open(self.name, PYFITS_MODES[mode])
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/util.py", line 754, in fileobj_open
+    return open(filename, mode)
+IOError: [Errno 2] No such file or directory: '/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts'
+0 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 163, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 138, in create_spectrum
+    image_file = pyfits.open(test_file)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 124, in fitsopen
+    return HDUList.fromfile(name, mode, memmap, save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 266, in fromfile
+    save_backup=save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 786, in _readfrom
+    ffo = _File(fileobj, mode=mode, memmap=memmap)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 132, in __init__
+    self._open_filename(fileobj, mode, clobber)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 487, in _open_filename
+    self._file = fileobj_open(self.name, PYFITS_MODES[mode])
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/util.py", line 754, in fileobj_open
+    return open(filename, mode)
+IOError: [Errno 2] No such file or directory: '/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts'
+0 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 163, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 138, in create_spectrum
+    image_file = pyfits.open(test_file)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 124, in fitsopen
+    return HDUList.fromfile(name, mode, memmap, save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 266, in fromfile
+    save_backup=save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 786, in _readfrom
+    ffo = _File(fileobj, mode=mode, memmap=memmap)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 132, in __init__
+    self._open_filename(fileobj, mode, clobber)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 487, in _open_filename
+    self._file = fileobj_open(self.name, PYFITS_MODES[mode])
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/util.py", line 754, in fileobj_open
+    return open(filename, mode)
+IOError: [Errno 2] No such file or directory: '/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts'
+0 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 163, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 138, in create_spectrum
+    image_file = pyfits.open(test_file)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 124, in fitsopen
+    return HDUList.fromfile(name, mode, memmap, save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 266, in fromfile
+    save_backup=save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 786, in _readfrom
+    ffo = _File(fileobj, mode=mode, memmap=memmap)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 132, in __init__
+    self._open_filename(fileobj, mode, clobber)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 487, in _open_filename
+    self._file = fileobj_open(self.name, PYFITS_MODES[mode])
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/util.py", line 754, in fileobj_open
+    return open(filename, mode)
+IOError: [Errno 2] No such file or directory: '/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts'
+0 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 163, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 138, in create_spectrum
+    image_file = pyfits.open(test_file)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 124, in fitsopen
+    return HDUList.fromfile(name, mode, memmap, save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 266, in fromfile
+    save_backup=save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 786, in _readfrom
+    ffo = _File(fileobj, mode=mode, memmap=memmap)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 132, in __init__
+    self._open_filename(fileobj, mode, clobber)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 487, in _open_filename
+    self._file = fileobj_open(self.name, PYFITS_MODES[mode])
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/util.py", line 754, in fileobj_open
+    return open(filename, mode)
+IOError: [Errno 2] No such file or directory: '/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts'
+0 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 163, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 138, in create_spectrum
+    image_file = pyfits.open(test_file)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 124, in fitsopen
+    return HDUList.fromfile(name, mode, memmap, save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 266, in fromfile
+    save_backup=save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 786, in _readfrom
+    ffo = _File(fileobj, mode=mode, memmap=memmap)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 132, in __init__
+    self._open_filename(fileobj, mode, clobber)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 487, in _open_filename
+    self._file = fileobj_open(self.name, PYFITS_MODES[mode])
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/util.py", line 754, in fileobj_open
+    return open(filename, mode)
+IOError: [Errno 2] No such file or directory: '/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts'
+0 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 163, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 138, in create_spectrum
+    image_file = pyfits.open(test_file)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 124, in fitsopen
+    return HDUList.fromfile(name, mode, memmap, save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 266, in fromfile
+    save_backup=save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 786, in _readfrom
+    ffo = _File(fileobj, mode=mode, memmap=memmap)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 132, in __init__
+    self._open_filename(fileobj, mode, clobber)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 487, in _open_filename
+    self._file = fileobj_open(self.name, PYFITS_MODES[mode])
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/util.py", line 754, in fileobj_open
+    return open(filename, mode)
+IOError: [Errno 2] No such file or directory: '/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts'
+0 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 163, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 138, in create_spectrum
+    image_file = pyfits.open(test_file)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 124, in fitsopen
+    return HDUList.fromfile(name, mode, memmap, save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 266, in fromfile
+    save_backup=save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 786, in _readfrom
+    ffo = _File(fileobj, mode=mode, memmap=memmap)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 132, in __init__
+    self._open_filename(fileobj, mode, clobber)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 487, in _open_filename
+    self._file = fileobj_open(self.name, PYFITS_MODES[mode])
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/util.py", line 754, in fileobj_open
+    return open(filename, mode)
+IOError: [Errno 2] No such file or directory: '/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts'
+0 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 163, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 138, in create_spectrum
+    image_file = pyfits.open(test_file)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 124, in fitsopen
+    return HDUList.fromfile(name, mode, memmap, save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 266, in fromfile
+    save_backup=save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 786, in _readfrom
+    ffo = _File(fileobj, mode=mode, memmap=memmap)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 132, in __init__
+    self._open_filename(fileobj, mode, clobber)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 487, in _open_filename
+    self._file = fileobj_open(self.name, PYFITS_MODES[mode])
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/util.py", line 754, in fileobj_open
+    return open(filename, mode)
+IOError: [Errno 2] No such file or directory: '/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts'
+0 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 163, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 138, in create_spectrum
+    image_file = pyfits.open(test_file)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 124, in fitsopen
+    return HDUList.fromfile(name, mode, memmap, save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 266, in fromfile
+    save_backup=save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 786, in _readfrom
+    ffo = _File(fileobj, mode=mode, memmap=memmap)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 132, in __init__
+    self._open_filename(fileobj, mode, clobber)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 487, in _open_filename
+    self._file = fileobj_open(self.name, PYFITS_MODES[mode])
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/util.py", line 754, in fileobj_open
+    return open(filename, mode)
+IOError: [Errno 2] No such file or directory: '/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts'
+0 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 163, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 138, in create_spectrum
+    image_file = pyfits.open(test_file)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 124, in fitsopen
+    return HDUList.fromfile(name, mode, memmap, save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 266, in fromfile
+    save_backup=save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 786, in _readfrom
+    ffo = _File(fileobj, mode=mode, memmap=memmap)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 132, in __init__
+    self._open_filename(fileobj, mode, clobber)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 487, in _open_filename
+    self._file = fileobj_open(self.name, PYFITS_MODES[mode])
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/util.py", line 754, in fileobj_open
+    return open(filename, mode)
+IOError: [Errno 2] No such file or directory: '/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts'
+0 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 163, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 138, in create_spectrum
+    image_file = pyfits.open(test_file)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 124, in fitsopen
+    return HDUList.fromfile(name, mode, memmap, save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 266, in fromfile
+    save_backup=save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 786, in _readfrom
+    ffo = _File(fileobj, mode=mode, memmap=memmap)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 132, in __init__
+    self._open_filename(fileobj, mode, clobber)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 487, in _open_filename
+    self._file = fileobj_open(self.name, PYFITS_MODES[mode])
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/util.py", line 754, in fileobj_open
+    return open(filename, mode)
+IOError: [Errno 2] No such file or directory: '/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts'
+0 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 163, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 138, in create_spectrum
+    image_file = pyfits.open(test_file)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 124, in fitsopen
+    return HDUList.fromfile(name, mode, memmap, save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 266, in fromfile
+    save_backup=save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 786, in _readfrom
+    ffo = _File(fileobj, mode=mode, memmap=memmap)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 132, in __init__
+    self._open_filename(fileobj, mode, clobber)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 487, in _open_filename
+    self._file = fileobj_open(self.name, PYFITS_MODES[mode])
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/util.py", line 754, in fileobj_open
+    return open(filename, mode)
+IOError: [Errno 2] No such file or directory: '/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts'
+0 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 163, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 138, in create_spectrum
+    image_file = pyfits.open(test_file)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 124, in fitsopen
+    return HDUList.fromfile(name, mode, memmap, save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 266, in fromfile
+    save_backup=save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 786, in _readfrom
+    ffo = _File(fileobj, mode=mode, memmap=memmap)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 132, in __init__
+    self._open_filename(fileobj, mode, clobber)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 487, in _open_filename
+    self._file = fileobj_open(self.name, PYFITS_MODES[mode])
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/util.py", line 754, in fileobj_open
+    return open(filename, mode)
+IOError: [Errno 2] No such file or directory: '/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts'
+0 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 163, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 138, in create_spectrum
+    image_file = pyfits.open(test_file)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 124, in fitsopen
+    return HDUList.fromfile(name, mode, memmap, save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 266, in fromfile
+    save_backup=save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 786, in _readfrom
+    ffo = _File(fileobj, mode=mode, memmap=memmap)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 132, in __init__
+    self._open_filename(fileobj, mode, clobber)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 487, in _open_filename
+    self._file = fileobj_open(self.name, PYFITS_MODES[mode])
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/util.py", line 754, in fileobj_open
+    return open(filename, mode)
+IOError: [Errno 2] No such file or directory: '/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts'
+0 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 163, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 138, in create_spectrum
+    image_file = pyfits.open(test_file)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 124, in fitsopen
+    return HDUList.fromfile(name, mode, memmap, save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 266, in fromfile
+    save_backup=save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 786, in _readfrom
+    ffo = _File(fileobj, mode=mode, memmap=memmap)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 132, in __init__
+    self._open_filename(fileobj, mode, clobber)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 487, in _open_filename
+    self._file = fileobj_open(self.name, PYFITS_MODES[mode])
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/util.py", line 754, in fileobj_open
+    return open(filename, mode)
+IOError: [Errno 2] No such file or directory: '/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts'
+0 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 163, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 138, in create_spectrum
+    image_file = pyfits.open(test_file)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 124, in fitsopen
+    return HDUList.fromfile(name, mode, memmap, save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 266, in fromfile
+    save_backup=save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 786, in _readfrom
+    ffo = _File(fileobj, mode=mode, memmap=memmap)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 132, in __init__
+    self._open_filename(fileobj, mode, clobber)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 487, in _open_filename
+    self._file = fileobj_open(self.name, PYFITS_MODES[mode])
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/util.py", line 754, in fileobj_open
+    return open(filename, mode)
+IOError: [Errno 2] No such file or directory: '/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts'
+0 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 163, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 138, in create_spectrum
+    image_file = pyfits.open(test_file)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 124, in fitsopen
+    return HDUList.fromfile(name, mode, memmap, save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 266, in fromfile
+    save_backup=save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 786, in _readfrom
+    ffo = _File(fileobj, mode=mode, memmap=memmap)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 132, in __init__
+    self._open_filename(fileobj, mode, clobber)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 487, in _open_filename
+    self._file = fileobj_open(self.name, PYFITS_MODES[mode])
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/util.py", line 754, in fileobj_open
+    return open(filename, mode)
+IOError: [Errno 2] No such file or directory: '/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts'
+0 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 163, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 138, in create_spectrum
+    image_file = pyfits.open(test_file)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 124, in fitsopen
+    return HDUList.fromfile(name, mode, memmap, save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 266, in fromfile
+    save_backup=save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 786, in _readfrom
+    ffo = _File(fileobj, mode=mode, memmap=memmap)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 132, in __init__
+    self._open_filename(fileobj, mode, clobber)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 487, in _open_filename
+    self._file = fileobj_open(self.name, PYFITS_MODES[mode])
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/util.py", line 754, in fileobj_open
+    return open(filename, mode)
+IOError: [Errno 2] No such file or directory: '/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts'
+0 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 163, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 138, in create_spectrum
+    image_file = pyfits.open(test_file)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 124, in fitsopen
+    return HDUList.fromfile(name, mode, memmap, save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 266, in fromfile
+    save_backup=save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 786, in _readfrom
+    ffo = _File(fileobj, mode=mode, memmap=memmap)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 132, in __init__
+    self._open_filename(fileobj, mode, clobber)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 487, in _open_filename
+    self._file = fileobj_open(self.name, PYFITS_MODES[mode])
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/util.py", line 754, in fileobj_open
+    return open(filename, mode)
+IOError: [Errno 2] No such file or directory: '/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts'
+0 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 163, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 138, in create_spectrum
+    image_file = pyfits.open(test_file)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 124, in fitsopen
+    return HDUList.fromfile(name, mode, memmap, save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 266, in fromfile
+    save_backup=save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 786, in _readfrom
+    ffo = _File(fileobj, mode=mode, memmap=memmap)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 132, in __init__
+    self._open_filename(fileobj, mode, clobber)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 487, in _open_filename
+    self._file = fileobj_open(self.name, PYFITS_MODES[mode])
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/util.py", line 754, in fileobj_open
+    return open(filename, mode)
+IOError: [Errno 2] No such file or directory: '/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts'
+0 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 163, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 138, in create_spectrum
+    image_file = pyfits.open(test_file)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 124, in fitsopen
+    return HDUList.fromfile(name, mode, memmap, save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 266, in fromfile
+    save_backup=save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 786, in _readfrom
+    ffo = _File(fileobj, mode=mode, memmap=memmap)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 132, in __init__
+    self._open_filename(fileobj, mode, clobber)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 487, in _open_filename
+    self._file = fileobj_open(self.name, PYFITS_MODES[mode])
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/util.py", line 754, in fileobj_open
+    return open(filename, mode)
+IOError: [Errno 2] No such file or directory: '/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts'
+0 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 163, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 138, in create_spectrum
+    image_file = pyfits.open(test_file)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 124, in fitsopen
+    return HDUList.fromfile(name, mode, memmap, save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 266, in fromfile
+    save_backup=save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 786, in _readfrom
+    ffo = _File(fileobj, mode=mode, memmap=memmap)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 132, in __init__
+    self._open_filename(fileobj, mode, clobber)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 487, in _open_filename
+    self._file = fileobj_open(self.name, PYFITS_MODES[mode])
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/util.py", line 754, in fileobj_open
+    return open(filename, mode)
+IOError: [Errno 2] No such file or directory: '/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts'
+0 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 163, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 138, in create_spectrum
+    image_file = pyfits.open(test_file)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 124, in fitsopen
+    return HDUList.fromfile(name, mode, memmap, save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 266, in fromfile
+    save_backup=save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 786, in _readfrom
+    ffo = _File(fileobj, mode=mode, memmap=memmap)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 132, in __init__
+    self._open_filename(fileobj, mode, clobber)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 487, in _open_filename
+    self._file = fileobj_open(self.name, PYFITS_MODES[mode])
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/util.py", line 754, in fileobj_open
+    return open(filename, mode)
+IOError: [Errno 2] No such file or directory: '/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts'
+0 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 163, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 138, in create_spectrum
+    image_file = pyfits.open(test_file)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 124, in fitsopen
+    return HDUList.fromfile(name, mode, memmap, save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 266, in fromfile
+    save_backup=save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 786, in _readfrom
+    ffo = _File(fileobj, mode=mode, memmap=memmap)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 132, in __init__
+    self._open_filename(fileobj, mode, clobber)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 487, in _open_filename
+    self._file = fileobj_open(self.name, PYFITS_MODES[mode])
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/util.py", line 754, in fileobj_open
+    return open(filename, mode)
+IOError: [Errno 2] No such file or directory: '/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts'
+0 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 163, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 138, in create_spectrum
+    image_file = pyfits.open(test_file)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 124, in fitsopen
+    return HDUList.fromfile(name, mode, memmap, save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 266, in fromfile
+    save_backup=save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 786, in _readfrom
+    ffo = _File(fileobj, mode=mode, memmap=memmap)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 132, in __init__
+    self._open_filename(fileobj, mode, clobber)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 487, in _open_filename
+    self._file = fileobj_open(self.name, PYFITS_MODES[mode])
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/util.py", line 754, in fileobj_open
+    return open(filename, mode)
+IOError: [Errno 2] No such file or directory: '/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts'
+0 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 163, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 138, in create_spectrum
+    image_file = pyfits.open(test_file)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 124, in fitsopen
+    return HDUList.fromfile(name, mode, memmap, save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 266, in fromfile
+    save_backup=save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 786, in _readfrom
+    ffo = _File(fileobj, mode=mode, memmap=memmap)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 132, in __init__
+    self._open_filename(fileobj, mode, clobber)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 487, in _open_filename
+    self._file = fileobj_open(self.name, PYFITS_MODES[mode])
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/util.py", line 754, in fileobj_open
+    return open(filename, mode)
+IOError: [Errno 2] No such file or directory: '/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts'
+0 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 163, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 138, in create_spectrum
+    image_file = pyfits.open(test_file)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 124, in fitsopen
+    return HDUList.fromfile(name, mode, memmap, save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 266, in fromfile
+    save_backup=save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 786, in _readfrom
+    ffo = _File(fileobj, mode=mode, memmap=memmap)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 132, in __init__
+    self._open_filename(fileobj, mode, clobber)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 487, in _open_filename
+    self._file = fileobj_open(self.name, PYFITS_MODES[mode])
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/util.py", line 754, in fileobj_open
+    return open(filename, mode)
+IOError: [Errno 2] No such file or directory: '/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts'
+0 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 163, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 138, in create_spectrum
+    image_file = pyfits.open(test_file)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 124, in fitsopen
+    return HDUList.fromfile(name, mode, memmap, save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 266, in fromfile
+    save_backup=save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 786, in _readfrom
+    ffo = _File(fileobj, mode=mode, memmap=memmap)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 132, in __init__
+    self._open_filename(fileobj, mode, clobber)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 487, in _open_filename
+    self._file = fileobj_open(self.name, PYFITS_MODES[mode])
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/util.py", line 754, in fileobj_open
+    return open(filename, mode)
+IOError: [Errno 2] No such file or directory: '/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts'
+0 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 163, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 138, in create_spectrum
+    image_file = pyfits.open(test_file)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 124, in fitsopen
+    return HDUList.fromfile(name, mode, memmap, save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 266, in fromfile
+    save_backup=save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 786, in _readfrom
+    ffo = _File(fileobj, mode=mode, memmap=memmap)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 132, in __init__
+    self._open_filename(fileobj, mode, clobber)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 487, in _open_filename
+    self._file = fileobj_open(self.name, PYFITS_MODES[mode])
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/util.py", line 754, in fileobj_open
+    return open(filename, mode)
+IOError: [Errno 2] No such file or directory: '/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts'
+0 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 163, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 138, in create_spectrum
+    image_file = pyfits.open(test_file)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 124, in fitsopen
+    return HDUList.fromfile(name, mode, memmap, save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 266, in fromfile
+    save_backup=save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 786, in _readfrom
+    ffo = _File(fileobj, mode=mode, memmap=memmap)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 132, in __init__
+    self._open_filename(fileobj, mode, clobber)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 487, in _open_filename
+    self._file = fileobj_open(self.name, PYFITS_MODES[mode])
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/util.py", line 754, in fileobj_open
+    return open(filename, mode)
+IOError: [Errno 2] No such file or directory: '/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts'
+0 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 163, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 138, in create_spectrum
+    image_file = pyfits.open(test_file)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 124, in fitsopen
+    return HDUList.fromfile(name, mode, memmap, save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 266, in fromfile
+    save_backup=save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 786, in _readfrom
+    ffo = _File(fileobj, mode=mode, memmap=memmap)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 132, in __init__
+    self._open_filename(fileobj, mode, clobber)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 487, in _open_filename
+    self._file = fileobj_open(self.name, PYFITS_MODES[mode])
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/util.py", line 754, in fileobj_open
+    return open(filename, mode)
+IOError: [Errno 2] No such file or directory: '/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts'
+0 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 163, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 138, in create_spectrum
+    image_file = pyfits.open(test_file)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 124, in fitsopen
+    return HDUList.fromfile(name, mode, memmap, save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 266, in fromfile
+    save_backup=save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 786, in _readfrom
+    ffo = _File(fileobj, mode=mode, memmap=memmap)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 132, in __init__
+    self._open_filename(fileobj, mode, clobber)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 487, in _open_filename
+    self._file = fileobj_open(self.name, PYFITS_MODES[mode])
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/util.py", line 754, in fileobj_open
+    return open(filename, mode)
+IOError: [Errno 2] No such file or directory: '/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts'
+0 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 163, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 138, in create_spectrum
+    image_file = pyfits.open(test_file)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 124, in fitsopen
+    return HDUList.fromfile(name, mode, memmap, save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 266, in fromfile
+    save_backup=save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 786, in _readfrom
+    ffo = _File(fileobj, mode=mode, memmap=memmap)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 132, in __init__
+    self._open_filename(fileobj, mode, clobber)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 487, in _open_filename
+    self._file = fileobj_open(self.name, PYFITS_MODES[mode])
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/util.py", line 754, in fileobj_open
+    return open(filename, mode)
+IOError: [Errno 2] No such file or directory: '/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts'
+0 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 163, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 138, in create_spectrum
+    image_file = pyfits.open(test_file)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 124, in fitsopen
+    return HDUList.fromfile(name, mode, memmap, save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 266, in fromfile
+    save_backup=save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 786, in _readfrom
+    ffo = _File(fileobj, mode=mode, memmap=memmap)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 132, in __init__
+    self._open_filename(fileobj, mode, clobber)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 487, in _open_filename
+    self._file = fileobj_open(self.name, PYFITS_MODES[mode])
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/util.py", line 754, in fileobj_open
+    return open(filename, mode)
+IOError: [Errno 2] No such file or directory: '/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts'
+0 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 163, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 138, in create_spectrum
+    image_file = pyfits.open(test_file)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 124, in fitsopen
+    return HDUList.fromfile(name, mode, memmap, save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 266, in fromfile
+    save_backup=save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 786, in _readfrom
+    ffo = _File(fileobj, mode=mode, memmap=memmap)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 132, in __init__
+    self._open_filename(fileobj, mode, clobber)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 487, in _open_filename
+    self._file = fileobj_open(self.name, PYFITS_MODES[mode])
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/util.py", line 754, in fileobj_open
+    return open(filename, mode)
+IOError: [Errno 2] No such file or directory: '/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts'
+0 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 163, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 138, in create_spectrum
+    image_file = pyfits.open(test_file)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 124, in fitsopen
+    return HDUList.fromfile(name, mode, memmap, save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 266, in fromfile
+    save_backup=save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 786, in _readfrom
+    ffo = _File(fileobj, mode=mode, memmap=memmap)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 132, in __init__
+    self._open_filename(fileobj, mode, clobber)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 487, in _open_filename
+    self._file = fileobj_open(self.name, PYFITS_MODES[mode])
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/util.py", line 754, in fileobj_open
+    return open(filename, mode)
+IOError: [Errno 2] No such file or directory: '/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts'
+0 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 163, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 138, in create_spectrum
+    image_file = pyfits.open(test_file)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 124, in fitsopen
+    return HDUList.fromfile(name, mode, memmap, save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 266, in fromfile
+    save_backup=save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 786, in _readfrom
+    ffo = _File(fileobj, mode=mode, memmap=memmap)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 132, in __init__
+    self._open_filename(fileobj, mode, clobber)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 487, in _open_filename
+    self._file = fileobj_open(self.name, PYFITS_MODES[mode])
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/util.py", line 754, in fileobj_open
+    return open(filename, mode)
+IOError: [Errno 2] No such file or directory: '/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts'
+0 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 163, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 138, in create_spectrum
+    image_file = pyfits.open(test_file)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 124, in fitsopen
+    return HDUList.fromfile(name, mode, memmap, save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 266, in fromfile
+    save_backup=save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 786, in _readfrom
+    ffo = _File(fileobj, mode=mode, memmap=memmap)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 132, in __init__
+    self._open_filename(fileobj, mode, clobber)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 487, in _open_filename
+    self._file = fileobj_open(self.name, PYFITS_MODES[mode])
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/util.py", line 754, in fileobj_open
+    return open(filename, mode)
+IOError: [Errno 2] No such file or directory: '/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts'
+0 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 163, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 138, in create_spectrum
+    image_file = pyfits.open(test_file)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 124, in fitsopen
+    return HDUList.fromfile(name, mode, memmap, save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 266, in fromfile
+    save_backup=save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 786, in _readfrom
+    ffo = _File(fileobj, mode=mode, memmap=memmap)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 132, in __init__
+    self._open_filename(fileobj, mode, clobber)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 487, in _open_filename
+    self._file = fileobj_open(self.name, PYFITS_MODES[mode])
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/util.py", line 754, in fileobj_open
+    return open(filename, mode)
+IOError: [Errno 2] No such file or directory: '/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts'
+0 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 163, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 138, in create_spectrum
+    image_file = pyfits.open(test_file)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 124, in fitsopen
+    return HDUList.fromfile(name, mode, memmap, save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 266, in fromfile
+    save_backup=save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 786, in _readfrom
+    ffo = _File(fileobj, mode=mode, memmap=memmap)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 132, in __init__
+    self._open_filename(fileobj, mode, clobber)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 487, in _open_filename
+    self._file = fileobj_open(self.name, PYFITS_MODES[mode])
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/util.py", line 754, in fileobj_open
+    return open(filename, mode)
+IOError: [Errno 2] No such file or directory: '/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts'
+0 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 163, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 138, in create_spectrum
+    image_file = pyfits.open(test_file)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 124, in fitsopen
+    return HDUList.fromfile(name, mode, memmap, save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 266, in fromfile
+    save_backup=save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 786, in _readfrom
+    ffo = _File(fileobj, mode=mode, memmap=memmap)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 132, in __init__
+    self._open_filename(fileobj, mode, clobber)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 487, in _open_filename
+    self._file = fileobj_open(self.name, PYFITS_MODES[mode])
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/util.py", line 754, in fileobj_open
+    return open(filename, mode)
+IOError: [Errno 2] No such file or directory: '/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts'
+0 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 163, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 138, in create_spectrum
+    image_file = pyfits.open(test_file)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 124, in fitsopen
+    return HDUList.fromfile(name, mode, memmap, save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 266, in fromfile
+    save_backup=save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 786, in _readfrom
+    ffo = _File(fileobj, mode=mode, memmap=memmap)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 132, in __init__
+    self._open_filename(fileobj, mode, clobber)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 487, in _open_filename
+    self._file = fileobj_open(self.name, PYFITS_MODES[mode])
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/util.py", line 754, in fileobj_open
+    return open(filename, mode)
+IOError: [Errno 2] No such file or directory: '/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts'
+0 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 163, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 138, in create_spectrum
+    image_file = pyfits.open(test_file)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 124, in fitsopen
+    return HDUList.fromfile(name, mode, memmap, save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 266, in fromfile
+    save_backup=save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 786, in _readfrom
+    ffo = _File(fileobj, mode=mode, memmap=memmap)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 132, in __init__
+    self._open_filename(fileobj, mode, clobber)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 487, in _open_filename
+    self._file = fileobj_open(self.name, PYFITS_MODES[mode])
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/util.py", line 754, in fileobj_open
+    return open(filename, mode)
+IOError: [Errno 2] No such file or directory: '/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts'
+0 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 163, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 138, in create_spectrum
+    image_file = pyfits.open(test_file)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 124, in fitsopen
+    return HDUList.fromfile(name, mode, memmap, save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 266, in fromfile
+    save_backup=save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 786, in _readfrom
+    ffo = _File(fileobj, mode=mode, memmap=memmap)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 132, in __init__
+    self._open_filename(fileobj, mode, clobber)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 487, in _open_filename
+    self._file = fileobj_open(self.name, PYFITS_MODES[mode])
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/util.py", line 754, in fileobj_open
+    return open(filename, mode)
+IOError: [Errno 2] No such file or directory: '/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts'
+0 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 163, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 138, in create_spectrum
+    image_file = pyfits.open(test_file)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 124, in fitsopen
+    return HDUList.fromfile(name, mode, memmap, save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 266, in fromfile
+    save_backup=save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 786, in _readfrom
+    ffo = _File(fileobj, mode=mode, memmap=memmap)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 132, in __init__
+    self._open_filename(fileobj, mode, clobber)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 487, in _open_filename
+    self._file = fileobj_open(self.name, PYFITS_MODES[mode])
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/util.py", line 754, in fileobj_open
+    return open(filename, mode)
+IOError: [Errno 2] No such file or directory: '/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts'
+0 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 163, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 138, in create_spectrum
+    image_file = pyfits.open(test_file)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 124, in fitsopen
+    return HDUList.fromfile(name, mode, memmap, save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 266, in fromfile
+    save_backup=save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 786, in _readfrom
+    ffo = _File(fileobj, mode=mode, memmap=memmap)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 132, in __init__
+    self._open_filename(fileobj, mode, clobber)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 487, in _open_filename
+    self._file = fileobj_open(self.name, PYFITS_MODES[mode])
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/util.py", line 754, in fileobj_open
+    return open(filename, mode)
+IOError: [Errno 2] No such file or directory: '/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts'
+0 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 163, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 138, in create_spectrum
+    image_file = pyfits.open(test_file)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 124, in fitsopen
+    return HDUList.fromfile(name, mode, memmap, save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 266, in fromfile
+    save_backup=save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 786, in _readfrom
+    ffo = _File(fileobj, mode=mode, memmap=memmap)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 132, in __init__
+    self._open_filename(fileobj, mode, clobber)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 487, in _open_filename
+    self._file = fileobj_open(self.name, PYFITS_MODES[mode])
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/util.py", line 754, in fileobj_open
+    return open(filename, mode)
+IOError: [Errno 2] No such file or directory: '/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts'
+0 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 163, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 138, in create_spectrum
+    image_file = pyfits.open(test_file)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 124, in fitsopen
+    return HDUList.fromfile(name, mode, memmap, save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 266, in fromfile
+    save_backup=save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 786, in _readfrom
+    ffo = _File(fileobj, mode=mode, memmap=memmap)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 132, in __init__
+    self._open_filename(fileobj, mode, clobber)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 487, in _open_filename
+    self._file = fileobj_open(self.name, PYFITS_MODES[mode])
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/util.py", line 754, in fileobj_open
+    return open(filename, mode)
+IOError: [Errno 2] No such file or directory: '/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts'
+0 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 163, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 138, in create_spectrum
+    image_file = pyfits.open(test_file)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 124, in fitsopen
+    return HDUList.fromfile(name, mode, memmap, save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 266, in fromfile
+    save_backup=save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 786, in _readfrom
+    ffo = _File(fileobj, mode=mode, memmap=memmap)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 132, in __init__
+    self._open_filename(fileobj, mode, clobber)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 487, in _open_filename
+    self._file = fileobj_open(self.name, PYFITS_MODES[mode])
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/util.py", line 754, in fileobj_open
+    return open(filename, mode)
+IOError: [Errno 2] No such file or directory: '/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts'
+0 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 163, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 138, in create_spectrum
+    image_file = pyfits.open(test_file)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 124, in fitsopen
+    return HDUList.fromfile(name, mode, memmap, save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 266, in fromfile
+    save_backup=save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 786, in _readfrom
+    ffo = _File(fileobj, mode=mode, memmap=memmap)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 132, in __init__
+    self._open_filename(fileobj, mode, clobber)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 487, in _open_filename
+    self._file = fileobj_open(self.name, PYFITS_MODES[mode])
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/util.py", line 754, in fileobj_open
+    return open(filename, mode)
+IOError: [Errno 2] No such file or directory: '/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts'
+0 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 163, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 138, in create_spectrum
+    image_file = pyfits.open(test_file)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 124, in fitsopen
+    return HDUList.fromfile(name, mode, memmap, save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 266, in fromfile
+    save_backup=save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 786, in _readfrom
+    ffo = _File(fileobj, mode=mode, memmap=memmap)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 132, in __init__
+    self._open_filename(fileobj, mode, clobber)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 487, in _open_filename
+    self._file = fileobj_open(self.name, PYFITS_MODES[mode])
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/util.py", line 754, in fileobj_open
+    return open(filename, mode)
+IOError: [Errno 2] No such file or directory: '/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts'
+0 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 163, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 138, in create_spectrum
+    image_file = pyfits.open(test_file)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 124, in fitsopen
+    return HDUList.fromfile(name, mode, memmap, save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 266, in fromfile
+    save_backup=save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 786, in _readfrom
+    ffo = _File(fileobj, mode=mode, memmap=memmap)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 132, in __init__
+    self._open_filename(fileobj, mode, clobber)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 487, in _open_filename
+    self._file = fileobj_open(self.name, PYFITS_MODES[mode])
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/util.py", line 754, in fileobj_open
+    return open(filename, mode)
+IOError: [Errno 2] No such file or directory: '/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts'
+0 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 163, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 138, in create_spectrum
+    image_file = pyfits.open(test_file)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 124, in fitsopen
+    return HDUList.fromfile(name, mode, memmap, save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 266, in fromfile
+    save_backup=save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 786, in _readfrom
+    ffo = _File(fileobj, mode=mode, memmap=memmap)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 132, in __init__
+    self._open_filename(fileobj, mode, clobber)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 487, in _open_filename
+    self._file = fileobj_open(self.name, PYFITS_MODES[mode])
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/util.py", line 754, in fileobj_open
+    return open(filename, mode)
+IOError: [Errno 2] No such file or directory: '/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts'
+0 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 163, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 138, in create_spectrum
+    image_file = pyfits.open(test_file)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 124, in fitsopen
+    return HDUList.fromfile(name, mode, memmap, save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 266, in fromfile
+    save_backup=save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 786, in _readfrom
+    ffo = _File(fileobj, mode=mode, memmap=memmap)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 132, in __init__
+    self._open_filename(fileobj, mode, clobber)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 487, in _open_filename
+    self._file = fileobj_open(self.name, PYFITS_MODES[mode])
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/util.py", line 754, in fileobj_open
+    return open(filename, mode)
+IOError: [Errno 2] No such file or directory: '/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts'
+0 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 163, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 138, in create_spectrum
+    image_file = pyfits.open(test_file)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 124, in fitsopen
+    return HDUList.fromfile(name, mode, memmap, save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 266, in fromfile
+    save_backup=save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 786, in _readfrom
+    ffo = _File(fileobj, mode=mode, memmap=memmap)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 132, in __init__
+    self._open_filename(fileobj, mode, clobber)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 487, in _open_filename
+    self._file = fileobj_open(self.name, PYFITS_MODES[mode])
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/util.py", line 754, in fileobj_open
+    return open(filename, mode)
+IOError: [Errno 2] No such file or directory: '/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts'
+0 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 163, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 138, in create_spectrum
+    image_file = pyfits.open(test_file)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 124, in fitsopen
+    return HDUList.fromfile(name, mode, memmap, save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 266, in fromfile
+    save_backup=save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 786, in _readfrom
+    ffo = _File(fileobj, mode=mode, memmap=memmap)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 132, in __init__
+    self._open_filename(fileobj, mode, clobber)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 487, in _open_filename
+    self._file = fileobj_open(self.name, PYFITS_MODES[mode])
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/util.py", line 754, in fileobj_open
+    return open(filename, mode)
+IOError: [Errno 2] No such file or directory: '/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts'
+0 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 163, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 138, in create_spectrum
+    image_file = pyfits.open(test_file)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 124, in fitsopen
+    return HDUList.fromfile(name, mode, memmap, save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 266, in fromfile
+    save_backup=save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 786, in _readfrom
+    ffo = _File(fileobj, mode=mode, memmap=memmap)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 132, in __init__
+    self._open_filename(fileobj, mode, clobber)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 487, in _open_filename
+    self._file = fileobj_open(self.name, PYFITS_MODES[mode])
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/util.py", line 754, in fileobj_open
+    return open(filename, mode)
+IOError: [Errno 2] No such file or directory: '/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts'
+0 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 163, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 138, in create_spectrum
+    image_file = pyfits.open(test_file)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 124, in fitsopen
+    return HDUList.fromfile(name, mode, memmap, save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 266, in fromfile
+    save_backup=save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 786, in _readfrom
+    ffo = _File(fileobj, mode=mode, memmap=memmap)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 132, in __init__
+    self._open_filename(fileobj, mode, clobber)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 487, in _open_filename
+    self._file = fileobj_open(self.name, PYFITS_MODES[mode])
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/util.py", line 754, in fileobj_open
+    return open(filename, mode)
+IOError: [Errno 2] No such file or directory: '/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts'
+0 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 163, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 138, in create_spectrum
+    image_file = pyfits.open(test_file)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 124, in fitsopen
+    return HDUList.fromfile(name, mode, memmap, save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 266, in fromfile
+    save_backup=save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 786, in _readfrom
+    ffo = _File(fileobj, mode=mode, memmap=memmap)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 132, in __init__
+    self._open_filename(fileobj, mode, clobber)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 487, in _open_filename
+    self._file = fileobj_open(self.name, PYFITS_MODES[mode])
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/util.py", line 754, in fileobj_open
+    return open(filename, mode)
+IOError: [Errno 2] No such file or directory: '/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts'
+0 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 163, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 138, in create_spectrum
+    image_file = pyfits.open(test_file)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 124, in fitsopen
+    return HDUList.fromfile(name, mode, memmap, save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 266, in fromfile
+    save_backup=save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 786, in _readfrom
+    ffo = _File(fileobj, mode=mode, memmap=memmap)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 132, in __init__
+    self._open_filename(fileobj, mode, clobber)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 487, in _open_filename
+    self._file = fileobj_open(self.name, PYFITS_MODES[mode])
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/util.py", line 754, in fileobj_open
+    return open(filename, mode)
+IOError: [Errno 2] No such file or directory: '/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts'
+0 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 163, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 138, in create_spectrum
+    image_file = pyfits.open(test_file)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 124, in fitsopen
+    return HDUList.fromfile(name, mode, memmap, save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 266, in fromfile
+    save_backup=save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 786, in _readfrom
+    ffo = _File(fileobj, mode=mode, memmap=memmap)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 132, in __init__
+    self._open_filename(fileobj, mode, clobber)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 487, in _open_filename
+    self._file = fileobj_open(self.name, PYFITS_MODES[mode])
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/util.py", line 754, in fileobj_open
+    return open(filename, mode)
+IOError: [Errno 2] No such file or directory: '/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts'
+0 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 163, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 138, in create_spectrum
+    image_file = pyfits.open(test_file)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 124, in fitsopen
+    return HDUList.fromfile(name, mode, memmap, save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 266, in fromfile
+    save_backup=save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 786, in _readfrom
+    ffo = _File(fileobj, mode=mode, memmap=memmap)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 132, in __init__
+    self._open_filename(fileobj, mode, clobber)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 487, in _open_filename
+    self._file = fileobj_open(self.name, PYFITS_MODES[mode])
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/util.py", line 754, in fileobj_open
+    return open(filename, mode)
+IOError: [Errno 2] No such file or directory: '/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts'
+0 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 163, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 138, in create_spectrum
+    image_file = pyfits.open(test_file)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 124, in fitsopen
+    return HDUList.fromfile(name, mode, memmap, save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 266, in fromfile
+    save_backup=save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 786, in _readfrom
+    ffo = _File(fileobj, mode=mode, memmap=memmap)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 132, in __init__
+    self._open_filename(fileobj, mode, clobber)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 487, in _open_filename
+    self._file = fileobj_open(self.name, PYFITS_MODES[mode])
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/util.py", line 754, in fileobj_open
+    return open(filename, mode)
+IOError: [Errno 2] No such file or directory: '/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts'
+0 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 163, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 138, in create_spectrum
+    image_file = pyfits.open(test_file)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 124, in fitsopen
+    return HDUList.fromfile(name, mode, memmap, save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 266, in fromfile
+    save_backup=save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 786, in _readfrom
+    ffo = _File(fileobj, mode=mode, memmap=memmap)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 132, in __init__
+    self._open_filename(fileobj, mode, clobber)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 487, in _open_filename
+    self._file = fileobj_open(self.name, PYFITS_MODES[mode])
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/util.py", line 754, in fileobj_open
+    return open(filename, mode)
+IOError: [Errno 2] No such file or directory: '/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts'
+0 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts
+Traceback (most recent call last):
+  File "generate_lane_spectrum.py", line 163, in <module>
+    create_spectrum()
+  File "generate_lane_spectrum.py", line 138, in create_spectrum
+    image_file = pyfits.open(test_file)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 124, in fitsopen
+    return HDUList.fromfile(name, mode, memmap, save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 266, in fromfile
+    save_backup=save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 786, in _readfrom
+    ffo = _File(fileobj, mode=mode, memmap=memmap)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 132, in __init__
+    self._open_filename(fileobj, mode, clobber)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 487, in _open_filename
+    self._file = fileobj_open(self.name, PYFITS_MODES[mode])
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/util.py", line 754, in fileobj_open
+    return open(filename, mode)
+IOError: [Errno 2] No such file or directory: '/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts'
+0 spectres faits
+Traceback (most recent call last):
+  File "concatenate_toFITS.py", line 46, in <module>
+    tbhdu1 = pyfits.PrimaryHDU(header=pyfits.open(path)[0].header)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 124, in fitsopen
+    return HDUList.fromfile(name, mode, memmap, save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 266, in fromfile
+    save_backup=save_backup, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/hdulist.py", line 786, in _readfrom
+    ffo = _File(fileobj, mode=mode, memmap=memmap)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 132, in __init__
+    self._open_filename(fileobj, mode, clobber)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 487, in _open_filename
+    self._file = fileobj_open(self.name, PYFITS_MODES[mode])
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/util.py", line 754, in fileobj_open
+    return open(filename, mode)
+IOError: [Errno 2] No such file or directory: '/home/main/Documents/DRS/FILES/Narval_20161201_154102_th1.fts'
+C'est fini....
+Script etoile lance
+en attente
+ls: cannot access '.star*': No such file or directory
+No files specified to watch!
+/usr/local/lib/python2.7/dist-packages/pyfits/file.py:319: UserWarning: File may have been truncated: actual file length (72559424) is smaller than the expected size (77411520)
+  (self.size, pos))
+one finish
+Traceback (most recent call last):
+  File "Search_star.py", line 149, in <module>
+    stars_unbiased("Brut")
+  File "Search_star.py", line 115, in stars_unbiased
+    image_ref = hdulist[0].data.astype(np.float32)		# We store the data of the current star file
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/util.py", line 245, in __get__
+    val = self._fget(obj)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/image.py", line 207, in data
+    data = self._get_scaled_image_data(self._data_offset, self.shape)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/image.py", line 620, in _get_scaled_image_data
+    raw_data = self._get_raw_data(shape, code, offset)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/hdu/base.py", line 515, in _get_raw_data
+    return self._file.readarray(offset=offset, dtype=code, shape=shape)
+  File "/usr/local/lib/python2.7/dist-packages/pyfits/file.py", line 265, in readarray
+    buffer=self._mmap)
+TypeError: buffer is too small for requested array
+..\/TEMP
+/home/main/Documents/DRS/FILES/Narval_20170718_210148_st1.fts
+(-20.657288, 23607.121)
+../TEMP/Amatrix_OR0_LA1
+../TEMP/SP_Narval_20170718_210148_st1_OR0_LA1.p
+1 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170718_210148_st1.fts
+(-20.657288, 23607.121)
+../TEMP/Amatrix_OR0_LA2
+../TEMP/SP_Narval_20170718_210148_st1_OR0_LA2.p
+2 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170718_210148_st1.fts
+(-20.657288, 23607.121)
+../TEMP/Amatrix_OR1_LA1
+../TEMP/SP_Narval_20170718_210148_st1_OR1_LA1.p
+3 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170718_210148_st1.fts
+(-20.657288, 23607.121)
+../TEMP/Amatrix_OR1_LA2
+../TEMP/SP_Narval_20170718_210148_st1_OR1_LA2.p
+4 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170718_210148_st1.fts
+(-20.657288, 23607.121)
+../TEMP/Amatrix_OR2_LA1
+../TEMP/SP_Narval_20170718_210148_st1_OR2_LA1.p
+5 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170718_210148_st1.fts
+(-20.657288, 23607.121)
+../TEMP/Amatrix_OR2_LA2
+../TEMP/SP_Narval_20170718_210148_st1_OR2_LA2.p
+6 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170718_210148_st1.fts
+(-20.657288, 23607.121)
+../TEMP/Amatrix_OR3_LA1
+../TEMP/SP_Narval_20170718_210148_st1_OR3_LA1.p
+7 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170718_210148_st1.fts
+(-20.657288, 23607.121)
+../TEMP/Amatrix_OR3_LA2
+../TEMP/SP_Narval_20170718_210148_st1_OR3_LA2.p
+8 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170718_210148_st1.fts
+(-20.657288, 23607.121)
+../TEMP/Amatrix_OR4_LA1
+../TEMP/SP_Narval_20170718_210148_st1_OR4_LA1.p
+9 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170718_210148_st1.fts
+(-20.657288, 23607.121)
+../TEMP/Amatrix_OR4_LA2
+../TEMP/SP_Narval_20170718_210148_st1_OR4_LA2.p
+10 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170718_210148_st1.fts
+(-20.657288, 23607.121)
+../TEMP/Amatrix_OR5_LA1
+../TEMP/SP_Narval_20170718_210148_st1_OR5_LA1.p
+11 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170718_210148_st1.fts
+(-20.657288, 23607.121)
+../TEMP/Amatrix_OR5_LA2
+../TEMP/SP_Narval_20170718_210148_st1_OR5_LA2.p
+12 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170718_210148_st1.fts
+(-20.657288, 23607.121)
+../TEMP/Amatrix_OR6_LA1
+../TEMP/SP_Narval_20170718_210148_st1_OR6_LA1.p
+13 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170718_210148_st1.fts
+(-20.657288, 23607.121)
+../TEMP/Amatrix_OR6_LA2
+../TEMP/SP_Narval_20170718_210148_st1_OR6_LA2.p
+14 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170718_210148_st1.fts
+(-20.657288, 23607.121)
+../TEMP/Amatrix_OR7_LA1
+../TEMP/SP_Narval_20170718_210148_st1_OR7_LA1.p
+15 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170718_210148_st1.fts
+(-20.657288, 23607.121)
+../TEMP/Amatrix_OR7_LA2
+../TEMP/SP_Narval_20170718_210148_st1_OR7_LA2.p
+16 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170718_210148_st1.fts
+(-20.657288, 23607.121)
+../TEMP/Amatrix_OR8_LA1
+../TEMP/SP_Narval_20170718_210148_st1_OR8_LA1.p
+17 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170718_210148_st1.fts
+(-20.657288, 23607.121)
+../TEMP/Amatrix_OR8_LA2
+../TEMP/SP_Narval_20170718_210148_st1_OR8_LA2.p
+18 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170718_210148_st1.fts
+(-20.657288, 23607.121)
+../TEMP/Amatrix_OR9_LA1
+../TEMP/SP_Narval_20170718_210148_st1_OR9_LA1.p
+19 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170718_210148_st1.fts
+(-20.657288, 23607.121)
+../TEMP/Amatrix_OR9_LA2
+../TEMP/SP_Narval_20170718_210148_st1_OR9_LA2.p
+20 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170718_210148_st1.fts
+(-20.657288, 23607.121)
+../TEMP/Amatrix_OR10_LA1
+../TEMP/SP_Narval_20170718_210148_st1_OR10_LA1.p
+21 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170718_210148_st1.fts
+(-20.657288, 23607.121)
+../TEMP/Amatrix_OR10_LA2
+../TEMP/SP_Narval_20170718_210148_st1_OR10_LA2.p
+22 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170718_210148_st1.fts
+(-20.657288, 23607.121)
+../TEMP/Amatrix_OR11_LA1
+../TEMP/SP_Narval_20170718_210148_st1_OR11_LA1.p
+23 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170718_210148_st1.fts
+(-20.657288, 23607.121)
+../TEMP/Amatrix_OR11_LA2
+../TEMP/SP_Narval_20170718_210148_st1_OR11_LA2.p
+24 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170718_210148_st1.fts
+(-20.657288, 23607.121)
+../TEMP/Amatrix_OR12_LA1
+../TEMP/SP_Narval_20170718_210148_st1_OR12_LA1.p
+25 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170718_210148_st1.fts
+(-20.657288, 23607.121)
+../TEMP/Amatrix_OR12_LA2
+../TEMP/SP_Narval_20170718_210148_st1_OR12_LA2.p
+26 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170718_210148_st1.fts
+(-20.657288, 23607.121)
+../TEMP/Amatrix_OR13_LA1
+../TEMP/SP_Narval_20170718_210148_st1_OR13_LA1.p
+27 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170718_210148_st1.fts
+(-20.657288, 23607.121)
+../TEMP/Amatrix_OR13_LA2
+../TEMP/SP_Narval_20170718_210148_st1_OR13_LA2.p
+28 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170718_210148_st1.fts
+(-20.657288, 23607.121)
+../TEMP/Amatrix_OR14_LA1
+../TEMP/SP_Narval_20170718_210148_st1_OR14_LA1.p
+29 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170718_210148_st1.fts
+(-20.657288, 23607.121)
+../TEMP/Amatrix_OR14_LA2
+../TEMP/SP_Narval_20170718_210148_st1_OR14_LA2.p
+30 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170718_210148_st1.fts
+(-20.657288, 23607.121)
+../TEMP/Amatrix_OR15_LA1
+../TEMP/SP_Narval_20170718_210148_st1_OR15_LA1.p
+31 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170718_210148_st1.fts
+(-20.657288, 23607.121)
+../TEMP/Amatrix_OR15_LA2
+../TEMP/SP_Narval_20170718_210148_st1_OR15_LA2.p
+32 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170718_210148_st1.fts
+(-20.657288, 23607.121)
+../TEMP/Amatrix_OR16_LA1
+../TEMP/SP_Narval_20170718_210148_st1_OR16_LA1.p
+33 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170718_210148_st1.fts
+(-20.657288, 23607.121)
+../TEMP/Amatrix_OR16_LA2
+../TEMP/SP_Narval_20170718_210148_st1_OR16_LA2.p
+34 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170718_210148_st1.fts
+(-20.657288, 23607.121)
+../TEMP/Amatrix_OR17_LA1
+../TEMP/SP_Narval_20170718_210148_st1_OR17_LA1.p
+35 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170718_210148_st1.fts
+(-20.657288, 23607.121)
+../TEMP/Amatrix_OR17_LA2
+../TEMP/SP_Narval_20170718_210148_st1_OR17_LA2.p
+36 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170718_210148_st1.fts
+(-20.657288, 23607.121)
+../TEMP/Amatrix_OR18_LA1
+../TEMP/SP_Narval_20170718_210148_st1_OR18_LA1.p
+37 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170718_210148_st1.fts
+(-20.657288, 23607.121)
+../TEMP/Amatrix_OR18_LA2
+../TEMP/SP_Narval_20170718_210148_st1_OR18_LA2.p
+38 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170718_210148_st1.fts
+(-20.657288, 23607.121)
+../TEMP/Amatrix_OR19_LA1
+../TEMP/SP_Narval_20170718_210148_st1_OR19_LA1.p
+39 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170718_210148_st1.fts
+(-20.657288, 23607.121)
+../TEMP/Amatrix_OR19_LA2
+../TEMP/SP_Narval_20170718_210148_st1_OR19_LA2.p
+40 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170718_210148_st1.fts
+(-20.657288, 23607.121)
+../TEMP/Amatrix_OR20_LA1
+../TEMP/SP_Narval_20170718_210148_st1_OR20_LA1.p
+41 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170718_210148_st1.fts
+(-20.657288, 23607.121)
+../TEMP/Amatrix_OR20_LA2
+../TEMP/SP_Narval_20170718_210148_st1_OR20_LA2.p
+42 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170718_210148_st1.fts
+(-20.657288, 23607.121)
+../TEMP/Amatrix_OR21_LA1
+../TEMP/SP_Narval_20170718_210148_st1_OR21_LA1.p
+43 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170718_210148_st1.fts
+(-20.657288, 23607.121)
+../TEMP/Amatrix_OR21_LA2
+../TEMP/SP_Narval_20170718_210148_st1_OR21_LA2.p
+44 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170718_210148_st1.fts
+(-20.657288, 23607.121)
+../TEMP/Amatrix_OR22_LA1
+../TEMP/SP_Narval_20170718_210148_st1_OR22_LA1.p
+45 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170718_210148_st1.fts
+(-20.657288, 23607.121)
+../TEMP/Amatrix_OR22_LA2
+../TEMP/SP_Narval_20170718_210148_st1_OR22_LA2.p
+46 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170718_210148_st1.fts
+(-20.657288, 23607.121)
+../TEMP/Amatrix_OR23_LA1
+../TEMP/SP_Narval_20170718_210148_st1_OR23_LA1.p
+47 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170718_210148_st1.fts
+(-20.657288, 23607.121)
+../TEMP/Amatrix_OR23_LA2
+../TEMP/SP_Narval_20170718_210148_st1_OR23_LA2.p
+48 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170718_210148_st1.fts
+(-20.657288, 23607.121)
+../TEMP/Amatrix_OR24_LA1
+../TEMP/SP_Narval_20170718_210148_st1_OR24_LA1.p
+49 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170718_210148_st1.fts
+(-20.657288, 23607.121)
+../TEMP/Amatrix_OR24_LA2
+../TEMP/SP_Narval_20170718_210148_st1_OR24_LA2.p
+50 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170718_210148_st1.fts
+(-20.657288, 23607.121)
+../TEMP/Amatrix_OR25_LA1
+../TEMP/SP_Narval_20170718_210148_st1_OR25_LA1.p
+51 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170718_210148_st1.fts
+(-20.657288, 23607.121)
+../TEMP/Amatrix_OR25_LA2
+../TEMP/SP_Narval_20170718_210148_st1_OR25_LA2.p
+52 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170718_210148_st1.fts
+(-20.657288, 23607.121)
+../TEMP/Amatrix_OR26_LA1
+../TEMP/SP_Narval_20170718_210148_st1_OR26_LA1.p
+53 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170718_210148_st1.fts
+(-20.657288, 23607.121)
+../TEMP/Amatrix_OR26_LA2
+../TEMP/SP_Narval_20170718_210148_st1_OR26_LA2.p
+54 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170718_210148_st1.fts
+(-20.657288, 23607.121)
+../TEMP/Amatrix_OR27_LA1
+../TEMP/SP_Narval_20170718_210148_st1_OR27_LA1.p
+55 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170718_210148_st1.fts
+(-20.657288, 23607.121)
+../TEMP/Amatrix_OR27_LA2
+../TEMP/SP_Narval_20170718_210148_st1_OR27_LA2.p
+56 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170718_210148_st1.fts
+(-20.657288, 23607.121)
+../TEMP/Amatrix_OR28_LA1
+../TEMP/SP_Narval_20170718_210148_st1_OR28_LA1.p
+57 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170718_210148_st1.fts
+(-20.657288, 23607.121)
+../TEMP/Amatrix_OR28_LA2
+../TEMP/SP_Narval_20170718_210148_st1_OR28_LA2.p
+58 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170718_210148_st1.fts
+(-20.657288, 23607.121)
+../TEMP/Amatrix_OR29_LA1
+../TEMP/SP_Narval_20170718_210148_st1_OR29_LA1.p
+59 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170718_210148_st1.fts
+(-20.657288, 23607.121)
+../TEMP/Amatrix_OR29_LA2
+../TEMP/SP_Narval_20170718_210148_st1_OR29_LA2.p
+60 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170718_210148_st1.fts
+(-20.657288, 23607.121)
+../TEMP/Amatrix_OR30_LA1
+../TEMP/SP_Narval_20170718_210148_st1_OR30_LA1.p
+61 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170718_210148_st1.fts
+(-20.657288, 23607.121)
+../TEMP/Amatrix_OR30_LA2
+../TEMP/SP_Narval_20170718_210148_st1_OR30_LA2.p
+62 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170718_210148_st1.fts
+(-20.657288, 23607.121)
+../TEMP/Amatrix_OR31_LA1
+../TEMP/SP_Narval_20170718_210148_st1_OR31_LA1.p
+63 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170718_210148_st1.fts
+(-20.657288, 23607.121)
+../TEMP/Amatrix_OR31_LA2
+../TEMP/SP_Narval_20170718_210148_st1_OR31_LA2.p
+64 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170718_210148_st1.fts
+(-20.657288, 23607.121)
+../TEMP/Amatrix_OR32_LA1
+../TEMP/SP_Narval_20170718_210148_st1_OR32_LA1.p
+65 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170718_210148_st1.fts
+(-20.657288, 23607.121)
+../TEMP/Amatrix_OR32_LA2
+../TEMP/SP_Narval_20170718_210148_st1_OR32_LA2.p
+66 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170718_210148_st1.fts
+(-20.657288, 23607.121)
+../TEMP/Amatrix_OR33_LA1
+../TEMP/SP_Narval_20170718_210148_st1_OR33_LA1.p
+67 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170718_210148_st1.fts
+(-20.657288, 23607.121)
+../TEMP/Amatrix_OR33_LA2
+../TEMP/SP_Narval_20170718_210148_st1_OR33_LA2.p
+68 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170718_210148_st1.fts
+(-20.657288, 23607.121)
+../TEMP/Amatrix_OR34_LA1
+../TEMP/SP_Narval_20170718_210148_st1_OR34_LA1.p
+69 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170718_210148_st1.fts
+(-20.657288, 23607.121)
+../TEMP/Amatrix_OR34_LA2
+../TEMP/SP_Narval_20170718_210148_st1_OR34_LA2.p
+70 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170718_210148_st1.fts
+(-20.657288, 23607.121)
+../TEMP/Amatrix_OR35_LA1
+../TEMP/SP_Narval_20170718_210148_st1_OR35_LA1.p
+71 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170718_210148_st1.fts
+(-20.657288, 23607.121)
+../TEMP/Amatrix_OR35_LA2
+../TEMP/SP_Narval_20170718_210148_st1_OR35_LA2.p
+72 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170718_210148_st1.fts
+(-20.657288, 23607.121)
+../TEMP/Amatrix_OR36_LA1
+../TEMP/SP_Narval_20170718_210148_st1_OR36_LA1.p
+73 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170718_210148_st1.fts
+(-20.657288, 23607.121)
+../TEMP/Amatrix_OR36_LA2
+../TEMP/SP_Narval_20170718_210148_st1_OR36_LA2.p
+74 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170718_210148_st1.fts
+(-20.657288, 23607.121)
+../TEMP/Amatrix_OR37_LA1
+../TEMP/SP_Narval_20170718_210148_st1_OR37_LA1.p
+75 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170718_210148_st1.fts
+(-20.657288, 23607.121)
+../TEMP/Amatrix_OR37_LA2
+../TEMP/SP_Narval_20170718_210148_st1_OR37_LA2.p
+76 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170718_210148_st1.fts
+(-20.657288, 23607.121)
+../TEMP/Amatrix_OR38_LA1
+../TEMP/SP_Narval_20170718_210148_st1_OR38_LA1.p
+77 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170718_210148_st1.fts
+(-20.657288, 23607.121)
+../TEMP/Amatrix_OR38_LA2
+../TEMP/SP_Narval_20170718_210148_st1_OR38_LA2.p
+78 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170718_210148_st1.fts
+(-20.657288, 23607.121)
+../TEMP/Amatrix_OR39_LA1
+../TEMP/SP_Narval_20170718_210148_st1_OR39_LA1.p
+79 spectres faits
+/home/main/Documents/DRS/FILES/Narval_20170718_210148_st1.fts
+(-20.657288, 23607.121)
+../TEMP/Amatrix_OR39_LA2
+../TEMP/SP_Narval_20170718_210148_st1_OR39_LA2.p
+80 spectres faits
+Reussi !
+/usr/local/lib/python2.7/dist-packages/pyfits/card.py:261: VerifyWarning: Keyword name 'STAR_FILE' is greater than 8 characters or contains characters not allowed by the FITS standard; a HIERARCH card will be created.
+  keyword, VerifyWarning)
+Reussi !
+C'est fini....

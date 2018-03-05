@@ -1,0 +1,4 @@
+Lane envelope file : /home/main/Documents/DRS/TEMP/lanes_position_1.p
+Lane thickness file : /home/main/Documents/DRS/TEMP/lanes_thickness_1.p
+Fabry Perot fts file : /home/main/Documents/DRS/FILES/Narval_20161203_160053_fp1.fts
+Lanes per order : 2
