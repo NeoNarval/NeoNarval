@@ -8,6 +8,12 @@ OUT : un tableau avec une liste longueurs d'ondes de raies à comparer à un atl
 import pyfits
 import numpy as np
 import matplotlib.pyplot as plt
+import scipy.optimize
+import lmfit
+import utils
+import pickle 
+import peakutils
+
 
 
 # Open the .fits file which we want to reduce in a table
@@ -68,37 +74,7 @@ def search_orders(lambdas,intensities):
 
 # For each order, we need to convert the spectrum into a table of slits
 
-##
-#Function which finds the wavelenghts corresponding to the local maxima of the intensities and the associated intensities values in order to find the slits locations 
-##
 
-def find_maxima_v1(lambdas,intensities):
-    
-    intensities_maxima = []
-    lambdas_maxima = []
-    
-    for i in range ( 2 , len(lambdas)-1 ):
-        
-    # We use the mathematical definition of a maximum to find the maxima and their                      intensities, but we are gonna detect some local maxima which are not slits, so we have to try to discriminate those false slits. We are gonna  find the local average value of the offset in intensity (which is not zero, and is not always the same) and then compare the local maximum value with this local offset : if the maximum is a slit, it will be far bigger than the offset, if not we juste delete it from the maxima list.
-        
-        if ( intensities[i-1] < intensities[i] and intensities[i] > intensities[i+1] ) :    
-        
-            # lolcal offset computation
-            nb = 10
-            if ( i <= nb ) :
-                local_offset = (1/nb)*np.sum([intensities[k] for k in range(0,nb)])
-            if ( i >= len(intensities) - nb ):
-                local_offset = (1/nb)*np.sum([intensities[k] for k in range(len(intensities)-nb, len(intensities)) ] )
-            else :
-                local_offset = (1/nb)*np.sum( [ intensities[k] for k in range( i-int(round(nb/2)) , i+int(round(nb/2)) )] )      
-            
-            # additionnal discrimination
-            if ( (intensities[i] >= 2*local_offset ) and  ( intensities[i] >= 1,5*(intensities[i-1]+intensities[i+1])/2 ) ) :
-                intensities_maxima.append(intensities[i])
-                lambdas_maxima.append(lambdas[i])
-        
-    return(lambdas_maxima,intensities_maxima)    
-        
 
 ## 
 #In order to find the splits, we need to know the offset, and we are gonna soustract the #offset to the original data to obtain the pure slits data. (à reformuler). To compute the #offset data, we need to find all the minima and then interpolate between to minima. By doing #this we will obtain a list of intensities representing the offset.
@@ -112,7 +88,7 @@ def find_offset(lambdas, intensities):
     
     for i in range ( 2 , len(lambdas)-1 ):
         
-        if ( intensities[i-1] > intensities[i] and intensities[i] < intensities[i+1] ) :  
+        if ( intensities[i-1] >= intensities[i] and intensities[i] <= intensities[i+1] ) :  
             
             minima_indices.append(i)
             i_minima.append(intensities[i])
@@ -143,16 +119,17 @@ def find_offsetv2(lambdas, intensities):
     l_minima = []
     minima_indices = []
     
+    
     average = (np.sum(intensities))/(len(intensities))
     
     for i in range ( 2 , len(lambdas)-1 ):
         
-        if ( intensities[i-1] > intensities[i] and intensities[i] < intensities[i+1] and intensities[i] <= 1.5*average ) :  
+        if ( intensities[i-1] >= intensities[i] and intensities[i] <= intensities[i+1] and intensities[i] <= 3*average ) :  
             
             minima_indices.append(i)
             i_minima.append(intensities[i])
             l_minima.append(lambdas[i])
-
+    
     # Some minima are too high because of blended slits, we can delete it from the list
 
 
@@ -174,6 +151,8 @@ def find_offsetv2(lambdas, intensities):
     return(offset)    
     
     
+
+
             
 ## 
 # We normalize our spectrum using the offsrt we just computed
@@ -185,12 +164,36 @@ def normalize_offset(intensities,offset):
     return(spectrum)
     
 ## 
-#  Usefull algorithm
+#  Usefull algorithms
+
+
+
+def compute_order(n,switch) :
+    
+    orders = search_orders(lambdas, intensities)
+    order_lambdas = orders[0][n]
+    order_intensities = orders[1][n]
+    
+    offsetv1 = find_offset(order_lambdas, order_intensities)
+    offsetv2 = find_offsetv2(order_lambdas, order_intensities)
+    
+    spectrumv1 = normalize_offset(order_intensities, offsetv1)
+    spectrumv2 = normalize_offset(order_intensities, offsetv2)
+    
+    if switch == 1 :
+        offset = offsetv1
+        spectrum = spectrumv1
+    
+    if switch == 2 :
+        offset = offsetv2
+        spectrum = spectrumv2
+    
+    return(order_lambdas,spectrum)
+    
 
 def print_order(lambdas, intensities ,n, switch):
     
     orders = search_orders(lambdas, intensities)
-    
     order_lambdas = orders[0][n]
     order_intensities = orders[1][n]
     
@@ -212,14 +215,39 @@ def print_order(lambdas, intensities ,n, switch):
     plt.plot(order_lambdas, offset, 'black')
     plt.plot(order_lambdas, spectrum, 'blue')
     plt.show()
-    
-## 
-# Now that we have a normalized spectrum, we can fit a gaussian for each maximum and determine its center in order to finds the precise locations of the slits. The idea is to do the same thing for all maxima using the local wavelength and intensities data.
 
 
-def find_center(lambdas,intensities):
+
+
+##
+#Function which finds the wavelenghts corresponding to the local maxima of the intensities and the associated intensities values in order to find the slits locations 
+##
+
+def find_maxima(lambdas,intensities):
     
-    total = np.sum(intensities)
+    intensities_maxima = []
+    lambdas_maxima = []
+    
+    for i in range ( 2 , len(lambdas)-1 ):
+        
+    # We use the mathematical definition of a maximum to find the maxima and their intensities using directly the reduced spectrum data, thanks to the algoritms above
+        
+        if ( intensities[i-1] < intensities[i] and intensities[i] > intensities[i+1] ) :    
+            intensities_maxima.append(intensities[i])
+            lambdas_maxima.append(lambdas[i])
+        
+    return(lambdas_maxima,intensities_maxima)    
+        
+def find_order_maxima(n,switch):
+    
+    lambdas = compute_order(n,switch)[0]
+    intensities = compute_order(n,switch)[1]
+    
+    return(find_maxima(lambdas,intensities))
+    
+    
+    
+
     
 
 
