@@ -1,10 +1,3 @@
-"""
-Documentation and blabla
-IN : fichier calibered.fits (fichier dépouillé avec une série de valeurs de lambdas et leurs intensités, toutes les voies sont mêlées)
-
-OUT : un tableau avec une liste longueurs d'ondes de raies à comparer à un atlas
-"""
-
 import pyfits
 import numpy as np
 import matplotlib.pyplot as plt
@@ -281,7 +274,7 @@ def find_slits(lambdas,intensities):
         
     # We use the mathematical definition of a maximum to find the maxima and their intensities 
         
-        if ( intensities[i-1] < intensities[i] and intensities[i] > intensities[i+1] ) :    
+        if ( intensities[i-1] < intensities[i] and intensities[i] > intensities[i+1] and intensities[i] >= 0 ) :    
             intensities_maxima.append(intensities[i])
             lambdas_maxima.append(lambdas[i])
             maxima_indices.append(i)
@@ -324,8 +317,8 @@ def find_slits_order(n):
         
         x = slits[i][0]
         y = slits[i][1]
-        #plt.plot(x,y)
-    #plt.show()   
+        plt.plot(x,y)
+    plt.show()   
     
     return(slits)
     
@@ -361,7 +354,7 @@ def find_slit_center(lambdas,data):
     lambda_max = lambdas[len(lambdas)-1]
     step = (lambda_max - lambda_min)/len(lambdas)
     lambda_centre = lambda_min + centre*step
-
+    
     return(lambda_centre)
             
     
@@ -381,7 +374,24 @@ def slit_center_listing(n):
     return(slit_centers)
 
 
+#slits = []
+#for n in range(36):
+#    slits.append(slit_center_listing(n))
 
+
+#file = open('/home/stagiaire/depot_git/NeoNarval/Lucas_Herbert/Documents/Th_Ar_computed_slits_0.1_per_order.pkl','w')
+#computed_Th_Ar_pickle = pickle.dump(slits,file)
+#file.close()
+
+#ordered_slits = []
+#for i in range(len(slits)):
+#    for j in range(len(slits[i])):
+    #ordered_slits.append(slits[i][j])
+#ordered_slits.sort()
+#file = open('/home/stagiaire/depot_git/NeoNarval/Lucas_Herbert/Documents/Th_Ar_computed_slits_0.1.pkl','w')
+#computed_Th_Ar_pickle = pickle.dump(ordered_slits,file)        
+#file.close()
+    
 ##
  # Prints the selected order of the pkl file
 
@@ -390,6 +400,9 @@ def find_arturo_slit_order(n) :
     
     return(search_orders(lambdas2,intensities2)[0][n])
     
+def find_arturo_data_order(n):
+     return(search_orders(lambdas2,intensities2)[0][n],search_orders(lambdas2,intensities2)[1][n])
+     
 def print_arturo_slits_order():
     
     for n in range(36) :
@@ -397,7 +410,7 @@ def print_arturo_slits_order():
         x , y = orders[0][n],orders[1][n]
         x.sort()
         plt.plot(x,y)
-        plt.show()
+    plt.show()
         
         
 
@@ -420,20 +433,54 @@ def data_matching(x,y,precision):
                     gap_min = abs(x[i]-y[j])
                     best_matching_value = y[j]
         best_matching_values.insert(i,best_matching_value)
-        print(x[i],best_matching_value)
+        #print(x[i],best_matching_value)
     while (best_matching_values.__contains__(None)):
         best_matching_values.remove(None)
 
     return(float(len(best_matching_values))/float(len(x)))
 
+# Does the same but applied to the given order, comparing our finding of the slits and the atlas
 
 def order_matching(n,precision):
     
     x = slit_center_listing(n)
     y = select_atlas(x[0],x[len(x)-1])
     
-    return(data_matching(x,y,precision))
+    return(data_matching(x,y,precision),data_matching(y,x,precision))
+    
+def global_matching(precision):
+    
+    matching1 = []
+    matching2 = []
+    
+    for n in range(36):
+            matching1.append(order_matching(n,precision)[0])
+            matching2.append(order_matching(n,precision)[1])
+    global_matching1 = np.sum(matching1)/float(len(matching1))  
+    global_matching2 = np.sum(matching2)/float(len(matching2))  
+    return(global_matching1,global_matching2)    
+        
+    
 
+# Same idea on Arturo's slits selection and the atlas given an precise order
+
+def arturo_order_matching(n,precision):
+    
+    x = find_arturo_slit_order(n)
+    y = select_atlas(x[0],x[len(x)-1])
+    
+    return(data_matching(x,y,precision),data_matching(y,x,precision))
+
+def arturo_global_matching(precision):
+    
+    matching1 = []
+    matching2 = []
+    for n in range(36):
+        matching1.append(arturo_order_matching(n,precision)[0])
+        matching2.append(arturo_order_matching(n,precision)[1])
+    global_matching1 = np.sum(matching1)/float(len(matching1))  
+    global_matching2 = np.sum(matching2)/float(len(matching2))  
+    return(global_matching1,global_matching2)    
 
 ##
 #
@@ -470,6 +517,228 @@ def select_atlas(lmin,lmax):
     
     return(selected_wavelength_slits)
     
+
+
+
+
+def print_atlas():
+
+    path = '/home/stagiaire/depot_git/NeoNarval/Lucas_Herbert/Documents/thar_UVES_MM090311.dat'
+    
+    file = open(path)    
+    wavelength_slits = []
+    intensities = []
+    for i in range(0,3005):
+        
+        line = file.readline()
+        line_lambda = float(line[12:23])
+        if line[25] == "-" :
+            intensities.append(float(line[25:29])*-1)
+        else :
+            intensities.append(float(line[25:29]))
+            
+        wavelength_slits.append(line_lambda)
+    plt.plot(wavelength_slits,intensities)
+    
+    plt.show()
+    
+    
+
+##
+# Localizes the slits found by Arturo using the same method as the one used before.
+# Firstly, we search for the maxima corresponding to Arturo's slits and then we do the same job as before with each maximum
+
+
+def localize_arturo_slits(n):
+    
+    slits = []
+    lambdas = compute_order(n,2)[0]
+    intensities = compute_order(n,2)[1]
+    plt.plot(lambdas,intensities,'blue')
+    
+    intensities_maxima = []
+    lambdas_maxima = []
+    maxima_indices = []
+    
+    for i in range ( 2 , len(lambdas)-1 ):
+        
+    # We use the mathematical definition of a maximum to find the maxima and their intensities 
+        
+        if ( intensities[i-1] < intensities[i] and intensities[i] > intensities[i+1] and intensities[i] >= 0 ) :    
+            intensities_maxima.append(intensities[i])
+            lambdas_maxima.append(lambdas[i])
+            maxima_indices.append(i)
+
+            
+    # Now we need to find the slit around each maximum which has also been found by Arturo, so we keep only the maxima found by Arturo. Thus, we have to delete the other maxima and their indices from their lists if they don't match a maximum found by arturo
+    
+    arturo_slits = find_arturo_slit_order(n)
+    selected_maxima_indices = []
+
+    for i in range(len(arturo_slits)) :
+        gap_min = 0.5
+        matching_maximum = None
+        index = 0
+        for j in range(len(lambdas_maxima)) :
+            
+            if ( abs(arturo_slits[i] - lambdas_maxima[j]) <= gap_min ):
+                gap_min =  abs(arturo_slits[i] - lambdas_maxima[j])
+                matching_maximum = lambdas_maxima[j]
+                matching_maximum_index = maxima_indices[j]
+        if not matching_maximum == None :
+            selected_maxima_indices.append(matching_maximum_index)
+            
+            
+    if ( len(arturo_slits) == len(selected_maxima_indices) ) :
+        print("OK : Arturo's lambdas all matched!")
+    else :
+        print("PROBLEM : Some of Arturo's lambdas are unmatched!")
+    
+
+    for j in range(len(selected_maxima_indices)):
+        
+        local_slit = []
+        
+        # left minimum research
+        index = selected_maxima_indices[j]
+        while ( intensities[index] > intensities[index-1] ):
+            local_slit.append([lambdas[index],intensities[index]])
+            index -= 1
+        local_slit.append([lambdas[index],intensities[index]]) # don't forget the last point
+        # right minimum research
+        index = selected_maxima_indices[j]
+        while ( intensities[index] > intensities[index+1] ):
+            local_slit.append([lambdas[index],intensities[index]])
+            index += 1
+        local_slit.append([lambdas[index],intensities[index]]) # don't forget the last point
+        
+        local_slit.sort() # We sort the list according to the lambdas order
+        local_slit_lambdas = [ local_slit[i][0] for i in range(len(local_slit)) ]
+        local_slit_intensities = [ local_slit[i][1] for i in range(len(local_slit)) ]
+        slits.append([local_slit_lambdas,local_slit_intensities])
+    
+    #for i in range(len(slits)):
+    #    x = slits[i][0]
+    #    y = slits[i][1]
+    #    plt.plot(x,y)
+    
+    #plt.show() 
+        
+    return(slits)
+
+##
+# Function fitting a gaussian  to the given data :
+
+def fitting_slit(lambdas,data):
+    y = np.copy(data)-np.min(data)
+    X = np.arange(len(y))
+    centre = float(np.sum(X*y))/np.sum(y) # centre of the gaussian (= average)
+    ampl = np.max(y) # amplitude of the gaussian
+    width = np.sqrt(np.abs(np.sum((X-centre)**2*y)/np.sum(y))) # width of the gaussian
+    
+
+    def gaussian(x,amp,cen,wid):
+        return(amp*np.exp(-(x-cen)**2/wid))
+    
+    
+    try:
+        # we use the lmfit algorithm to improve our fit's precisionslits_infos = []
+for i in range(36):
+    slits_infos
+        gaussian_model = lmfit.Model(gaussian)
+        params = gaussian_model.make_params(cen=centre,amp=ampl,wid=width)
+        result = gaussian_model.fit(y,params,x=X)
+        [cen,wid,amp] = list(result.best_values.values())
+        if 0 < cen < len(y) :
+            centre = cen
+    except :
+        pass
+    # We have the center on a normalized scale which start from 0 and goes to len(y), we need to bring it back to the real lambda value of the center of the slit
+    
+    lambda_min = lambdas[0]
+    lambda_max = lambdas[len(lambdas)-1]
+    step = abs((lambda_max - lambda_min)/len(lambdas))
+    lambda_centre = lambda_min + centre*step
+    
+    return(lambda_centre,result,step)
+    
+##
+# This function fits a gaussian to each slit found previously thanks to Arturo's list
+
+def localize_arturo_slits_centers(n) :
+    
+    slits = localize_arturo_slits(n)
+    slits_infos = []
+    
+    for i in range(len(slits)):
+        
+        slit_infos = []
+        data = fitting_slit(slits[i][0],slits[i][1])
+
+        slit_infos.append(data[0])     # adding the center of each slit to the info list
+        
+        result = data[1]
+        report = result.fit_report()
+        chi_square_str = report[189:198]slits_infos = []
+for i in range(36):
+    slits_infos
+        chi_square = float(chi_square_str)
+        slit_infos.append(chi_square)    # adding the chi square to the info list
+        
+        step = data[2]
+        error_str = report[392:416]
+        def local_reader(str):
+            nbr_str = ''
+            i = 0
+            while str[i] != '-' :
+                i+=1
+            debut = i
+            i+=1
+            while str[i] != '(' :
+                nbr_str+= str[i]    
+                i+=1
+            nbr = float(nbr_str)
+            return(nbr)
+        error = local_reader(error_str)
+        slit_infos.append(error)
+        
+        
+        slits_infos.append(slit_infos)
+        
+        
+    return(slits_infos)
+
+
+
+##
+# Little script that returns the global list of all the slits centers and data found by Arturo, using the initial ThAr_Line_Cal.pkl file
+
+def generate_info_slit():
+    
+    slits_infos_dict = dict()
+    centers = []
+    chi_squares = []
+    errors = []
+    
+    for n in range(36):
+        
+        data = localize_arturo_slits_centers(n)
+        for k in range(len(data)):
+            centers.append(data[k][0])
+            chi_squares.append(data[k][1])
+            errors.append(data[k][2])
+    
+    slits_infos_dict['Slits_computed_wavelengths'] = centers
+    slits_infos_dict['Slits_computed_chi_squares'] = chi_squares
+    slits_infos_dict['Slits_computed_errors'] = errors
+    
+    return(slits_infos_dict)    
+        
+    
+    
+    
+    
+
 
 
 
