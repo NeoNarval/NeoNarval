@@ -642,9 +642,7 @@ def fitting_slit(lambdas,data):
     
     
     try:
-        # we use the lmfit algorithm to improve our fit's precisionslits_infos = []
-for i in range(36):
-    slits_infos
+        # we use the lmfit algorithm to improve our fit's precision
         gaussian_model = lmfit.Model(gaussian)
         params = gaussian_model.make_params(cen=centre,amp=ampl,wid=width)
         result = gaussian_model.fit(y,params,x=X)
@@ -679,9 +677,7 @@ def localize_arturo_slits_centers(n) :
         
         result = data[1]
         report = result.fit_report()
-        chi_square_str = report[189:198]slits_infos = []
-for i in range(36):
-    slits_infos
+        chi_square_str = report[189:198]
         chi_square = float(chi_square_str)
         slit_infos.append(chi_square)    # adding the chi square to the info list
         
