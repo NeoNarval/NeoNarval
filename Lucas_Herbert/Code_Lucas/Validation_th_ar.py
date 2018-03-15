@@ -6,6 +6,7 @@ import cPickle
 import pickle
 import lmfit 
 from scipy.optimize import leastsq
+from scipy.optimize import curve_fit
 
 ##
 # Opens a cPickle file and read it
@@ -274,7 +275,7 @@ def find_slits(lambdas,intensities):
         
     # We use the mathematical definition of a maximum to find the maxima and their intensities 
         
-        if ( intensities[i-1] < intensities[i] and intensities[i] > intensities[i+1] and intensities[i] >= 0 ) :    
+        if ( intensities[i-1] < intensities[i] and intensities[i] > intensities[i+1] and intensities[i] >= 0  and intensities[i] >= 0.1) :    
             intensities_maxima.append(intensities[i])
             lambdas_maxima.append(lambdas[i])
             maxima_indices.append(i)
@@ -311,13 +312,14 @@ def find_slits_order(n):
     
     lambdas = compute_order(n,2)[0]
     intensities = compute_order(n,2)[1]
+    plt.plot(lambdas,intensities,color='black')
     slits = find_slits(lambdas,intensities)
     
     for i in range(len(slits)):
         
         x = slits[i][0]
         y = slits[i][1]
-        plt.plot(x,y)
+        plt.plot(x,y, color='blue')
     plt.show()   
     
     return(slits)
@@ -327,34 +329,28 @@ def find_slits_order(n):
 # Functions which fits a gaussian model on the given slit to dertermine its center with the higher posible precision given the data we have
 
 def find_slit_center(lambdas,data):
-    y = np.copy(data)-np.min(data)
-    X = np.arange(len(y))
-    centre = float(np.sum(X*y))/np.sum(y) # centre of the gaussian (= avergae)
+    y = np.copy(data)
+    X = lambdas
+    centre = float(np.sum(X*y))/np.sum(y) # centre of the gaussian 
     ampl = np.max(y) # amplitude of the gaussian
     width = np.sqrt(np.abs(np.sum((X-centre)**2*y)/np.sum(y))) # width of the gaussian
     
+    def gaussian(x,cen,amp,wid):
+        return(amp*np.exp(-(x-cen)**2/(2*wid**2)))
+    
+    
+    # we use the lmfit algorithm to improve our fit's precision
+    gaussian_model = lmfit.Model(gaussian)
+    params = gaussian_model.make_params(cen=centre,amp=ampl,wid=width)
+    result = gaussian_model.fit(y,params,x=X)
+    
+    # printing the best gaussian fit
+    best_gaussian_fit = result.best_fit
+    lambda_centre = float(np.sum(X*best_gaussian_fit))/np.sum(best_gaussian_fit) 
+    plt.plot(lambdas, best_gaussian_fit ,color='purple')
+    plt.axvline(lambda_centre, color='purple')
 
-    def gaussian(x,amp,cen,wid):
-        return(amp*np.exp(-(x-cen)**2/wid))
-    
-    
-    try:
-        # we use the lmfit algorithm to improve our fit's precision
-        gaussian_model = lmfit.Model(gaussian)
-        params = gaussian_model.make_params(cen=centre,amp=ampl,wid=width)
-        result = gaussian_model.fit(y,params,x=X)
-        [cen,wid,amp] = list(result.best_values.values())
-        if 0 < cen < len(y) :
-            centre = cen
-    except :
-        pass
-    # We have the center on a normalized scale which start from 0 and goes to len(y), we need to bring it back to the real lambda value of the center of the slit
-    
-    lambda_min = lambdas[0]
-    lambda_max = lambdas[len(lambdas)-1]
-    step = (lambda_max - lambda_min)/len(lambdas)
-    lambda_centre = lambda_min + centre*step
-    
+    plt.show()
     return(lambda_centre)
             
     
@@ -636,44 +632,41 @@ def localize_arturo_slits(n):
 def fitting_slit(lambdas,data):
     
     y = np.copy(data)
-    X = np.arange(len(y))
-    centre = float(np.sum(X*y))/np.sum(y) # centre of the gaussian (= average)
-    ampl = np.max(y) # amplitude of the gaussian
-    width = np.sqrt(np.abs(np.sum((X-centre)**2*y)/np.sum(y))) # width of the gaussian
-    result = None # if the "try" fails
+    X = lambdas
+    centre = float(np.sum(X*y))/np.sum(y)               # centre of the gaussian (= average)
+    ampl = np.max(y)                                    # amplitude of the gaussian
+    width = np.sqrt(np.sum((X-centre)**2*y)/np.sum(y))  # width of the gaussian
+
     
     def gaussian(x,cen,amp,wid):
         return(amp*np.exp(-(x-cen)**2/(2*wid**2)))
     
     
-    try:
-        # we use the lmfit algorithm to improve our fit's precision
-        gaussian_model = lmfit.Model(gaussian)
-        params = gaussian_model.make_params(cen=centre,amp=ampl,wid=width)
-        result = gaussian_model.fit(y,params,x=X)
-        [cen,amp,wid] = list(result.best_values.values())
-        if 0 < cen < len(y) :
-            centre = cen
-    except :
-        pass
-        print("Center not computed!")
+    # we use the lmfit algorithm to improve our fit's precision
+    gaussian_model = lmfit.Model(gaussian)
+    params = gaussian_model.make_params(cen=centre,amp=ampl,wid=width)
+    result = gaussian_model.fit(y,params,x=X)
+
     # We have the center on a normalized scale which start from 0 and goes to len(y), we need to bring it back to the real lambda value of the center of the slit
     
-    step = abs((max(lambdas) - min(lambdas))/(len(lambdas)))
-    lambda_centre = min(lambdas) + centre*step
+    step = abs((lambdas[-1] - lambdas[0])/(len(lambdas)))
     
-    actual_ampl = np.max(data)
-    actual_width = wid*step
-    fitted_gaussian =  [ gaussian(x,lambda_centre,actual_ampl,actual_width)  for x in lambdas ]
-    plt.plot(lambdas,fitted_gaussian, color='red')
-    plt.axvline(lambda_centre, color='red')
     
+    # printing the initial gaussian (before the optimization of the fit)
     naive_center = float(np.sum(lambdas*y))/np.sum(y)
     naive_width = np.sqrt(np.abs(np.sum((lambdas-naive_center)**2*y)/np.sum(y)))
     naive_ampl = ampl
     naive_gaussian = [ gaussian(x,naive_center,naive_ampl,naive_width) for x in lambdas ]
     plt.plot(lambdas,naive_gaussian,color='green')
     plt.axvline(naive_center,color='green')
+    
+    # printing the best gaussian fit
+    best_gaussian_fit = result.best_fit
+    lambda_centre = float(np.sum(X*best_gaussian_fit))/np.sum(best_gaussian_fit) 
+    plt.plot(lambdas, best_gaussian_fit ,color='purple')
+    plt.axvline(lambda_centre, color='purple')
+    
+    
     return(lambda_centre,result,step)
     
 ##
