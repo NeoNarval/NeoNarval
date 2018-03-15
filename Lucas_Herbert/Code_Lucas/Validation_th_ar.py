@@ -275,7 +275,7 @@ def find_slits(lambdas,intensities):
         
     # We use the mathematical definition of a maximum to find the maxima and their intensities 
         
-        if ( intensities[i-1] < intensities[i] and intensities[i] > intensities[i+1] and intensities[i] >= 0  and intensities[i] >= 0.1) :    
+        if ( intensities[i-1] < intensities[i] and intensities[i] > intensities[i+1] and intensities[i] >= 0  and intensities[i] >= 0.2) :    
             intensities_maxima.append(intensities[i])
             lambdas_maxima.append(lambdas[i])
             maxima_indices.append(i)
@@ -329,29 +329,40 @@ def find_slits_order(n):
 # Functions which fits a gaussian model on the given slit to dertermine its center with the higher posible precision given the data we have
 
 def find_slit_center(lambdas,data):
+    
     y = np.copy(data)
     X = lambdas
-    centre = float(np.sum(X*y))/np.sum(y) # centre of the gaussian 
-    ampl = np.max(y) # amplitude of the gaussian
-    width = np.sqrt(np.abs(np.sum((X-centre)**2*y)/np.sum(y))) # width of the gaussian
     
     def gaussian(x,cen,amp,wid):
         return(amp*np.exp(-(x-cen)**2/(2*wid**2)))
     
-    
-    # we use the lmfit algorithm to improve our fit's precision
-    gaussian_model = lmfit.Model(gaussian)
-    params = gaussian_model.make_params(cen=centre,amp=ampl,wid=width)
-    result = gaussian_model.fit(y,params,x=X)
-    
-    # printing the best gaussian fit
-    best_gaussian_fit = result.best_fit
-    lambda_centre = float(np.sum(X*best_gaussian_fit))/np.sum(best_gaussian_fit) 
-    plt.plot(lambdas, best_gaussian_fit ,color='purple')
-    plt.axvline(lambda_centre, color='purple')
-
+    # printing the initial gaussian (before the optimization of the fit)
+    naive_center = float(np.sum(lambdas*y))/np.sum(y)
+    naive_width = np.sqrt(np.sum((lambdas-naive_center)**2*y)/np.sum(y))
+    naive_ampl = np.max(y)
+    naive_gaussian = [ gaussian(x,naive_center,naive_ampl,naive_width) for x in lambdas ]
+    plt.plot(lambdas,naive_gaussian,color='green')
+    plt.axvline(naive_center,color='green')
     plt.show()
+    lambda_centre = naive_center
+    
+    try :
+        # we use the lmfit algorithm to improve our fit's precision
+        gaussian_model = lmfit.Model(gaussian)
+        params = gaussian_model.make_params(cen=naive_center,amp=naive_ampl,wid=naive_width)
+        result = gaussian_model.fit(y,params,x=X)
+        # printing the best gaussian fit
+        best_gaussian_fit = result.best_fit
+        lambda_centre = float(np.sum(X*best_gaussian_fit))/np.sum(best_gaussian_fit) 
+        plt.plot(lambdas, best_gaussian_fit ,color='purple')
+        plt.axvline(lambda_centre, color='purple')
+        
+    except : 
+        pass
+        
+        
     return(lambda_centre)
+    
             
     
 ##
@@ -626,6 +637,7 @@ def localize_arturo_slits(n):
         
     return(slits)
 
+    
 ##
 # Function fitting a gaussian  to the given data :
 
@@ -633,41 +645,47 @@ def fitting_slit(lambdas,data):
     
     y = np.copy(data)
     X = lambdas
-    centre = float(np.sum(X*y))/np.sum(y)               # centre of the gaussian (= average)
-    ampl = np.max(y)                                    # amplitude of the gaussian
-    width = np.sqrt(np.sum((X-centre)**2*y)/np.sum(y))  # width of the gaussian
-
     
     def gaussian(x,cen,amp,wid):
         return(amp*np.exp(-(x-cen)**2/(2*wid**2)))
     
-    
-    # we use the lmfit algorithm to improve our fit's precision
-    gaussian_model = lmfit.Model(gaussian)
-    params = gaussian_model.make_params(cen=centre,amp=ampl,wid=width)
-    result = gaussian_model.fit(y,params,x=X)
-
-    # We have the center on a normalized scale which start from 0 and goes to len(y), we need to bring it back to the real lambda value of the center of the slit
-    
-    step = abs((lambdas[-1] - lambdas[0])/(len(lambdas)))
-    
-    
     # printing the initial gaussian (before the optimization of the fit)
     naive_center = float(np.sum(lambdas*y))/np.sum(y)
-    naive_width = np.sqrt(np.abs(np.sum((lambdas-naive_center)**2*y)/np.sum(y)))
-    naive_ampl = ampl
+    naive_width = np.sqrt(np.sum((lambdas-naive_center)**2*y)/np.sum(y))
+    naive_ampl = np.max(y)
     naive_gaussian = [ gaussian(x,naive_center,naive_ampl,naive_width) for x in lambdas ]
     plt.plot(lambdas,naive_gaussian,color='green')
     plt.axvline(naive_center,color='green')
+    plt.show()
+    lambda_centre = naive_center
     
-    # printing the best gaussian fit
-    best_gaussian_fit = result.best_fit
-    lambda_centre = float(np.sum(X*best_gaussian_fit))/np.sum(best_gaussian_fit) 
-    plt.plot(lambdas, best_gaussian_fit ,color='purple')
-    plt.axvline(lambda_centre, color='purple')
-    
-    
-    return(lambda_centre,result,step)
+    try :
+        # we use the lmfit algorithm to improve our fit's precision
+        gaussian_model = lmfit.Model(gaussian)
+        params = gaussian_model.make_params(cen=naive_center,amp=naive_ampl,wid=naive_width)
+        result = gaussian_model.fit(y,params,x=X)
+        # printing the best gaussian fit
+        best_gaussian_fit = result.best_fit
+        best_cen = result.best_values['cen']
+        best_wid = result.best_values['wid']
+        best_amp = result.best_values['amp']
+        best_params_gaussian = [ gaussian(x,best_cen,best_amp,best_wid) for x in lambdas ]
+        plt.plot(lambdas, best_params_gaussian, color='red')
+        plt.axvline(best_cen, color = 'red')
+        computed_centre = float(np.sum(X*best_gaussian_fit))/np.sum(best_gaussian_fit) 
+        plt.plot(lambdas, best_gaussian_fit, 'b--' ,color='purple')
+        plt.axvline(computed_centre, color='purple')
+        lambda_centre = best_cen
+        # we need the report data to improve our understanding of the results
+        report = result.fit_report()
+        
+        
+    except : 
+        report = ""
+        pass
+        
+        
+    return(lambda_centre,report)
     
 ##
 # This function fits a gaussian to each slit found previously thanks to Arturo's list
@@ -675,43 +693,61 @@ def fitting_slit(lambdas,data):
 def localize_arturo_slits_centers(n) :
     
     slits = localize_arturo_slits(n)
-    slits_infos = []
+    lambdas_centers_data = []
     
     for i in range(len(slits)):
         
         slit_infos = []
-        data = fitting_slit(slits[i][0],slits[i][1])
-        slit_infos.append(data[0])     # adding the center of each slit to the info list
+        data = fitting_slit(slits[i][0],slits[i][1])[0]
+        lambdas_centers_data.append(data)
         
-        result = data[1]
-        report = result.fit_report()
-        #print(report)
-        chi_square_str = report[189:198]
-        chi_square = float(chi_square_str)
-        slit_infos.append(chi_square)    # adding the chi square to the info list
+    return(lambdas_centers_data)   
+
+def arturo_fitted_order_matching(n,precision):
+    
+    values = []
+    lambdas_centers = localize_arturo_slits_centers(n)
         
-        step = data[2]
-        error_str = report[392:416]
-        def local_reader(str):
-            nbr_str = ''
-            i = 0
-            while str[i] != '-' :
-                i+=1
-            debut = i
-            i+=1
-            while str[i] != '(' :
-                nbr_str+= str[i]    
-                i+=1
-            nbr = float(nbr_str)
-            return(nbr)
-        error = local_reader(error_str)
-        slit_infos.append(error)
+    for j in range(len(lambdas_centers)):
+        values.append(lambdas_centers[j])
         
+    
+    return( data_matching(values,select_atlas(0,100000),precision) )
+
         
-        slits_infos.append(slit_infos)
-        
-        
-    return(slits_infos)
+
+
+    #     slit_infos.append(data)     # adding the center of each slit to the info list
+    #     
+    #     result = data[1]
+    #     report = result.fit_report()
+    #     #print(report)
+    #     chi_square_str = report[189:198]
+    #     chi_square = float(chi_square_str)
+    #     slit_infos.append(chi_square)    # adding the chi square to the info list
+    #     
+    #     step = data[2]
+    #     error_str = report[392:416]
+    #     def local_reader(str):
+    #         nbr_str = ''
+    #         i = 0
+    #         while str[i] != '-' :
+    #             i+=1
+    #         debut = i
+    #         i+=1
+    #         while str[i] != '(' :
+    #             nbr_str+= str[i]    
+    #             i+=1
+    #         nbr = float(nbr_str)
+    #         return(nbr)
+    #     error = local_reader(error_str)
+    #     slit_infos.append(error)
+    #     
+    #     
+    #     slits_infos.append(slit_infos)
+    #     
+    #     
+    # return(slits_infos)
 
 
 
