@@ -308,11 +308,11 @@ def find_slits(lambdas,intensities):
     
 # Same function but for the order n :
     
-def find_slits_order(n):
+def find_center_order(n):
     
     lambdas = compute_order(n,2)[0]
     intensities = compute_order(n,2)[1]
-    plt.subplot(2,2,1)
+    plt.figure(1)
     plt.plot(lambdas,intensities,color='black')
     slits = find_slits(lambdas,intensities)
     
@@ -320,7 +320,7 @@ def find_slits_order(n):
         
         x = slits[i][0]
         y = slits[i][1]
-        plt.subplot(2,2,1)
+        plt.figure(1)
         plt.plot(x,y, color='blue')
     plt.show()   
     
@@ -331,21 +331,25 @@ def find_slits_order(n):
 ##
 # Function which finds all the slit's centers and return the list of wavelengths corresponding to each slit (that is to say each maximum) for a given order
 
-def slit_center_listing(n):
+def lambda_center_listing(n):
     
-    slits = find_slits_order(n)
-    slit_centers = []
+    slits = find_center_order(n)
+    lambdas_data = []
     
     for i in range(len(slits)):
         
-        slit_data = fitting_slit(slits[i][0],slits[i][1])
-        slit_centers.append(slit_data[0])
-    
-    return(slit_centers)
+        lambdas_data.insert(i,fitting_slit(slits[i][0],slits[i][1]))
+        
+    return(lambdas_data)
 
 def computed_order_matching(n,precision):
     
-    lambdas_centers = slit_center_listing(n)
+    lambdas_data = lambda_center_listing(n)
+    lambdas_centers = []
+    lambdas_widths = []
+    for i in range(len(lambdas_data)):
+        lambdas_centers.insert(i,lambdas_data[i][0])
+        lambdas_widths.insert(i,lambdas_data[i][1])
     atlas_lambdas = select_atlas(min(lambdas_centers),max(lambdas_centers))
     data = data_matching(lambdas_centers,atlas_lambdas,precision)
     gaps = []
@@ -354,10 +358,13 @@ def computed_order_matching(n,precision):
     for i in range(len(matching_data)):
         gaps.insert(i,matching_data[i][2])
         lambdas_gaps.insert(i,matching_data[i][0])
-    plt.subplot(2,2,2)
+    plt.figure(2)
     plt.bar(lambdas_gaps,gaps, color='brown')
+    plt.title("Error = f(Lambda)")
     plt.show() 
     average_error = float(np.sum(gaps)/len(matching_data))
+    average_width = float(np.sum(lambdas_widths)/len(lambdas_widths))
+    print("Average width",average_width)
     return(data[1],average_error)
     
 def global_computed_matching(precision):
@@ -529,7 +536,7 @@ def localize_arturo_slits(n):
     slits = []
     lambdas = compute_order(n,2)[0]
     intensities = compute_order(n,2)[1]
-    plt.subplot(2,2,1)
+    plt.figure(1)
     plt.plot(lambdas,intensities,'blue', color = 'black')
     intensities_maxima = []
     lambdas_maxima = []
@@ -622,19 +629,19 @@ def fitting_slit(lambdas,data):
     # plt.axvline(naive_center,color='green')
     # plt.show()
     lambda_centre = naive_center
-    
+    lambda_width = naive_width
     try :
         # we use the lmfit algorithm to improve our fit's precision
         gaussian_model = lmfit.Model(gaussian)
         params = gaussian_model.make_params(cen=naive_center,amp=naive_ampl,wid=naive_width)
-        result = gaussian_model.fit(y,params,x=X)
+        result = gaussian_model.fit(y,params,x=X) 
         # printing the best gaussian fit
         best_gaussian_fit = result.best_fit
         best_cen = result.best_values['cen']
         best_wid = result.best_values['wid']
         best_amp = result.best_values['amp']
         best_params_gaussian = [ gaussian(x,best_cen,best_amp,best_wid) for x in lambdas ]
-        plt.subplot(2,2,1)
+        plt.figure(1)
         plt.plot(lambdas, best_params_gaussian, color='red')
         plt.axvline(best_cen, color = 'red')
         plt.show()
@@ -642,6 +649,7 @@ def fitting_slit(lambdas,data):
         #plt.plot(lambdas, best_gaussian_fit, 'b--' ,color='purple')
         #plt.axvline(computed_centre, color='purple')
         lambda_centre = best_cen
+        lambda_width = best_wid
         # we need the report data to improve our understanding of the results
         report = result.fit_report()
         
@@ -650,8 +658,7 @@ def fitting_slit(lambdas,data):
         report = ""
         pass
         
-        
-    return(lambda_centre,report)
+    return(lambda_centre,lambda_width)
     
 ##
 # This function fits a gaussian to each slit found previously thanks to Arturo's list
@@ -659,26 +666,31 @@ def fitting_slit(lambdas,data):
 def localize_arturo_slits_centers(n) :
     
     slits = localize_arturo_slits(n)
-    lambdas_centers_data = []
+    lambdas_data = []
     
     for i in range(len(slits)):
         
         slit_infos = []
-        data = fitting_slit(slits[i][0],slits[i][1])[0]
-        lambdas_centers_data.append(data)
+        data = fitting_slit(slits[i][0],slits[i][1])
+        lambdas_data.append(data)
         
-    return(lambdas_centers_data)   
+    return(lambdas_data)   
 
 def arturo_fitted_order_matching(n,precision):
     
-    values = []
-    lambdas_centers = localize_arturo_slits_centers(n)
+    lambdas_values = []
+    widths_values = []
+    data = localize_arturo_slits_centers(n)
+
         
-    for j in range(len(lambdas_centers)):
-        values.append(lambdas_centers[j])
+    for j in range(len(data)):
+        lambdas_values.insert(j,data[j][0])
+        widths_values.insert(j,data[j][1])
         
+    average_width = float(np.sum(widths_values)/len(widths_values))
     
-    return( data_matching(values,select_atlas(min(values),max(values)),precision) )
+    print("Average width",average_width)
+    return( data_matching(lambdas_values,select_atlas(min(lambdas_values),max(lambdas_values)),precision) )
 
 def plot_order_matching(n,precision):
     
@@ -689,8 +701,9 @@ def plot_order_matching(n,precision):
     for i in range(len(matching_data)):
         matched_lambdas.insert(i,matching_data[i][0])
         gaps.insert(i,matching_data[i][2])
-    plt.subplot(2,2,2)
+    plt.figure(2)
     plt.bar(matched_lambdas,gaps, color='brown')
+    plt.title("Error = f(Lambda)")
     plt.show()   
     average_gap = float(np.sum(gaps)/len(gaps))
     print(matching[1],average_gap)
