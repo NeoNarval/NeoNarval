@@ -275,7 +275,7 @@ def find_slits(lambdas,intensities):
         
     # We use the mathematical definition of a maximum to find the maxima and their intensities 
         
-        if ( intensities[i-1] < intensities[i] and intensities[i] > intensities[i+1] and intensities[i] >= 0  and intensities[i] >= 0.2) :    
+        if ( intensities[i-1] < intensities[i] and intensities[i] > intensities[i+1] and intensities[i] >= 0  and intensities[i] >= 0.5) :    
             intensities_maxima.append(intensities[i])
             lambdas_maxima.append(lambdas[i])
             maxima_indices.append(i)
@@ -312,6 +312,7 @@ def find_slits_order(n):
     
     lambdas = compute_order(n,2)[0]
     intensities = compute_order(n,2)[1]
+    plt.subplot(2,2,1)
     plt.plot(lambdas,intensities,color='black')
     slits = find_slits(lambdas,intensities)
     
@@ -319,51 +320,13 @@ def find_slits_order(n):
         
         x = slits[i][0]
         y = slits[i][1]
+        plt.subplot(2,2,1)
         plt.plot(x,y, color='blue')
     plt.show()   
     
     return(slits)
     
     
-##
-# Functions which fits a gaussian model on the given slit to dertermine its center with the higher posible precision given the data we have
-
-def find_slit_center(lambdas,data):
-    
-    y = np.copy(data)
-    X = lambdas
-    
-    def gaussian(x,cen,amp,wid):
-        return(amp*np.exp(-(x-cen)**2/(2*wid**2)))
-    
-    # printing the initial gaussian (before the optimization of the fit)
-    naive_center = float(np.sum(lambdas*y))/np.sum(y)
-    naive_width = np.sqrt(np.sum((lambdas-naive_center)**2*y)/np.sum(y))
-    naive_ampl = np.max(y)
-    naive_gaussian = [ gaussian(x,naive_center,naive_ampl,naive_width) for x in lambdas ]
-    plt.plot(lambdas,naive_gaussian,color='green')
-    plt.axvline(naive_center,color='green')
-    plt.show()
-    lambda_centre = naive_center
-    
-    try :
-        # we use the lmfit algorithm to improve our fit's precision
-        gaussian_model = lmfit.Model(gaussian)
-        params = gaussian_model.make_params(cen=naive_center,amp=naive_ampl,wid=naive_width)
-        result = gaussian_model.fit(y,params,x=X)
-        # printing the best gaussian fit
-        best_gaussian_fit = result.best_fit
-        lambda_centre = float(np.sum(X*best_gaussian_fit))/np.sum(best_gaussian_fit) 
-        plt.plot(lambdas, best_gaussian_fit ,color='purple')
-        plt.axvline(lambda_centre, color='purple')
-        
-    except : 
-        pass
-        
-        
-    return(lambda_centre)
-    
-            
     
 ##
 # Function which finds all the slit's centers and return the list of wavelengths corresponding to each slit (that is to say each maximum) for a given order
@@ -375,29 +338,32 @@ def slit_center_listing(n):
     
     for i in range(len(slits)):
         
-        slit_center = find_slit_center(slits[i][0],slits[i][1])
-        slit_centers.append(slit_center)
+        slit_data = fitting_slit(slits[i][0],slits[i][1])
+        slit_centers.append(slit_data[0])
     
     return(slit_centers)
 
-
-#slits = []
-#for n in range(36):
-#    slits.append(slit_center_listing(n))
-
-
-#file = open('/home/stagiaire/depot_git/NeoNarval/Lucas_Herbert/Documents/Th_Ar_computed_slits_0.1_per_order.pkl','w')
-#computed_Th_Ar_pickle = pickle.dump(slits,file)
-#file.close()
-
-#ordered_slits = []
-#for i in range(len(slits)):
-#    for j in range(len(slits[i])):
-    #ordered_slits.append(slits[i][j])
-#ordered_slits.sort()
-#file = open('/home/stagiaire/depot_git/NeoNarval/Lucas_Herbert/Documents/Th_Ar_computed_slits_0.1.pkl','w')
-#computed_Th_Ar_pickle = pickle.dump(ordered_slits,file)        
-#file.close()
+def computed_order_matching(n,precision):
+    
+    lambdas_centers = slit_center_listing(n)
+    atlas_lambdas = select_atlas(min(lambdas_centers),max(lambdas_centers))
+    data = data_matching(lambdas_centers,atlas_lambdas,precision)
+    gaps = []
+    lambdas_gaps = []
+    matching_data = data[0]
+    for i in range(len(matching_data)):
+        gaps.insert(i,matching_data[i][2])
+        lambdas_gaps.insert(i,matching_data[i][0])
+    plt.subplot(2,2,2)
+    plt.bar(lambdas_gaps,gaps, color='brown')
+    plt.show() 
+    average_error = float(np.sum(gaps)/len(matching_data))
+    return(data[1],average_error)
+    
+def global_computed_matching(precision):
+    
+    for n in range(36):
+        print(computed_order_matching(n,precision))
     
 ##
  # Prints the selected order of the pkl file
@@ -428,7 +394,7 @@ def print_arturo_slits_order():
 
 def data_matching(x,y,precision):
     
-    best_matching_values = []
+    matching_data = []
     
     for i in range(len(x)):
         gap_min = precision
@@ -440,12 +406,13 @@ def data_matching(x,y,precision):
                     
                     gap_min = abs(x[i]-y[j])
                     best_matching_value = y[j]
-        best_matching_values.insert(i,best_matching_value)
-        #print(x[i],best_matching_value)
-        #print(gap_min)
-    while (best_matching_values.__contains__(None)):
-        best_matching_values.remove(None)
-    return(float(len(best_matching_values))/float(len(x)))
+        data = [x[i],best_matching_value,gap_min]            
+        if (best_matching_value != None ):
+            matching_data.insert(i,data)
+    
+    matching_rate = float(len(matching_data))/float(len(x))
+    print("Matched, Total",len(matching_data),len(x))
+    return(matching_data,matching_rate)
 
 # Does the same but applied to the given order, comparing our finding of the slits and the atlas
 
@@ -562,8 +529,8 @@ def localize_arturo_slits(n):
     slits = []
     lambdas = compute_order(n,2)[0]
     intensities = compute_order(n,2)[1]
-    plt.plot(lambdas,intensities,'blue', color = 'black', label = 'Normalized spectrum')
-    plt.legend()
+    plt.subplot(2,2,1)
+    plt.plot(lambdas,intensities,'blue', color = 'black')
     intensities_maxima = []
     lambdas_maxima = []
     maxima_indices = []
@@ -600,9 +567,7 @@ def localize_arturo_slits(n):
             selected_maxima_indices.append(matching_maximum_index)
             
             
-    if ( len(arturo_slits) == len(selected_maxima_indices) ) :
-        print("OK : Arturo's lambdas all matched!")
-    else :
+    if ( len(arturo_slits) != len(selected_maxima_indices) ) :
         print("PROBLEM : Some of Arturo's lambdas are unmatched!")
     
 
@@ -645,18 +610,17 @@ def fitting_slit(lambdas,data):
     
     y = np.copy(data)
     X = lambdas
-    
     def gaussian(x,cen,amp,wid):
         return(amp*np.exp(-(x-cen)**2/(2*wid**2)))
     
     # printing the initial gaussian (before the optimization of the fit)
     naive_center = float(np.sum(lambdas*y))/np.sum(y)
-    naive_width = np.sqrt(np.sum((lambdas-naive_center)**2*y)/np.sum(y))
+    naive_width = np.sqrt(abs((np.sum((lambdas-naive_center)**2*y)/np.sum(y))))
     naive_ampl = np.max(y)
     naive_gaussian = [ gaussian(x,naive_center,naive_ampl,naive_width) for x in lambdas ]
-    plt.plot(lambdas,naive_gaussian,color='green')
-    plt.axvline(naive_center,color='green')
-    plt.show()
+    # plt.plot(lambdas,naive_gaussian,color='green')
+    # plt.axvline(naive_center,color='green')
+    # plt.show()
     lambda_centre = naive_center
     
     try :
@@ -670,11 +634,13 @@ def fitting_slit(lambdas,data):
         best_wid = result.best_values['wid']
         best_amp = result.best_values['amp']
         best_params_gaussian = [ gaussian(x,best_cen,best_amp,best_wid) for x in lambdas ]
+        plt.subplot(2,2,1)
         plt.plot(lambdas, best_params_gaussian, color='red')
         plt.axvline(best_cen, color = 'red')
-        computed_centre = float(np.sum(X*best_gaussian_fit))/np.sum(best_gaussian_fit) 
-        plt.plot(lambdas, best_gaussian_fit, 'b--' ,color='purple')
-        plt.axvline(computed_centre, color='purple')
+        plt.show()
+        #computed_centre = float(np.sum(X*best_gaussian_fit))/np.sum(best_gaussian_fit) 
+        #plt.plot(lambdas, best_gaussian_fit, 'b--' ,color='purple')
+        #plt.axvline(computed_centre, color='purple')
         lambda_centre = best_cen
         # we need the report data to improve our understanding of the results
         report = result.fit_report()
@@ -712,10 +678,28 @@ def arturo_fitted_order_matching(n,precision):
         values.append(lambdas_centers[j])
         
     
-    return( data_matching(values,select_atlas(0,100000),precision) )
+    return( data_matching(values,select_atlas(min(values),max(values)),precision) )
 
-        
+def plot_order_matching(n,precision):
+    
+    matching = arturo_fitted_order_matching(n,precision)
+    matching_data = matching[0]
+    matched_lambdas = []
+    gaps = []
+    for i in range(len(matching_data)):
+        matched_lambdas.insert(i,matching_data[i][0])
+        gaps.insert(i,matching_data[i][2])
+    plt.subplot(2,2,2)
+    plt.bar(matched_lambdas,gaps, color='brown')
+    plt.show()   
+    average_gap = float(np.sum(gaps)/len(gaps))
+    print(matching[1],average_gap)
+    return(matching[1],average_gap)
 
+def plot_all_matching(precision):
+    
+    for n in range(36):
+        plot_order_matching(n,precision)
 
     #     slit_infos.append(data)     # adding the center of each slit to the info list
     #     
@@ -749,110 +733,6 @@ def arturo_fitted_order_matching(n,precision):
     #     
     # return(slits_infos)
 
-
-
-##
-# Little script that returns the global list of all the slits centers and data found by Arturo, using the initial ThAr_Line_Cal.pkl file
-
-def generate_info_slit():
-    
-    slits_infos_dict = dict()
-    centers = []
-    chi_squares = []
-    errors = []
-    
-    for n in range(36):
-        
-        data = localize_arturo_slits_centers(n)
-        for k in range(len(data)):
-            centers.append(data[k][0])
-            chi_squares.append(data[k][1])
-            errors.append(data[k][2])
-    
-    slits_infos_dict['Slits_computed_wavelengths'] = centers
-    slits_infos_dict['Slits_computed_chi_squares'] = chi_squares
-    slits_infos_dict['Slits_computed_errors'] = errors
-    
-    return(slits_infos_dict)    
-        
-    
-
-##
-# Little script to extract only the slits which have a good chi_square in order to filter every unprecise information from the data we are gonna use to compare the algorithms outputs and the atlas
-
-def filter_(critical_chi_square,critical_error):
-    
-    file = open('/home/stagiaire/depot_git/NeoNarval/Lucas_Herbert/Documents/Arturo_slits_informations.pkl','r')
-    data = pickle.load(file)
-    
-    wavelengths = data['Slits_computed_wavelengths']
-    chi_squares = data['Slits_computed_chi_squares']
-    errors = data['Slits_computed_errors']
-    
-    selected_wavelengths = []
-    corresponding_chi_squares = []
-    corresponding_errors  = []
-    
-    for i in range(len(wavelengths)):
-        if chi_squares[i] <= critical_chi_square  and errors[i] <= critical_error:
-            selected_wavelengths.append(wavelengths[i])
-            corresponding_chi_squares.append(chi_squares[i])
-            corresponding_errors.append(errors[i])
-            
-    return(selected_wavelengths,corresponding_chi_squares,corresponding_errors)
-    
-
-
-
-
-
-
-
-
-
-
-##
-# test 
-
-
-def fit_slit(lambdas,data):
-    y = np.copy(data)-np.min(data)
-    X = np.arange(len(y))
-    centre = float(np.sum(X*y))/np.sum(y) # centre of the gaussian (= average)
-    ampl = np.max(y) # amplitude of the gaussian
-    width = np.sqrt(np.abs(np.sum((X-centre)**2*y)/np.sum(y))) # width of the gaussian
-    
-    plt.plot(X,y, color='black')
-    
-    
-    def gaussian(x,cen,amp,wid):
-        return(amp*np.exp(-(x-cen)**2/wid))
-    
-    first_gaussian = [ gaussian(x,centre,ampl,width)  for x in X ]
-    plt.plot(X,first_gaussian,color='red')
-    plt.axvline(centre,color='red')
-    
-    try:
-        # we use the lmfit algorithm to improve our fit's precision
-        gaussian_model = lmfit.Model(gaussian)
-        params = gaussian_model.make_params(cen=centre,amp=ampl,wid=width)
-        result = gaussian_model.fit(y,params,x=X)
-        [cen,amp,wid] = list(result.best_values.values())
-        plt.plot(X,result.best_fit, color='green')
-        if 0 < cen < len(y) :
-            centre = cen
-    except :
-        pass
-    
-    fitted_gaussian =  [ gaussian(x,cen,amp,wid)  for x in X ]
-    plt.plot(X,fitted_gaussian,color='purple')
-    plt.axvline(cen,color='purple')
-    
-    
-    plt.show()
-    
-    
-    
 
 
 
