@@ -8,7 +8,7 @@ This function reads the file containing all the wavelengths of the spikes of the
 """
 
 
-def read_ThAr_atlas():
+def read_ThAr_Atlas():
 
     path = '/home/stagiaire/depot_git/NeoNarval/Lucas_Herbert/Documents/thar_UVES_MM090311.dat'
     file = open(path)    
@@ -28,7 +28,7 @@ def read_ThAr_atlas():
         wavelengths.append(line_lambda)
     
     file = open('/home/stagiaire/depot_git/NeoNarval/Lucas_Herbert/Documents/ThAr_Atlas.pkl','w')
-    ThAr_pickle = pickle.dump(wavelength_slits,file)
+    ThAr_pickle = pickle.dump(wavelengths,file)
     file.close()
     return(wavelengths)
 

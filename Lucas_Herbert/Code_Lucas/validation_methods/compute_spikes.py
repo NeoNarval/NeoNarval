@@ -44,7 +44,7 @@ lambdas, intensities = read_fits(file_path)[0], read_fits(file_path)[1]
 
 
 """ 
-First function : we need to find the lists of wavelengths and intensities corresponding to each spike of the spectrum in order to go further.
+First function : we need to find the lists of wavelengths and intensities corresponding to each spike of the spectrum in order to go further. The following function takes as an input two lists : the wavelengths and their intensities. The output is the list of the data of each spike : each element of this list is a list of two lists : the lambdas and the intensities of the spike. 
 """
 
 def find_spikes_data(lambdas,intensities):

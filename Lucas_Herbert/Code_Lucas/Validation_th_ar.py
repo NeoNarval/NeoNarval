@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 import pyfits
 import numpy as np
 import matplotlib.pyplot as plt
@@ -107,7 +110,8 @@ def find_offset(lambdas, intensities):
             i_minima.append(intensities[i])
             l_minima.append(lambdas[i])
         
-    # Now that we have our minima, we need to fill the list with interpolated values between the minima in order to reach the lenght of the intensities list...
+    # Now that we have our minima, we need to fill the list with interpolated values between the minima in order to reach the lenght of the intensities list..#!/usr/bin/env python
+# -*- coding: utf-8 -*-.
     
     for k in range(len(l_minima)-1):
             
