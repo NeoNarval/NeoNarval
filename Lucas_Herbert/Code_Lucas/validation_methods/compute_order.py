@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 # Python modules imports :
 import pyfits
 import numpy as np
@@ -6,7 +8,7 @@ import matplotlib.pyplot as plt
 import validation_methods.compute_offset as cpoffset
 
 """
-All this script is written to open the file we need to compute, computing each order.
+All this script is written to open the file we need to compute,and then to compute each order.
 """
 file_path = '/home/stagiaire/Documents/Données utiles/th_calibered.fits' # current path computed
 """

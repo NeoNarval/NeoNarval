@@ -596,7 +596,7 @@ def fitting_slit(lambdas,data):
         
         
     except : 
-        report = ""
+        report = "Not fit computed for this spike"
         pass
         
     return(lambda_centre,lambda_width)
