@@ -1,0 +1,5 @@
+Lane envelope file : C:\Users\Martin\Documents\Stage IRAP 2018\NeoNarval\NeoNarval\DRS\TEMP\lanes_position_1.p
+Lane thickness file : C:\Users\Martin\Documents\Stage IRAP 2018\NeoNarval\NeoNarval\DRS\TEMP\lanes_thickness_1.p
+ThAr fts file : C:\Users\Martin\Documents\Stage IRAP 2018\NeoNarval\NeoNarval\DRS\FILES\Narval_20161203_155810_th2.fts
+FP fts file : C:\Users\Martin\Documents\Stage IRAP 2018\NeoNarval\NeoNarval\DRS\FILES\Narval_20161203_160053_fp2.fts
+Lanes per order : 2

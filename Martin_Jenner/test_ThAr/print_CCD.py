@@ -50,7 +50,7 @@ def cut_border_edge(left_lane, thickness):
 
     return (init, end) 
     
-def launch(j):
+def launchCCD(j):
     """
     This function launch the appropriate functions to print an image of the ccd
     for one lane. 
@@ -93,8 +93,10 @@ def print_CCD(path,j):
 
     envelope_data_file  = dic["Lane envelope file"]
     thickness_data_file = dic["Lane thickness file"]
-
-    CCD_file     = dic["CCD fts file"]
+    if src == 'ThAr':
+        CCD_file = dic["ThAr fts file"]
+    elif src == 'FP':
+        CCD_file = dic["FP fts file"]
     nbr_lanes   = int(dic["Lanes per order"])
 
     envelope_data  = cPickle.load(open(envelope_data_file, 'r'))
@@ -119,9 +121,25 @@ def print_CCD(path,j):
     # for j in range(nbr_lanes*init_order, nbr_lanes*final_order + nbr_lanes, 1):
     #     plt.plot(launch(j))
     # plt.show()
-    plt.plot(launch(j))
+    
+    
+    # plt.close('all')
+    # plt.figure(1)
+    # plt.subplot(211)
+    plt.plot(launchCCD(j))
+    # plt.title('order no{0} lane no1'.format(j//2))
+    # plt.subplot(212)
+    # plt.plot(launchCCD(j+1))
+    # plt.title('order no{0} lane no2'.format(j//2))
     plt.show()
     
-j = input("numéro de l'ordre")
-path = r"C:\Users\Martin\Documents\Stage IRAP 2018\NeoNarval\CCD_data_sheet.txt"
-print_CCD(path, j)
+    
+
+
+def CCD_order(source):
+    global src 
+    src = source
+    order = input("numéro de l'ordre : ")
+    j = order*2
+    path = r"C:\Users\Martin\Documents\Stage IRAP 2018\NeoNarval\CCD_data_sheet.txt"
+    print_CCD(path, j)

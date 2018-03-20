@@ -1,0 +1,14 @@
+Lane envelope file : C:\Users\Martin\Documents\Stage IRAP 2018\NeoNarval\NeoNarval\DRS\TEMP\lanes_position_1.p
+Polys envelope file : C:\Users\Martin\Documents\Stage IRAP 2018\NeoNarval\NeoNarval\DRS\TEMP\polys_envelope_1.p
+Lane thickness file : C:\Users\Martin\Documents\Stage IRAP 2018\NeoNarval\NeoNarval\DRS\TEMP\lanes_thickness_1.p
+ThAr fts file : C:\Users\Martin\Documents\Stage IRAP 2018\NeoNarval\NeoNarval\DRS\FILES\Narval_20161203_155810_th2.fts
+ThAr slits file : C:\Users\Martin\Documents\Stage IRAP 2018\NeoNarval\TEMP_\ThAr_slits_position
+test fts file : C:\Users\Martin\Documents\Stage IRAP 2018\NeoNarval\NeoNarval\DRS\FILES\Narval_20161203_160053_fp2.fts
+
+order : 14
+lane : 1
+nb lane per order : 2
+initial index : 0
+final index : 1000
+pix/arturo : 1
+B matrix : C:\Users\Martin\Documents\Stage IRAP 2018\NeoNarval\TEMP_\Bmatrix\Bmat_ord14_lane1.npz
