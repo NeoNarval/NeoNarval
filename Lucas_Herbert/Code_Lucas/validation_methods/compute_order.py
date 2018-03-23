@@ -93,5 +93,6 @@ def plot_order(n):
     computed_order_intensities = compute_order(n)
     plt.plot(order_lambdas,order_intensities, color='black')
     plt.plot(order_lambdas, computed_order_intensities, color='red')
+    plt.xlabel("Wavelengths(Angstrom)")
     plt.show()
     

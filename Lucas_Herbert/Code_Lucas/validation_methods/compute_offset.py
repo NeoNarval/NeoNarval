@@ -7,17 +7,18 @@ The following function searchs for the minima of a spectrum and then computes it
 
 def normalize_offset(lambdas, intensities):
     
-    offset = [0*len(intensities)]
-    i_minima = []
-    l_minima = []
-    minima_indices = []
+    offset = [0 ]*len(intensities)
+    i_minima = [] # intensities of the minima
+    l_minima = [] # wavelengths of the minima
+    minima_indices = [] # indices of the minima
     
     # The average is used to avoid considering the blended spikes as offset : when two spikes are too close, the minimum between those maxima is so high in intensity that if we cut it, we make a big mistake in the offset computation. We choose to avoid considering those case by just ignoring this kind of minimum
     average = (np.sum(intensities))/(len(intensities))
     
     for i in range ( 2 , len(lambdas)-1 ):
         
-        if ( intensities[i-1] >= intensities[i] and intensities[i] <= intensities[i+1] and intensities[i] <= 3*average ) :  
+        # We can easily find the minima with the local mathematical definition
+        if ( intensities[i-1] > intensities[i] and intensities[i] < intensities[i+1] and intensities[i] <= 3*average ) :  
             
             minima_indices.append(i)
             i_minima.append(intensities[i])
@@ -33,15 +34,41 @@ def normalize_offset(lambdas, intensities):
         delta_lambda  = l_minima[k+1] - l_minima[k]
         coeff_dir = (1/delta_lambda)*(i_minima[k+1]-i_minima[k])
         for i in range(minima_indices[k],minima_indices[k+1]):
-            offset.insert(i,  i_minima[k]+coeff_dir*(lambdas[i]-l_minima[k] ) )
-        
-    for i in range(0,minima_indices[0]-1):
-        offset.insert(i,intensities[i])
-        
-    for i in range(minima_indices[-1],len(intensities)):
-         offset.insert(i,intensities[i]) 
-        
+            offset[i] = i_minima[k]+coeff_dir*(lambdas[i]-l_minima[k] )
+
+    
+    # Computing the flat part of the intensities at the beginning of each order :
+    l=0
+    while( intensities[l] == intensities[l+1] ):
+        offset[l] = intensities[l]
+        l += 1
+    offset[l] = intensities[l]
+    l +=1
+    offset[l] = intensities[l] # Don't forget the last 2 points to avoid casualties
+    # Then we have to fill between those points dealing with the flat part at the beginning and the first minimum : we are gonna do a simple interpolation
+    local_coeff_begining = (i_minima[0] - intensities[l])/(l_minima[0] - lambdas[l])
+    for i in range(l, minima_indices[0]):
+        offset[i] = intensities[l]+local_coeff_begining*(lambdas[i]-lambdas[l])
+    
+    
+    # Computing the flat part at the end of each order :
+    l= len(intensities)-1
+    while( intensities[l] == intensities[l-1] ):
+        offset[l] = intensities[l]
+        l -= 1    
+    offset[l] = intensities[l] 
+    l -= 1  
+    offset[l] = intensities[l] # Don't forget the last 2 points to avoid casualties 
+    # Then the same idea is applied : we inteprolate between the last minimum and this wavelengths which is the begining of the flat part at the end of the order.
+    local_coeff_end = (intensities[l] - i_minima[-1])/(lambdas[l] - l_minima[-1])
+    for i in range(minima_indices[-1],l):
+        offset[i] = i_minima[-1]+local_coeff_end*(lambdas[i]-l_minima[-1])     
+    
+    
+    # Computation of the new spectrum without the offset :
     spectrum = [intensities[i] - offset[i] for i in range(len(intensities)) ]
+
+    
     
     return(spectrum) 
     

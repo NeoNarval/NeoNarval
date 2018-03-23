@@ -109,6 +109,7 @@ def fit_spikes_order(n) :
     order_intensities = cporder.compute_order(n)
     plt.figure(1)
     plt.plot(order_lambdas, order_intensities, color='black')
+    plt.xlabel("Wavelengths(Angstrom)")
     
     # Then we find the differents spikes in those data and we can also plot them to show what we have considered as a spike or not. The only usefull lane in this function for now is the spikes_data computation.
     spikes_data = find_spikes_data(order_lambdas,order_intensities)
