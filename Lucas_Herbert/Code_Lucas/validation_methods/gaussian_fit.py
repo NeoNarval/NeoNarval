@@ -1,5 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+
+
+# Python's modules imports :
 import pyfits
 import numpy as np
 import matplotlib.pyplot as plt
@@ -10,6 +13,8 @@ import lmfit
 from scipy.optimize import leastsq
 from scipy.optimize import curve_fit
 
+
+
 """
 This function finds the gaussian function which is the closest from our data. It's a fitting algorithm which uses a least squares method. It returns the centre and the width of the fitted gaussian. It takes an an input the necessary data for the fit : the wavelengths, lambdas, and their intensities (or whatever we need to fit), data. It returns the centre and width of the fitted gaussian.
 """
@@ -17,7 +22,7 @@ This function finds the gaussian function which is the closest from our data. It
     
 def fit_the_spike(lambdas,data):
     
-    y = np.copy(data)
+    y = np.copy(data) - np.min(data)
     X = lambdas
     def gaussian(x,cen,amp,wid):
         return(amp*np.exp(-(x-cen)**2/(2*wid**2)))
@@ -60,4 +65,4 @@ def fit_the_spike(lambdas,data):
         report = "Computation failed for this spike : default data = naive fit"
         pass
         
-    return(lambda_centre,lambda_width)
+    return(lambda_centre,lambda_width,report)

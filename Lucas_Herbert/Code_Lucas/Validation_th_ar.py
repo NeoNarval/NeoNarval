@@ -637,7 +637,7 @@ def arturo_fitted_order_matching(n,precision):
     print("Average width",average_width)
     return( data_matching(lambdas_values,select_atlas(min(lambdas_values),max(lambdas_values)),precision) )
 
-def plot_order_matching(n,precision):
+def plot_arturo_order_matching(n,precision):
     
     matching = arturo_fitted_order_matching(n,precision)
     matching_data = matching[0]
@@ -651,13 +651,13 @@ def plot_order_matching(n,precision):
     plt.title("Error = f(Lambda)")
     plt.show()   
     average_gap = float(np.sum(gaps)/len(gaps))
-    print(matching[1],average_gap)
+    print("matching rate",matching[1],"average gap",average_gap)
     return(matching[1],average_gap)
 
-def plot_all_matching(precision):
+def plot_all_arturo_matching(precision):
     
     for n in range(36):
-        plot_order_matching(n,precision)
+        plot_arturo_order_matching(n,precision)
 
 
 

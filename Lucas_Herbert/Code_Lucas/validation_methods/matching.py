@@ -106,7 +106,7 @@ def global_matching(precision):
 
 
 """
-The following function does exactly the same word as "order_matching", but it keeps only the wavelengths with a standard deviation which is smaller than the given width. The idea is that the standard deviation, or the width in our notations, is a way to describe the dispersion of the wavelength intensity around its center. If the width is too big, the intensity is 
+The following function does exactly the same work as "order_matching", but it keeps only the wavelengths with a standard deviation which is smaller than the given width. The idea is that the standard deviation, or the width in our notations, is a way to describe the dispersion of the wavelength intensity around its center. If the width is too big, the intensity is 
 The output data are the list of the matched wevelengths (couple of wavelengths in each list which are close enough to be be considered as the same one in reality) and of the corresponding gaps (distance between the two matched wavelengths) and finally the matching proportion among the order's different spikes wavelengths.
 """
 
@@ -138,7 +138,7 @@ def order_filtered_matching(n,precision,width):
         lambdas_gaps.insert(i,matching_data[i][0])
     plt.figure(2)
     plt.bar(lambdas_gaps,gaps, color='red',label='gaps')
-    plt.title("Error = f(Lambda)")
+    plt.title("Error = f(Lambda), black = widths, red = gaps")
     plt.xlabel("Wavelengths(Angstrom)")
     plt.show() 
     average_error = float(np.sum(gaps)/len(matching_data))
@@ -166,15 +166,15 @@ def global_filtered_matching(precision, width):
 
 
 """
-A little function which record the matching data in a pickle.
+A little function which records the matching data in a pickle.
 """
 
-path = '/home/stagiaire/Documents/Codes_Lucas_Herbert/matching_data_10_Angstrom.pkl'
+#path = '/home/stagiaire/Documents/Codes_Lucas_Herbert/matching_data_0.001_Angstrom.pkl'
 
 def matching_pickle(path):
     
     data_file = open(path,'w')
-    data = global_matching(100)
+    data = global_matching(0.001)
     
     matching_data = {}
     matching_data['Spikes_wavelengths'] = data[0]
@@ -182,10 +182,21 @@ def matching_pickle(path):
         
     matching_data_pickle = pickle.dump(matching_data,data_file)
     print("Recorded")
-    file.close()
+    data_file.close()
     
+"""
+A little function to classify the data of the given pkl. It takes a pkl file with wavelengths and the associated errors and regroup the wavelengths according to their errors.
+"""
 
+path = 'home/stagiaire/Documents/Données utiles/matching_data_100_Angstrom.pkl'
 
-
-
+def matching_reader(path):
+    
+    file = open(path,'r')
+    data = pickle.load(file)
+    lambdas = data['Spikes_wavelengths']
+    errors = data['Matching_gaps_between_drs_and_atlas']
+    
+    plt.bar(lambdas,errors,color='blue')
+    plt.show()
 
