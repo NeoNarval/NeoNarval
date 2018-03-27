@@ -47,10 +47,10 @@ def fit_the_spike(lambdas,data):
         best_cen = result.best_values['cen']
         best_wid = result.best_values['wid']
         best_amp = result.best_values['amp']
-        best_params_gaussian = [ gaussian(x,best_cen,best_amp,best_wid) for x in lambdas ]
+        best_params_gaussian = [ gaussian(x,best_cen,best_amp,best_wid) + np.min(data) for x in lambdas ]
         plt.figure(1)
         plt.plot(lambdas, best_params_gaussian, 'b--', color='purple')
-        plt.axvline(best_cen, color = 'purple')
+        plt.plot(best_cen,best_amp,'.',color='purple')
         plt.show()
         #computed_centre = float(np.sum(X*best_gaussian_fit))/np.sum(best_gaussian_fit) 
         #plt.plot(lambdas, best_gaussian_fit, 'b--' ,color='purple')

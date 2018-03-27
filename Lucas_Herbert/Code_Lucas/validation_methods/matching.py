@@ -25,8 +25,9 @@ This script's objective is to use the data reduction's computing (offset computi
 
 
 """ 
-This function will compare the two lists used as an input. It will return the proportion of values in the first list that find an equivalent with the given precision in the second list, and also a list with the matching values and their gap
+This function will compare the two lists used as an input. It will return the proportion of values in the first list that find an equivalent with the given precision in the second list, and also a list with the matching values and their gap.
 """
+
 def data_matching(x,y,precision):
     
     matching_data = []
@@ -59,14 +60,37 @@ This functions returns the matching rate and the matchings gaps for one particul
 
 def order_matching(n,precision):
     
+    
+    # First of all, we need to fit a gaussian on each spike, we will use the function "fit_the_spike"
     spikes_fits_data = cpspikes.fit_spikes_order(n)
+    
+    # Some of those fits are not good enough to be used : we have a factor, the "chi-square", which describes how good the fit is. It's a normalized indicator of the average error between the fitted value and the original value (g_fit(xi) - yi). Because of those bad fits, indicated by a higher chi-square, we are gonna filter the fits accordind to their chi-square. The critical chi-square is determined empirically by looking at the "wrong" fits and choosing above which chi-square the fits is wrong.
+    critical_chi_square = 0.15
+    # The same idea can be applied with the width : if the width of the fitted spike is more than a critical value, we can forget this spike because it's not a real spike (which would be thiner)
+    critical_width = 1
+    
+    filtered_spikes_fits_data = []
+    
+    for i in range(len(spikes_fits_data)):
+        
+        chi_square = read_chi_square(spikes_fits_data[i][2])
+        width = spikes_fits_data[i][1]
+        
+        if ( chi_square < critical_chi_square and  width < critical_width ) :
+            filtered_spikes_fits_data.append(spikes_fits_data[i])
+    
+    filtered_spikes_fits_data.sort()
+
     spikes_centers = []
     spikes_widths = []
-    for i in range(len(spikes_fits_data)):
-        spikes_centers.insert(i,spikes_fits_data[i][0])
-        spikes_widths.insert(i,spikes_fits_data[i][1])
+    spikes_fits_chi_square = []
+    for i in range(len(filtered_spikes_fits_data)):
+        spikes_centers.insert(i,filtered_spikes_fits_data[i][0])
+        spikes_widths.insert(i,filtered_spikes_fits_data[i][1])
+        spikes_fits_chi_square.insert(i,read_chi_square(filtered_spikes_fits_data[i][2]))
     plt.figure(2)
-    plt.bar(spikes_centers,spikes_widths,color='black')
+    plt.plot(spikes_centers,spikes_widths,'.',color='black')
+    plt.plot(spikes_centers,spikes_fits_chi_square,'.',color='purple')
     atlas_lambdas = rdAtlas.read_ThAr_Atlas()
     data = data_matching(spikes_centers,atlas_lambdas,precision)
     gaps = []
@@ -77,7 +101,7 @@ def order_matching(n,precision):
         gaps.insert(i,matching_data[i][2])
         lambdas_gaps.insert(i,matching_data[i][0])
     plt.figure(2)
-    plt.bar(lambdas_gaps,gaps, color='red')
+    plt.plot(lambdas_gaps,gaps,'.',color='red')
     plt.title("Error = f(Lambda)")
     plt.xlabel("Wavelengths(Angstrom)")
     plt.show() 
@@ -88,7 +112,26 @@ def order_matching(n,precision):
     print("Average error",average_error)
     return(data[1],average_error,lambdas_gaps,gaps)
     
+""" 
+For each gaussian fit, there is a report which is a string countaining a lot of informations about the fit. The chi_square is a part of those informations which says if the fit is good or not, indicating the error between the fit and the fitted data. We need to get the chi_square from each report in order to discriminate the spikes fits. That's what this function does.
 
+In order to get the chi_square from the report, here is a little function which read the report and finds the chi_square.
+"""
+
+def read_chi_square(report) :
+
+    data = report[175:205]
+    i = 0
+    while ( data[i] != '=' ):
+        i += 1
+    i += 2
+    chi_square_string = ''
+    while ( data[i] != ' ' ):
+        chi_square_string += data[i]
+        i += 1
+    chi_square = float(chi_square_string)        
+    
+    return(chi_square)
 
 """
 This function calls order_matching for each order and print the results.
@@ -105,64 +148,6 @@ def global_matching(precision):
     return(lambdas_gaps,gaps)        
 
 
-"""
-The following function does exactly the same work as "order_matching", but it keeps only the wavelengths with a standard deviation which is smaller than the given width. The idea is that the standard deviation, or the width in our notations, is a way to describe the dispersion of the wavelength intensity around its center. If the width is too big, the intensity is 
-The output data are the list of the matched wevelengths (couple of wavelengths in each list which are close enough to be be considered as the same one in reality) and of the corresponding gaps (distance between the two matched wavelengths) and finally the matching proportion among the order's different spikes wavelengths.
-"""
-
-
-
-
-def order_filtered_matching(n,precision,width):
-    
-    spikes_fits_data = cpspikes.fit_spikes_order(n)
-    spikes_centers = []
-    spikes_widths = []
-    filtered_spikes_data =[]
-    for i in range(len(spikes_fits_data)):
-        
-        if ( spikes_fits_data[i][1] <= width ) :  # we keep only the wavelengths which have a small enough width for the given width.
-            spikes_centers.insert(i,spikes_fits_data[i][0])
-            spikes_widths.insert(i,spikes_fits_data[i][1])
-        
-    plt.figure(2)
-    plt.bar(spikes_centers,spikes_widths,color='black')
-    atlas_lambdas = rdAtlas.read_ThAr_Atlas()
-    data = data_matching(spikes_centers,atlas_lambdas,precision)
-    gaps = []
-    lambdas_gaps = []
-    matching_data = data[0]
-    
-    for i in range(len(matching_data)):
-        gaps.insert(i,matching_data[i][2])
-        lambdas_gaps.insert(i,matching_data[i][0])
-    plt.figure(2)
-    plt.bar(lambdas_gaps,gaps, color='red',label='gaps')
-    plt.title("Error = f(Lambda), black = widths, red = gaps")
-    plt.xlabel("Wavelengths(Angstrom)")
-    plt.show() 
-    average_error = float(np.sum(gaps)/len(matching_data))
-    average_width = float(np.sum(spikes_widths)/len(spikes_widths))
-    print("Order",n)
-    print("Average width",average_width)
-    print("Average error",average_error)
-    return(data[1],average_error,lambdas_gaps,gaps)
-
-
-"""
-The following function executes the previous one for each order and returns the whole list of wavelengths and gaps of the matching.
-"""
-
-
-def global_filtered_matching(precision, width):
-    gaps = []
-    lambdas_gaps = []
-    for n in range(36):
-        data = order_filtered_matching(n,precision,width)
-        for i in range(len(data[2])):
-            lambdas_gaps.append(data[2][i])
-            gaps.append(data [3][i])
-    return(lambdas_gaps,gaps)
 
 
 """
@@ -188,7 +173,7 @@ def matching_pickle(path):
 A little function to classify the data of the given pkl. It takes a pkl file with wavelengths and the associated errors and regroup the wavelengths according to their errors.
 """
 
-path = 'home/stagiaire/Documents/Données utiles/matching_data_100_Angstrom.pkl'
+path = 'Données utiles/matching_data_1_Angstrom.pkl'
 
 def matching_reader(path):
     
@@ -196,7 +181,8 @@ def matching_reader(path):
     data = pickle.load(file)
     lambdas = data['Spikes_wavelengths']
     errors = data['Matching_gaps_between_drs_and_atlas']
-    
-    plt.bar(lambdas,errors,color='blue')
+    plt.figure()
+    plt.plot(lambdas,errors,'.',color='blue')
     plt.show()
+    file.close()
 

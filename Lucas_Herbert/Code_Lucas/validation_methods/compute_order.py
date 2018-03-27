@@ -79,6 +79,9 @@ def compute_order(n) :
     
     order_normalized_spectrum = cpoffset.normalize_offset(order_lambdas,order_intensities)
     
+    plt.figure(1)
+    plt.plot(order_lambdas,order_intensities,color='brown')
+    
     return(order_normalized_spectrum)
     
 

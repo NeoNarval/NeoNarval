@@ -59,7 +59,7 @@ def find_spikes_data(lambdas,intensities):
         
     # We use the mathematical definition of a maximum to find the maxima and their intensities 
         
-        if ( intensities[i-1] < intensities[i] and intensities[i] > intensities[i+1] and intensities[i] >= 0  and intensities[i] >= 0.5) :    
+        if ( intensities[i-1] < intensities[i] and intensities[i] > intensities[i+1] and intensities[i] >= 0  and intensities[i] >= 3) :    
             intensities_maxima.append(intensities[i])
             lambdas_maxima.append(lambdas[i])
             maxima_indices.append(i)
