@@ -1,3 +1,7 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+
 import pyfits
 import numpy as np
 import cPickle
@@ -10,7 +14,7 @@ This function reads the file containing all the wavelengths of the spikes of the
 
 def read_ThAr_Atlas():
 
-    path = '/home/stagiaire/depot_git/NeoNarval/Lucas_Herbert/Documents/thar_UVES_MM090311.dat'
+    path = '/home/stagiaire/Documents/Données utiles/thar_UVES_MM090311.dat'
     file = open(path)    
     wavelengths = []
     
@@ -27,7 +31,7 @@ def read_ThAr_Atlas():
         line_lambda = float(line[11:23])
         wavelengths.append(line_lambda)
     
-    file = open('/home/stagiaire/depot_git/NeoNarval/Lucas_Herbert/Documents/ThAr_Atlas.pkl','w')
+    file = open('/home/stagiaire//Documents/Données utiles/ThAr_Atlas.pkl','w')
     ThAr_pickle = pickle.dump(wavelengths,file)
     file.close()
     return(wavelengths)

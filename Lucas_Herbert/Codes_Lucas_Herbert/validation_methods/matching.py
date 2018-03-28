@@ -14,6 +14,7 @@ from scipy.optimize import curve_fit
 # Validation methods imports :
 import validation_methods.compute_spikes as cpspikes
 import validation_methods.read_ThAr_atlas as rdAtlas
+import validation_methods.affine_fit as affit
 
 
 """
@@ -118,6 +119,7 @@ For each gaussian fit, there is a report which is a string countaining a lot of 
 In order to get the chi_square from the report, here is a little function which read the report and finds the chi_square.
 """
 
+
 def read_chi_square(report) :
 
     data = report[175:205]
@@ -186,3 +188,44 @@ def matching_reader(path):
     plt.show()
     file.close()
 
+
+"""
+A little function which takes the list of lambdas and errors from the order_matching and computes the affine function which fits those data and returns the a and b of the "ax+b".
+"""
+
+def affine_order_matching(n,precision):
+    
+    data = order_matching(n,precision)
+    
+    x = data[2]
+    y = data[3]
+    
+    return(affit.fit_affine(x,y))
+
+"""
+A little function which takes the list of lambdas and errors from the global_matching and computes the affine function which fits those data and returns the a and b of the "ax+b".
+"""
+
+def affine_global_matching(precision) :
+    
+    data = global_matching(precision)
+    
+    x = data[0]
+    y = data[1]
+    
+    return(affit.fit_affine(x,y))
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    

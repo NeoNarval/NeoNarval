@@ -27,20 +27,29 @@ def fit_affine(lambdas,data):
     plt.plot(X,y,'.',color='blue',label='Original data')
     plt.show()
     
+    best_a = 0
+    best_b = 0
+    
     def affine(x,a,b):
         return(a*x+b)
         
-    affine_model = lmfit.Model(affine)
-    params = affine_model.make_params(a=0,b=0.02)
-    result = affine_model.fit(y,params,x=X)
+    try :
+        affine_model = lmfit.Model(affine)
+        params = affine_model.make_params(a=0,b=0.02)
+        result = affine_model.fit(y,params,x=X)
+        
+        best_a = result.best_values['a']
+        best_b = result.best_values['b']
+        
+        best_affine = [ affine(x,best_a,best_b) for x in X]
+        plt.figure(3)
+        plt.plot(X,best_affine,color='red',label='Best affine fit')
+        plt.show()
+        report = result.fit_report()
+        print(report)
     
-    best_a = result.best_values['a']
-    best_b = result.best_values['b']
+    except :
+        print("Data affine fitting failed")
+        pass
     
-    best_affine = [ affine(x,best_a,best_b) for x in X]
-    plt.figure(3)
-    plt.plot(X,best_affine,color='red',label='Best affine fit')
-    plt.show()
-    report = result.fit_report()
-    print(report)
     return(best_a,best_b)
