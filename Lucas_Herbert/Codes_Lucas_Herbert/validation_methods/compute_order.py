@@ -28,7 +28,7 @@ def read_fits(file_path):
     
     lambdas = data['wavelength_lane1']
     intensities = data['intensity_lane1']
-    
+        
     return(lambdas,intensities)
     
 lambdas, intensities = read_fits(file_path)[0], read_fits(file_path)[1]
@@ -47,6 +47,7 @@ def search_orders(lambdas,intensities):
     
     while ( i <= len(lambdas)-2 ) :
         current_order_lambdas = []
+        current_order_indices = []
         current_order_intensities = []
         while ( i<= len(lambdas)-2 and lambdas[i] - lambdas[i+1] <= 50 ):
             current_order_lambdas.append(lambdas[i])
@@ -55,11 +56,17 @@ def search_orders(lambdas,intensities):
         else  :
             i+=1
                 
-        current_order = [current_order_lambdas, current_order_intensities]
+        current_order = [current_order_lambdas, current_order_indices, current_order_intensities]
         orders.append(current_order)
     
     orders.sort()
     
+    indice = 0
+    for i in range(len(orders)):
+        for j in range(len(orders[i][0])):
+            orders[i][1].insert(j,indice)
+            indice += 1
+            
         
     return(orders)
 
@@ -75,13 +82,16 @@ def compute_order(n) :
     
     orders = search_orders(lambdas, intensities)
     order_lambdas = orders[n][0]
-    order_intensities = orders[n][1]
+    order_indices = orders[n][1]
+    order_intensities = orders[n][2]
     
     order_normalized_spectrum = cpoffset.normalize_offset(order_lambdas,order_intensities)
     
     plt.figure(1)
     plt.plot(order_lambdas,order_intensities,color='brown')
-    
+    plt.figure(3)
+    plt.plot(order_indices,order_intensities,color='brown')
+    plt.show()
     return(order_normalized_spectrum)
     
 
@@ -92,10 +102,16 @@ def plot_order(n):
     
     orders = search_orders(lambdas,intensities)
     order_lambdas = orders[n][0]
-    order_intensities = orders[n][1]
+    order_intensities = orders[n][2]
+    order_indices = orders[n][1]
     computed_order_intensities = compute_order(n)
+    plt.figure(1)
     plt.plot(order_lambdas,order_intensities, color='black')
     plt.plot(order_lambdas, computed_order_intensities, color='red')
     plt.xlabel("Wavelengths(Angstrom)")
+    
+    plt.figure(2)
+    plt.plot(order_indices,order_intensities, color='black')
+    plt.plot(order_indices, computed_order_intensities, color='red')
     plt.show()
     

@@ -47,7 +47,7 @@ lambdas, intensities = read_fits(file_path)[0], read_fits(file_path)[1]
 First function : we need to find the lists of wavelengths and intensities corresponding to each spike of the spectrum in order to go further. The following function takes as an input two lists : the wavelengths and their intensities. The output is the list of the data of each spike : each element of this list is a list of two lists : the lambdas and the intensities of the spike. 
 """
 
-def find_spikes_data(lambdas,intensities):
+def find_spikes_data(lambdas,indices,intensities):
     
     spikes_data = []
     
@@ -72,21 +72,22 @@ def find_spikes_data(lambdas,intensities):
         # left minimum research
         index = maxima_indices[j]
         while ( intensities[index] > intensities[index-1] ):
-            local_spike_data.append([lambdas[index],intensities[index]])
+            local_spike_data.append([lambdas[index],indices[index],intensities[index]])
             index -= 1
-        local_spike_data.append([lambdas[index],intensities[index]]) # don't forget the last point
+        local_spike_data.append([lambdas[index],indices[index],intensities[index]]) # don't forget the last pointindices_of_maxima = []
         
         # right minimum research
         index = maxima_indices[j]
         while ( intensities[index] > intensities[index+1] ):
-            local_spike_data.append([lambdas[index],intensities[index]])
+            local_spike_data.append([lambdas[index],indices[index],intensities[index]])
             index += 1
-        local_spike_data.append([lambdas[index],intensities[index]]) # don't forget the last point
+        local_spike_data.append([lambdas[index],indices[index],intensities[index]]) # don't forget the last point
         
         local_spike_data.sort() # We sort the list according to the lambdas order
         local_spike_lambdas = [ local_spike_data[i][0] for i in range(len(local_spike_data)) ]
-        local_spike_intensities = [ local_spike_data[i][1] for i in range(len(local_spike_data)) ]
-        spikes_data.append([local_spike_lambdas,local_spike_intensities])
+        local_spike_indices = [ local_spike_data[i][1] for i in range(len(local_spike_data)) ]
+        local_spike_intensities = [ local_spike_data[i][2] for i in range(len(local_spike_data)) ]
+        spikes_data.append([local_spike_lambdas, local_spike_indices,local_spike_intensities])
     
     return(spikes_data)
     
@@ -106,22 +107,33 @@ def fit_spikes_order(n) :
     # To verify the job has been done correctly, we can plot the different things we do.The original data are the wavelengths and intensities we have in the begining, plotted in black. 
     orders = cporder.search_orders(lambdas, intensities)
     order_lambdas = orders[n][0]
+    order_indices = orders[n][1]
     order_intensities = cporder.compute_order(n)
     plt.figure(1)
     plt.plot(order_lambdas, order_intensities, color='black')
     plt.xlabel("Wavelengths(Angstrom)")
-    
+    plt.figure(3)
+    plt.plot(order_indices, order_intensities, color='black')
+    plt.xlabel("Indices")
+    plt.show()
     # Then we find the differents spikes in those data and we can also plot them to show what we have considered as a spike or not. The only usefull lane in this function for now is the spikes_data computation.
-    spikes_data = find_spikes_data(order_lambdas,order_intensities)
+    spikes_data = find_spikes_data(order_lambdas,order_indices, order_intensities)
     for i in range(len(spikes_data)):
         plt.figure(1)
         x = spikes_data[i][0]
-        y = spikes_data[i][1]
+        indices = spikes_data[i][1] 
+        y = spikes_data[i][2]
         plt.plot(x,y, color='blue')
+        plt.figure(3)
+        plt.plot(indices,y, color='blue')
     
         # When we have the spikes data, we need to compute each spike with a gaussian fit.
         
-        spike_fit_data = gfit.fit_the_spike(x,y)
+        spike_fit_data = []
+        plt.figure(1)
+        spike_fit_data.insert(0,gfit.fit_the_spike(x,y))
+        plt.figure(3)
+        spike_fit_data.insert(1,gfit.fit_the_spike(indices,y))
         spikes_fits_data.insert(i,spike_fit_data)
         
     plt.show() 
