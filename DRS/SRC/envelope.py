@@ -190,14 +190,19 @@ def Ref_localisation(fichier,nb_voie=2):
 		envelope[0,j+nb_order_left]=envelope_right[0,j]
 
 	envelope=envelope.astype(int)
+	# print(envelope)
+	# plt.plot(image_data[central_row_index,:])
+	# for i in envelope[0]:
+	# 	plt.axvline(i)
+	# plt.show()
 	
 	return envelope   
     
 def Order_loacalisation(fichier,nb_voie=2):
 	"""
-					Function that give the envelope of all the order who are bright enough on the CCD.
+					Function that gives the envelope of all the orders  bright enough on the CCD.
 						fichier : the file of the flat field
-						nb_voie : the number of lane for each order ( 2 or 3 )
+						nb_voie : the number of lanes for each order ( 2 or 3 )
 					return a matrix of all the border for all the order, and an array with the width for each order
 	
 	"""
@@ -230,7 +235,7 @@ def Order_loacalisation(fichier,nb_voie=2):
 	old_c2=0
 	old_d2=0
 
-	# we use the previous function ton get the ref function for all the order
+	# we use the previous function to get the ref function for all the order
 	ref_envelope=Ref_localisation(fichier,nb_voie)
 	#print(ref_envelope)
 	envelope_global=np.zeros((lenX,len(ref_envelope[0,:])))		# the matrix in whih the order limits will be stored
@@ -361,6 +366,11 @@ def Order_loacalisation(fichier,nb_voie=2):
 		old_c=c
 		old_d=d
 		print('Order {0} of 40'.format(j+1))
+
+	plt.imshow(image_data.T)
+	for j in range (len(ref_envelope[0,:])-1):
+		plt.plot(envelope_global[:,j])
+	plt.show()
 	return (envelope_global,epaisseur,polys)
 
 def lanes2(fichier,envelope,epaisseur_order):

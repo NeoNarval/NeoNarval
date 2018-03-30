@@ -51,6 +51,7 @@ for lane in [1, 2]:
             print "concatenate: probleme avec l'ordre %d et la voie %d" % (ordre, lane)
     long_lane = range(len(list_lane))
     try:
+        STOP #Ca donne un erreur, donc spectre en Arturo's
         true_tabl = pyfits.open('../DATA/th_calibered.fits')[1].data.field(0)
         long_lane = true_tabl
     except IOError:

@@ -14,7 +14,7 @@
 
 memoire="../Brut_sas/Narval_19950524_171500_fla.fts"
 for fich in ../Brut_sas_ala/*ts; do
-	echo $fich
+	
     if [  -e fich ]; then
     echo Ups
 	break
@@ -34,6 +34,7 @@ for fich in ../Brut_sas_ala/*ts; do
 	memoire=$fichier
     fi
     rm -f $fich
+   
 done
 
 ################################################################################
@@ -41,12 +42,14 @@ done
 ################################################################################
 
 for dossier in ../Brut_sas_ala/*; do
+
+    echo $dossier
     if [ -f "$dossier" ]; then
 	continue
     fi
     if [[ $dossier =~ [0-9]{8}$ ]]; then
 	rm -f /home/main/Documents/DRS/Brut/*
-	#ALArm -f /home/main/Documents/DRS/FILES/*
+	rm -f /home/main/Documents/DRS/FILES/*
 	
 	echo DEPOUILLEMENT DU DOSSIER = $dossier
 	
@@ -74,6 +77,8 @@ for dossier in ../Brut_sas_ala/*; do
 	    fi
 	done
         wait $pid_arthur
+
+    
  
 	/home/main/Documents/DRS/SRC/stars2.sh &
 	

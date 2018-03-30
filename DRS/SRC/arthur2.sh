@@ -97,7 +97,7 @@ echo "Fabry-Perot handled by arthur2"
 
 
 sleep 5s
-#ALApython envelope.py $VOIES
+python envelope.py $VOIES
 
 
 
@@ -105,7 +105,7 @@ set_param "Lanes per order" $VOIES ../DATA/Amatrix_DATA.txt
 set_param "Lanes per order" $VOIES ../DATA/find_fp_slits_DATA.txt 
 
 sleep 5s
-#ALApython find_fp_slits.py 2>/dev/null
+python find_fp_slits.py 2>/dev/null
 
 echo "Boundaries and FP lines found by arthur2"
 
@@ -120,7 +120,7 @@ echo "\
 set_param "Evolution level" 1 ../DATA/Amatrix_DATA.txt
 fp_file=$(get_param "Fabry Perot fts file" ../DATA/Amatrix_DATA.txt)
 
-#ALAcreate_A_matrix $fp_file
+create_A_matrix $fp_file
 echo "Fichiers Amatrix_v1_*_*.npz generees dans TEMP"
 echo "\
 ########################################
