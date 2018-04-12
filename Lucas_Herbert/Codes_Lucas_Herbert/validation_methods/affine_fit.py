@@ -17,6 +17,12 @@ from scipy.optimize import curve_fit
 
 """
 This function tries to fit the input data with a function like "ax+b".
+Inputs :
+- lambdas : list of wavelengths
+- data : list of associated values
+Output : 
+- best_a : float, coefficient of the fitted affine function.
+- best_b : float, coefficient of the fitted affine function.
 """
 
 def fit_affine(lambdas,data):

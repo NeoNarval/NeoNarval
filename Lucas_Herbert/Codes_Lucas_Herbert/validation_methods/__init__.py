@@ -10,4 +10,10 @@ __all__ = [
 
 'compute_offset'
 
+'affine_fit'
+
+'tests_fit'
+
+'matching'
+
 ]

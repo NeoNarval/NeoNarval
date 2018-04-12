@@ -8,7 +8,11 @@ import cPickle
 import pickle
 
 """ 
-This function reads the file containing all the wavelengths of the spikes of the Thorium Argon spectrum and returns a python list of those wavelengths. We will use it as a reference to compare our computed spectra.
+This function reads the file containing all the wavelengths of the spikes of the Thorium Argon spectrum and returns a python list of those wavelengths. We will use it as a reference to compare our computed wavelengths.
+Input :
+None.
+Output : 
+- wavelengths : list of the wavelengths contained in the atlas (in Angqtroms)
 """
 
 
