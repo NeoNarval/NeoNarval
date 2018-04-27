@@ -9,8 +9,15 @@ import matplotlib.pyplot as plt
 def rint(x): return int(round(x))
 
 def generate_spectrum(test_data, B_matrix):
-    lambd_max = int(end_index*pix)
-    lambd_min = int(ini_index*pix)
+    
+   
+    
+    # B_matrix[B_matrix.nonzero()] = 1
+    plt.matshow(B_matrix.toarray(), aspect = 'auto')
+    plt.show()
+    
+    lambd_max = int(end_index*pix - ini_index)
+    lambd_min = int(ini_index*pix - ini_index)
     
     B_matrix = B_matrix[:, lambd_min:lambd_max]
     
@@ -31,9 +38,10 @@ def generate_spectrum(test_data, B_matrix):
     y = np.linalg.solve(G, d)
     X = np.linalg.solve(G.T, y)
     spectrum = (list(np.array(X.T.tolist()[0])))
+    
     return spectrum
     
-def get_spectrum():
+def get_spectrum(test):
     global nbr_lanes
     global ini_index    # first index of the window of ThAr to be processed
     global end_index    # last index of the window of ThAr to be processed
@@ -44,7 +52,7 @@ def get_spectrum():
     global lenX
     global pix
 
-    path = r'C:\Users\Martin\Documents\Stage IRAP 2018\NeoNarval\Bmatrix_data_sheet.txt'
+    path = r'C:\Users\Martin\Documents\Stage IRAP 2018\NeoNarval\NeoNarval\Martin_Jenner\test_ThAr\Bmatrix_data_sheet.txt'
     dic = collections.OrderedDict()
     with open(path, 'r') as file:
         content = file.readlines()
@@ -58,7 +66,12 @@ def get_spectrum():
     
     polys_data_file      = dic["Polys envelope file"]             
     thickness_data_file = dic["Lane thickness file"]
-    test_file           = dic["ThAr fts file"]
+    if test == 'ThAr':
+        test_file       = dic["ThAr fts file"]
+    elif test == 'test':
+        test_file       = dic["test file"]
+    elif test == 'FP':
+        test_file       = dic["FP fts file"]
     order               = int(dic["order"])
     nbr_lanes           = int(dic["nb lane per order"])
     lane                = int(dic["lane"])
@@ -70,16 +83,19 @@ def get_spectrum():
     B_matrix            = sparse.load_npz(B_matrix_path).tocsr()
     
     thickness_data = cPickle.load(open(thickness_data_file, 'r'))
-    thickness_float = thickness_data[nbr_lanes * order + lane - 1]
+    thickness_float = thickness_data[nbr_lanes * order + lane -1]
     thickness =rint(thickness_float)
+    print(thickness)
     
     polys_data     = cPickle.load(open(polys_data_file, 'r'))
     left_lane = polys_data[order]       # A polynomial giving the upper enveloppe of the lane
     left_lane[0] += thickness_float * (lane - 1)
-    
-    image_file = pyfits.open(test_file)
-    test_data = image_file[0].data.astype(np.float32) # Data of the ccd of the star fts file
-    image_file.close()
+    if test == 'test':
+        test_data = cPickle.load(open(test_file, 'r'))
+    else:   
+        image_file = pyfits.open(test_file)
+        test_data = image_file[0].data.astype(np.float32) # Data of the ccd of the star fts file
+        image_file.close()
     lenX = test_data.shape[0]
     
     
@@ -87,4 +103,4 @@ def get_spectrum():
     pickle_name = r'C:\Users\Martin\Documents\Stage IRAP 2018\NeoNarval\TEMP_\ThAr_based_spec'+ '_OR'+str(order)+'_LA'+str(lane)+'.p'
     cPickle.dump(Spectrum, open(pickle_name, 'wb'))
     
-get_spectrum()
+get_spectrum('ThAr')

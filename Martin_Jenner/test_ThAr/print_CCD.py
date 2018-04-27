@@ -13,10 +13,12 @@ def rint(x): return int(round(x))
 def sum_on_y_axis(left_lane, thickness, ini_index, end_index):
     lenX = end_index - ini_index
     intensity = np.zeros(lenX)
+    intensity_norm =[]
     nb_col = rint(thickness)
     
     for i in range(ini_index, end_index):
         intensity[i-ini_index] = sum(CCD_data[i][min(rint(left_lane[i]+j), lenDataY-1)] for j in range(nb_col))
+    
     return intensity
     
     
@@ -68,46 +70,6 @@ def launchCCD(j):
     
 def print_CCD(path,j):
     
-    
-    global envelope_data    # Upper envelope of each lane
-    global thickness_data   # Thickness of the lanes
-    global nbr_lanes        # Number of lanes per order
-    global lenDataX         # Dimension of the CCD (length)
-    global lenDataY         # Dimension of the CCD (width)
-    global CCD_data         # The CCD data
-
-    # Import of data from data file
-    dic = collections.OrderedDict()
-    with open(path, 'r') as file:
-        content = file.readlines()
-
-    content = [line.strip() for line in content]
-    for line in content:
-        param = line.split(" : ")
-        if len(param) == 2:
-            nom_param = param[0]
-            value_param = param[1]
-            dic[nom_param] = value_param
-    
-    
-
-    envelope_data_file  = dic["Lane envelope file"]
-    thickness_data_file = dic["Lane thickness file"]
-    if src == 'ThAr':
-        CCD_file = dic["ThAr fts file"]
-    elif src == 'FP':
-        CCD_file = dic["FP fts file"]
-    nbr_lanes   = int(dic["Lanes per order"])
-
-    envelope_data  = cPickle.load(open(envelope_data_file, 'r'))
-    thickness_data = cPickle.load(open(thickness_data_file, 'r'))
-
-    image_file = pyfits.open(CCD_file)
-    CCD_data = image_file[0].data.astype(np.float32) # Data of the CCD fts file
-    image_file.close()
-
-    (lenDataX, lenDataY) = CCD_data.shape
-
     init_order, final_order = 0, 39    # We assume there are 40 orders
 
     # Multiprocessing : each lane is independant from the others
@@ -122,10 +84,11 @@ def print_CCD(path,j):
     #     plt.plot(launch(j))
     # plt.show()
     
-    
+    plt.figure(105)
     # plt.close('all')
     # plt.figure(1)
     # plt.subplot(211)
+    
     plt.plot(launchCCD(j))
     # plt.title('order no{0} lane no1'.format(j//2))
     # plt.subplot(212)
@@ -137,9 +100,54 @@ def print_CCD(path,j):
 
 
 def CCD_order(source):
-    global src 
+    path = r"C:\Users\Martin\Documents\Stage IRAP 2018\NeoNarval\NeoNarval\Martin_Jenner\test_ThAr\CCD_data_sheet.txt"
+    global src
+    global envelope_data    # Upper envelope of each lane
+    global thickness_data   # Thickness of the lanes
+    global nbr_lanes        # Number of lanes per order
+    global lenDataX         # Dimension of the CCD (length)
+    global lenDataY         # Dimension of the CCD (width)
+    global CCD_data         # The CCD data
+    global lane
+    global nbr_lanes
+    # Import of data from data file
+    dic = collections.OrderedDict()
+    with open(path, 'r') as file:
+        content = file.readlines()
+
+    content = [line.strip() for line in content]
+    for line in content:
+        param = line.split(" : ")
+        if len(param) == 2:
+            nom_param = param[0]
+            value_param = param[1]
+            dic[nom_param] = value_param
+    
+    
+    lane = int(dic["lane"])
+    envelope_data_file  = dic["Lane envelope file"]
+    thickness_data_file = dic["Lane thickness file"]
+    if src == 'ThAr':
+        CCD_file = dic["ThAr fts file"]
+        image_file = pyfits.open(CCD_file)
+        CCD_data = image_file[0].data.astype(np.float32) # Data of the CCD fts file
+        image_file.close()
+    elif src == 'FP':
+        CCD_file = dic["FP fts file"]
+        image_file = pyfits.open(CCD_file)
+        CCD_data = image_file[0].data.astype(np.float32) # Data of the CCD fts file
+        image_file.close()
+    elif src == 'test':
+        CCD_file = dic["test file"]
+        CCD_data = cPickle.load(open(CCD_file, 'r'))
+    nbr_lanes   = int(dic["Lanes per order"])
+
+    envelope_data  = cPickle.load(open(envelope_data_file, 'r'))
+    thickness_data = cPickle.load(open(thickness_data_file, 'r'))
     src = source
+    (lenDataX, lenDataY) = CCD_data.shape
+    
     order = input("numéro de l'ordre : ")
-    j = order*2
-    path = r"C:\Users\Martin\Documents\Stage IRAP 2018\NeoNarval\CCD_data_sheet.txt"
+    j = int(order)*nbr_lanes+lane-1
+    
     print_CCD(path, j)

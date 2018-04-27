@@ -1,12 +1,19 @@
 import pyfits
+import numpy as np
 import matplotlib.pyplot as plt
+import scipy.optimize
+import cPickle
+import pickle
+import lmfit
+import collections
 
 """
 read .fits file encoding a spectrum : 1 column for the wavelength another for the intensity
 
     : path : string with the relative path toward the file
 """
-path =r"C:\Users\Martin\Documents\Stage IRAP 2018\NeoNarval\NeoNarval\DRS\DATA\th_calibered.fits"
+path =r"C:\Users\Martin\Documents\Stage IRAP 2018\NeoNarval\NeoNarval\Martin_Jenner\test_ThAr\th_calibered.fits"
+path_th=r"C:\Users\Martin\Documents\Stage IRAP 2018\NeoNarval\NeoNarval\DRS\FILES\Narval_20180313_181059_th1.fts"
 
 def order_gen(lambd, intensity):
     L = len(lambd)
@@ -34,25 +41,37 @@ def plot_all(lambd, intensity):
     plt.show()
     
 def plot_orders(lambd, intensity, n):
+    
     order_l, order_i = order_gen(lambd, intensity)
+    plt.figure()
     plt.plot(order_l[n], order_i[n])
-    plt.xlabel(r'Wavelength ($\AA$)')
-    plt.ylabel('Intensity')
-    plt.title('order n°{0}'.format(n))
+    
     plt.show()
         
-        
+def plot_mat(path):
+    image_file = pyfits.open(path)
+    ThAr_data = image_file[0].data # Data of the ThAr fts file
+    image_file.close()
+    
+    plt.matshow(ThAr_data, aspect = 'auto')
+    plt.show()
+    
+
 def fits_reader(path):
     l = pyfits.open(path)
     a = l[1].data
     l.close()
     lambd = a['wavelength_lane1']
+    #lambd = np.linspace(500,1000,500)
     intensity = a['intensity_lane1']
+    #i2=intensity[500:1000]
     return lambd, intensity
  
-lambd, intensity = fits_reader(path)
-order_l, order_i = order_gen(lambd,intensity)
-print(len(order_l))
-#print(order_i[0])
-#plot_all(lambd, intensity)
-plot_orders(lambd, intensity, 35)
+# lambd, intensity = fits_reader(path)
+# order_l, order_i = order_gen(lambd,intensity)
+# print(len(order_l))
+# #print(order_i[0])
+# #plot_all(lambd, intensity)
+# plot_orders(lambd, intensity, 23)
+
+plot_mat(path_th)

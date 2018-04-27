@@ -1,14 +1,17 @@
 Lane envelope file : C:\Users\Martin\Documents\Stage IRAP 2018\NeoNarval\NeoNarval\DRS\TEMP\lanes_position_1.p
 Polys envelope file : C:\Users\Martin\Documents\Stage IRAP 2018\NeoNarval\NeoNarval\DRS\TEMP\polys_envelope_1.p
 Lane thickness file : C:\Users\Martin\Documents\Stage IRAP 2018\NeoNarval\NeoNarval\DRS\TEMP\lanes_thickness_1.p
-ThAr fts file : C:\Users\Martin\Documents\Stage IRAP 2018\NeoNarval\NeoNarval\DRS\FILES\Narval_20161203_155810_th2.fts
+ThAr fts file : C:\Users\Martin\Documents\Stage IRAP 2018\NeoNarval\NeoNarval\DRS\FILES\Narval_20180313_181059_th1.fts
+FP fts file : C:\Users\Martin\Documents\Stage IRAP 2018\NeoNarval\NeoNarval\DRS\FILES\Narval_20180313_181342_fp1.fts
+test file : C:\Users\Martin\Documents\Stage IRAP 2018\NeoNarval\TEMP_\random_CCD_500-1000
 ThAr slits file : C:\Users\Martin\Documents\Stage IRAP 2018\NeoNarval\TEMP_\ThAr_slits_position
-test fts file : C:\Users\Martin\Documents\Stage IRAP 2018\NeoNarval\NeoNarval\DRS\FILES\Narval_20161203_160053_fp2.fts
-
+ThAr slits file old : C:\Users\Martin\Documents\Stage IRAP 2018\NeoNarval\TEMP_\ThAr_slits_position_old
+test slits file old : C:\Users\Martin\Documents\Stage IRAP 2018\NeoNarval\TEMP_\test_slits_position_old
+FP slits file old : C:\Users\Martin\Documents\Stage IRAP 2018\NeoNarval\TEMP_\FP_slits_position_old
 order : 14
 lane : 1
 nb lane per order : 2
-initial index : 0
+initial index : 500
 final index : 1000
 pix/arturo : 1
-B matrix : C:\Users\Martin\Documents\Stage IRAP 2018\NeoNarval\TEMP_\Bmatrix\Bmat_ord14_lane1.npz
+B matrix : C:\Users\Martin\Documents\Stage IRAP 2018\NeoNarval\TEMP_\Bmatrix\Bmat_ThAr_ord14_lane1.npz

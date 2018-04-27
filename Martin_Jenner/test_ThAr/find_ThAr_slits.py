@@ -1,206 +1,166 @@
-# -*- coding: utf-8 -*-
 
-"""
-    This module allows to find the centroids of the ThAr slits. 
-    It uses a Data file which gatherx all the paths toward the needed data.
-    
-    Those are :
-        - the fts file of a ThAr (already pre-processed)
-        - the envelope and the thickness of the lanes
-        - the number of lanes per order
-"""
-import lmfit
+#-*- coding: utf-8 -*-
+
+# Python's global modules imports :
 import pyfits
-import cPickle
-import peakutils
 import numpy as np
-from scipy.optimize import leastsq
-from multiprocessing import Pool
+import matplotlib.pyplot as plt
+import scipy.optimize
+import cPickle
+import pickle
+import lmfit
 import collections
+from scipy.optimize import leastsq
+from scipy.optimize import curve_fit
 
 
+""" 
+In this script, we will search for all the spikes of a normalized spectrum and then fit a gaussian to each of the interesting spikes in order to find its precise centre and width.
+"""
 def rint(x): return int(round(x))
 
 def sum_on_y_axis(left_lane, thickness, ini_index, end_index):
     lenX = end_index - ini_index
     intensity = np.zeros(lenX)
     nb_col = rint(thickness)
-    
+   
     for i in range(ini_index, end_index):
-        intensity[i-ini_index] = sum(CCD_data[i][min(rint(left_lane[i]+j), lenDataY-1)] for j in range(nb_col))
+        intensity[i-ini_index] = sum(ThAr_data[i][min(rint(left_lane[i]+j), lenDataY-1)] for j in range(nb_col))
+    plt.figure()
+    #abscisse = np.linspace(ini_index,end_index,lenX)
+    plt.plot(intensity)
+    plt.show()    
     return intensity
+
+""" 
+First function : we need to find the lists of wavelengths and intensities corresponding to each spike of the spectrum in order to go further.
+"""
+
+def find_spikes_data(lambdas,intensities):
+    
+    spikes_data = []
+    
+    intensities_maxima = []
+    lambdas_maxima = []
+    maxima_indices = []
     
     
-def cut_border_edge(left_lane, thickness):
-    """
-        Determine the first and the last index of the lane.
-        It is important for the last lanes (orders 60 & 61), when the CCD's edge cut the lanes.
-
-        : left_lane : the upper enveloppe of the lane
-        : thickness : the thickness of the considered lane
-
-        : return : the first and the last index of the lane    
-    """
-    init = 0
-    end = lenDataX - 1
-    test = False        # False while data not encountered along the CCD
-
-    for i in range(lenDataX):
-
-        if (not left_lane[i]) or (left_lane[i]+thickness >= lenDataY):
-            # Current index is at the left of the data
-            if not test and i >= init:
-                init = min(i+1, end)
-            # Current index is at te right of the data
-            elif test and i >= init:
-                end = max(init, i-1)
-                break# There is no need to continue as data index has already been exceeded
-
-        else: # data encountered
-             test = True
-
-    return (init, end) 
+    for i in range ( 2 , len(lambdas)-1 ):
+        
+    # We use the mathematical definition of a maximum to find the maxima and their intensities 
+        
+        if ( intensities[i-1] < intensities[i] and intensities[i] > intensities[i+1] and intensities[i] >= 0  and intensities[i] >= threshold) :    
+            intensities_maxima.append(intensities[i])
+            lambdas_maxima.append(lambdas[i])
+            maxima_indices.append(i)
+    # Now we need to find the spike around each maximum
+    #print(maxima_indices)
+    for j in range(len(lambdas_maxima)):
+        
+        local_spike_data = []
+        
+        # left minimum research
+        index = maxima_indices[j]
+        while (index>=0) and (intensities[index] > intensities[index-1]):
+            local_spike_data.append([lambdas[index],intensities[index]])
+            index -= 1
+        local_spike_data.append([lambdas[index],intensities[index]]) # don't forget the last point
+        
+        # right minimum research
+        index = maxima_indices[j]
+        while (index<len(lambdas)-1) and (intensities[index] > intensities[index+1]):
+            local_spike_data.append([lambdas[index],intensities[index]])
+            index += 1
+        local_spike_data.append([lambdas[index],intensities[index]]) # don't forget the last point
+        
+        local_spike_data.sort() # We sort the list according to the lambdas order
+        local_spike_lambdas = [ local_spike_data[i][0] for i in range(len(local_spike_data)) ]
+        local_spike_intensities = [ local_spike_data[i][1] for i in range(len(local_spike_data)) ]
+        spikes_data.append([local_spike_lambdas,local_spike_intensities])
     
-def approx_center(left_lane, thickness, ini_index, end_index):
+    return(spikes_data)
     
-    intensity = sum_on_y_axis(left_lane,thickness, ini_index, end_index)
-    indexes = peakutils.indexes(intensity, thres = threshold, min_dist = 1)
+
+"""
+For each spike we have found, we need to localize more precisly its position to know its exact wavelengths. That's why we are gonna fit a gaussian on each spike thanks to another algorithm using lmfit and the least squares method. The centre of the gaussian will be the precise wavelength of the spike, and we can also have an access to informations like its width, all those data helping us to discriminate among the spikes. We will for example be able to filter the spikes which don't have a right fitting or which have a too large width, because they are not physically realistic enough.
+"""
+"""
+This function finds the gaussian function which is the closest from our data. It's a fitting algorithm which uses a least squares method. It returns the centre and the width of the fitted gaussian.
+"""    
+def fit_the_spike(lambdas,data):
     
-    return indexes
+    y = np.copy(data)
+    maxY = np.max(y)
+    minY = np.min(y)
+    X = lambdas
+    #plt.figure(1)
+    #plt.plot(X, y, color = 'red')
     
-def find_gaussian_slit(data):
-    """
-        Returns the centre of a gaussian fit applied to the given data.
-
-        : data : a 1D array where there is a unique gaussian
-
-        : return : the centre of the gaussian
-    """
-    data_copy = np.copy(data) - np.min(data)
-    X = np.arange(len(data_copy))
-
-    # The estimated centroid position is derived with the moments method
-    centre = float(np.sum(X*data_copy))/np.sum(data_copy)
-    height = np.max(data_copy)
-    width = np.sqrt(np.abs(np.sum((X-centre)**2*data_copy)/np.sum(data_copy)))
-
-    def gaussian(x, cen, amp, wid):
-        return amp * np.exp(-(x-cen)**2 / wid)
-
-    try:
-        # Using a fit with the estimated moments increase the precision
-        gmod = lmfit.Model(gaussian)
-        params = gmod.make_params(cen=centre, amp=height, wid=width)
-        result = gmod.fit(data_copy, params, x=X)
-        [cen, wid, amp] = list(result.best_values.values())
-
-        if (0 < cen < len(data_copy)):
-            centre = cen
-    except:
+    def gaussian(x,cen,amp,wid):
+        return(amp*np.exp(-(x-cen)**2/(2*wid**2)))
+    
+    # printing the initial gaussian (before the optimization of the fit)
+    naive_center = float(np.sum(X*y))/np.sum(y)
+    naive_width = np.sqrt(abs((np.sum((X-naive_center)**2*y)/np.sum(y))))
+    naive_ampl = maxY-minY
+    naive_gaussian = [ gaussian(x,naive_center,naive_ampl,naive_width) for x in X ]
+    # plt.plot(lambdas,naive_gaussian,color='green')
+    # plt.axvline(naive_center,color='green')
+    plt.show()
+    lambda_centre = naive_center
+    lambda_width = naive_width
+    try :
+        # we use the lmfit algorithm to improve our fit's precision
+        gaussian_model = lmfit.Model(gaussian)
+        params = gaussian_model.make_params(cen=naive_center,amp=naive_ampl,wid=naive_width)
+        result = gaussian_model.fit(y,params,x=X) 
+        # printing the best gaussian fit
+        best_gaussian_fit = result.best_fit
+        
+        best_cen = result.best_values['cen']
+        best_wid = result.best_values['wid']
+        best_amp = result.best_values['amp']
+        best_params_gaussian = [ gaussian(x,best_cen,best_amp,best_wid) for x in lambdas ]
+        plt.figure(100)
+        #plt.plot(lambdas, best_params_gaussian, 'b', color='purple')
+        #plt.axvline(best_cen, color = 'red')
+        computed_centre = float(np.sum(X*best_gaussian_fit))/np.sum(best_gaussian_fit) 
+        plt.plot(lambdas, best_gaussian_fit, 'b--' ,color='green')
+        #plt.axvline(computed_centre, color='green')
+        plt.show()
+        lambda_centre = best_cen
+        lambda_width = best_wid
+        # we need the report data to improve our understanding of the results
+        report = result.fit_report()
+        
+        
+    except : 
+        report = "Computation failed for this spike : default data = naive fit"
+        print(report)
         pass
-    return centre
+        
+    return(lambda_centre,lambda_width)
+   
+
     
-def ThAr_local_center(left_lane, thickness, x):
-    search_window = 8
-
-    max_xsearch = max(0, x-search_window)
-
-    # The data in which we look for the slit
-    srch_data = [sum(ThAr_data[k, rint(left_lane[k]): rint(left_lane[k] + thickness)])for k in range(max_xsearch, min(lenDataX, x+search_window+1))]
-# A Gaussian is then fitted to the flattened data to find the centre
-    gaussian_slit = find_gaussian_slit(srch_data)
-    if (0 <= gaussian_slit < len(srch_data)):
-        x_centr = min(gaussian_slit + max_xsearch, lenDataX-1)      
-        # We then proceed to find the centre on the Y-axis
-        x_rint = rint(x_centr)
-        x_left = rint(left_lane[x_rint])
-        x_right = rint(left_lane[x_rint] + thickness)
-
-        # The centre column of the split is selected
-        # dtype is given to have a signed array
-        y_search = np.array(ThAr_data[x_rint, x_left:1+x_right], dtype='int')
-
-        # The second local maxima is selected as the estimated centre
-        # Indeed, there should be 3 maxima (1 for each slice of the fibre)
-        min_norm = float(np.mean(y_search)) / (1.5*np.max(y_search))
-        indexes = peakutils.indexes(np.array(y_search), thres=min_norm)
-
-        y = indexes[min(1, abs(len(indexes) - 1))] if len(indexes) else (thickness)/2
-    return (x_centr, y)
-                 
-            
-def ThAr_global_center(left_lane, thickness, ini_index, end_index):
-    """
-        Returns the precise position (on X axis) and the estimated one (Y axis)
-        of all the ThAr split of a given lane.
-
-        : left_lane : the upper envelope of the lane
-        : thickness : the thickness of the lane
-        : ini_index : the first index to be considered
-        : end_index : the last index to be considered
-
-        : return : the list of the position (X axis) and the estimated relative position on Y axis
-    """
-    # To find the precise position of the centroids, we first estimate it
-    ThAr_center = approx_center(left_lane, thickness, ini_index, end_index)
-
-    x_tab, y_tab = [], []
-
-    for x in ThAr_center:
-        (x, y) = ThAr_local_center(left_lane, thickness, x)
-        x_tab.append(x)
-        y_tab.append(y)
-
-    # As the distance between the centroids and the lane (left or right) must
-    # not change, the mean value of this distance is chosen as the true value.
-    y_mean = np.mean(y_tab)
-
-    return x_tab, y_mean
-                
-def launch(ini, end, order):
-    """
-        This function launch the appropriate functions to find the positions of the slits
-        for one lane. 
-
-        : j : the cosnidered lane
-
-        : return : an array with all the positions (x,y) for the lane
-    """
-    j = 2*order + lane
-    left_lane = envelope_data[:, j]                     # Upper envelope of the current lane
-    thickness = rint(thickness_data[j])                 # Thickness of the current lane
-
-    #(ini, end) = cut_border_edge(left_lane, thickness)  # First and last index of the lane
-
-    # First research of the slits, with potential errors on X (x_pos is an array, y is a real)
-    # Y coordinates are relative to the envelope (not absolute coordinates)
-    x_pos, y = ThAr_global_center(left_lane, thickness, ini, end)
-
-
-    # Y coordinates are set as absolute
-    tab_pos = [[x, y + left_lane[rint(x)]] for x in x_pos if (ini <= x <= end)]
-
-    return tab_pos                 
-                 
-def find_ThAr_slits():
-    
-    path = r"C:\Users\Martin\Documents\Stage IRAP 2018\NeoNarval\Bmatrix_data_sheet.txt"
-    global ini_window       # first index of the window of ThAr to be processed
-    global end_window       # last index of the window of ThAr to be processed
-    global envelope_data    # Upper envelope of each lane
-    global thickness_data   # Thickness of the lanes
+"""
+main script that open and compute all the lists needed for the algorithm
+"""
+def find_ThAr_slits(test):
+    path = r"C:\Users\Martin\Documents\Stage IRAP 2018\NeoNarval\NeoNarval\Martin_Jenner\test_ThAr\Bmatrix_data_sheet.txt"
+    global ini_index       # first index of the window of ThAr to be processed
+    global end_index       # last index of the window of ThAr to be processed
     global lane             # considered lane
     global nbr_lanes        # Number of lanes per order
     global lenDataX         # Dimension of the CCD (length)
     global lenDataY         # Dimension of the CCD (width)
     global ThAr_data        # The ThAr data
-    global threshold        # detection threshold for peakutil
-    threshold = 0.08
+    global threshold        # detection threshold 
+    
     # Import of data from data file
     dic = collections.OrderedDict()
     with open(path, 'r') as file:
         content = file.readlines()
-
     content = [line.strip() for line in content]
     for line in content:
         param = line.split(" : ")
@@ -211,43 +171,84 @@ def find_ThAr_slits():
                  
     envelope_data_file  = dic["Lane envelope file"]
     thickness_data_file = dic["Lane thickness file"]
-    ini_window          = int(dic["initial index"])
-    end_window          = int(dic["final index"])
+    ini_index          = int(dic["initial index"])
+    end_index          = int(dic["final index"])
     order               = int(dic["order"])
     ThAr_file           = dic["ThAr fts file"]
+    test_file            =dic["test file"]
     nbr_lanes           = int(dic["nb lane per order"])
     lane                = int(dic["lane"])
-
+    
     envelope_data  = cPickle.load(open(envelope_data_file, 'r'))
     thickness_data = cPickle.load(open(thickness_data_file, 'r'))
-
-    image_file = pyfits.open(ThAr_file)
-    ThAr_data = image_file[0].data.astype(np.float32) # Data of the ThAr fts file
-    image_file.close()
-
+    j = 2*order + lane - 1
+    left_lane = envelope_data[:, j]                     # Upper envelope of the current lane
+    thickness = rint(thickness_data[j])                 # Thickness of the current lane
+    
+    
+    if test == 'ThAr':
+        image_file = pyfits.open(ThAr_file)
+        ThAr_data = image_file[0].data.astype(np.float32) # Data of the ThAr fts file
+        image_file.close()
+    elif test == 'test':
+        ThAr_data = cPickle.load(open(test_file, 'r'))
+        
     (lenDataX, lenDataY) = ThAr_data.shape
     
-    tab_pos = launch(ini_window, end_window, order)
-    cPickle.dump(tab_pos, open(r'C:\Users\Martin\Documents\Stage IRAP 2018\NeoNarval\TEMP_\ThAr_slits_position', 'w'))
+    intensities = sum_on_y_axis(left_lane, thickness, ini_index, end_index)
+    int_min = np.min(intensities)
+    print(int_min)
+    norm_int = np.zeros(end_index-ini_index)
+    for i in range(end_index-ini_index):
+        norm_int[i]=intensities[i]-int_min
+    threshold = np.mean(norm_int)  
+    print(threshold)
+    lambdas = np.linspace(ini_index,end_index,len(intensities), dtype = 'int')
     
-    # to plot the pos             
-    tab_x = []   
+    
+    
+    plt.figure(100)
+    plt.plot(lambdas, norm_int, color = 'black')
+    plt.show()
+    #print(lambdas)
+    #print(intensities)
+    
+    slits = find_spikes_data(lambdas, norm_int)
+    tab_pos = []
+    for s in slits:
+        (x_pos, _) = fit_the_spike(s[0], s[1])
+        y_mean = np.mean(s[1])
+        tab_pos.append([x_pos, y_mean])
+        
+    if test == 'ThAr':
+        cPickle.dump(tab_pos, open(r'C:\Users\Martin\Documents\Stage IRAP 2018\NeoNarval\TEMP_\ThAr_slits_position_old', 'w'))
+    elif test == 'test':
+        cPickle.dump(tab_pos, open(r'C:\Users\Martin\Documents\Stage IRAP 2018\NeoNarval\TEMP_\test_slits_position_old', 'w'))
+    
+    # to plot the pos  
+    tab_x = []
+    tab_y = []  
     for a in tab_pos:
         tab_x.append(a[0])
-    y = [800000] * len(tab_x)
-    plt.figure()
-    plt.plot(tab_x,y,'ro')
-    plt.show()
+        tab_y.append(a[1])
+    print(tab_x)
+    print(tab_y)
     
-find_ThAr_slits()
-        
+    
+
+find_ThAr_slits('ThAr')
         
     
-                 
-                 
-                 
-                 
-                 
-                 
-                 
-                 
+    
+
+
+
+
+
+
+
+
+
+
+
+
