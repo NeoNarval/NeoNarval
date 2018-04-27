@@ -1,8 +1,23 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+# Python modules imports :
 import numpy as np
 import matplotlib.pyplot as plt
+
+
 """ 
 This script is used to deal with the offset which can make the computing of the spikes more difficult. We can, thanks to the following function, compute the offset and then deal with the spectrum minus the computed offset.
-The following function searchs for the minima of a spectrum and then computes its offset by interpolating between those minima. There are some particular cases of blended spikes which we have to consider, that's why we use the average value of intensity to discriminate thsoe cases.
+"""
+
+
+"""
+The following function searchs for the minima of a spectrum and then computes its offset by interpolating between those minima. There are some particular cases of blended spikes which we have to consider, that's why we use the average value of intensity to discriminate those cases.
+Inputs :
+- lambdas : list of wavelengths 
+- intensities : list of the associated intensities (spectrum)
+Output :
+- spectrum : list of the normalized intensities after computation of the offset.
 """
 
 def normalize_offset(lambdas, intensities):
@@ -32,7 +47,10 @@ def normalize_offset(lambdas, intensities):
     for k in range(0,len(l_minima)-1):
 
         delta_lambda  = l_minima[k+1] - l_minima[k]
-        coeff_dir = (1/delta_lambda)*(i_minima[k+1]-i_minima[k])
+        if (delta_lambda != 0):
+            coeff_dir = (1/delta_lambda)*(i_minima[k+1]-i_minima[k])
+        else : 
+            coeff_dir = 0
         for i in range(minima_indices[k],minima_indices[k+1]):
             offset[i] = i_minima[k]+coeff_dir*(lambdas[i]-l_minima[k] )
 
@@ -46,7 +64,10 @@ def normalize_offset(lambdas, intensities):
     l +=1
     offset[l] = intensities[l] # Don't forget the last 2 points to avoid casualties
     # Then we have to fill between those points dealing with the flat part at the beginning and the first minimum : we are gonna do a simple interpolation
-    local_coeff_begining = (i_minima[0] - intensities[l])/(l_minima[0] - lambdas[l])
+    if ((l_minima[0] - lambdas[l])!=0):
+        local_coeff_begining = (i_minima[0] - intensities[l])/(l_minima[0] - lambdas[l])
+    else : 
+        local_coeff_begining = 0
     for i in range(l, minima_indices[0]):
         offset[i] = intensities[l]+local_coeff_begining*(lambdas[i]-lambdas[l])
     
@@ -60,7 +81,10 @@ def normalize_offset(lambdas, intensities):
     l -= 1  
     offset[l] = intensities[l] # Don't forget the last 2 points to avoid casualties 
     # Then the same idea is applied : we inteprolate between the last minimum and this wavelengths which is the begining of the flat part at the end of the order.
-    local_coeff_end = (intensities[l] - i_minima[-1])/(lambdas[l] - l_minima[-1])
+    if ((lambdas[l] - l_minima[-1])!=0):    
+        local_coeff_end = (intensities[l] - i_minima[-1])/(lambdas[l] - l_minima[-1])
+    else : 
+        local_coeff_end = 0
     for i in range(minima_indices[-1],l):
         offset[i] = i_minima[-1]+local_coeff_end*(lambdas[i]-l_minima[-1])     
     
