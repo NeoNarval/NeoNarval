@@ -1,13 +1,13 @@
 Lane thickness file : ../TEMP/lanes_thickness_1.p
 Polys envelope file : ../TEMP/polys_envelope_1.p
 Lane envelope file : ../TEMP/lanes_position_1.p
-Fabry Perot fts file : /home/main/Documents/DRS/FILES/Narval_20170221_163037_fp1.fts
-Flat fts file : /home/main/Documents/DRS/FILES/Narval_20170221_161742_10f.fts
-Test fts file : /home/main/Documents/DRS/FILES/Narval_20170222_055514_th2.fts
+Fabry Perot fts file : /home/main/Documents/DRS/FILES/Narval_20180313_181342_fp1.fts
+Flat fts file : /home/main/Documents/DRS/FILES/Narval_20180313_180054_10f.fts
+Test fts file : /home/main/Documents/DRS/FILES/Narval_20180314_003518_st2.fts
 Order n° : 39
 Lane n° : 2
 A matrix file : ../TEMP/Amatrix_v2_OR39_LA1.npz
 FP slits file : ../TEMP/fp_slit_position.p
 Lanes per order : 2
 Evolution level : 2
-Spectrum : ../TEMP/SN_Narval_20170222_055514_th1_OR39_LA2.p
+Spectrum : ../TEMP/SN_Narval_20180314_003518_st1_OR39_LA2.p
