@@ -14,6 +14,7 @@ read .fits file encoding a spectrum : 1 column for the wavelength another for th
 """
 path =r"C:\Users\Martin\Documents\Stage IRAP 2018\NeoNarval\NeoNarval\Martin_Jenner\test_ThAr\th_calibered.fits"
 path_th=r"C:\Users\Martin\Documents\Stage IRAP 2018\NeoNarval\NeoNarval\DRS\FILES\Narval_20180313_181059_th1.fts"
+path_fp=r"C:\Users\Martin\Documents\Stage IRAP 2018\NeoNarval\NeoNarval\DRS\FILES\Narval_20180313_181342_fp1.fts"
 
 def order_gen(lambd, intensity):
     L = len(lambd)
@@ -74,4 +75,4 @@ def fits_reader(path):
 # #plot_all(lambd, intensity)
 # plot_orders(lambd, intensity, 23)
 
-plot_mat(path_th)
+plot_mat(path_fp)

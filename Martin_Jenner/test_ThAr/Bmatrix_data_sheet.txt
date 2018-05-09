@@ -4,14 +4,15 @@ Lane thickness file : C:\Users\Martin\Documents\Stage IRAP 2018\NeoNarval\NeoNar
 ThAr fts file : C:\Users\Martin\Documents\Stage IRAP 2018\NeoNarval\NeoNarval\DRS\FILES\Narval_20180313_181059_th1.fts
 FP fts file : C:\Users\Martin\Documents\Stage IRAP 2018\NeoNarval\NeoNarval\DRS\FILES\Narval_20180313_181342_fp1.fts
 test file : C:\Users\Martin\Documents\Stage IRAP 2018\NeoNarval\TEMP_\random_CCD_500-1000
+flat file : C:\Users\Martin\Documents\Stage IRAP 2018\NeoNarval\NeoNarval\DRS\FILES\Narval_20180313_180054_10f.fts
 ThAr slits file : C:\Users\Martin\Documents\Stage IRAP 2018\NeoNarval\TEMP_\ThAr_slits_position
 ThAr slits file old : C:\Users\Martin\Documents\Stage IRAP 2018\NeoNarval\TEMP_\ThAr_slits_position_old
 test slits file old : C:\Users\Martin\Documents\Stage IRAP 2018\NeoNarval\TEMP_\test_slits_position_old
 FP slits file old : C:\Users\Martin\Documents\Stage IRAP 2018\NeoNarval\TEMP_\FP_slits_position_old
-order : 14
+order : 15
 lane : 1
 nb lane per order : 2
 initial index : 500
 final index : 1000
 pix/arturo : 1
-B matrix : C:\Users\Martin\Documents\Stage IRAP 2018\NeoNarval\TEMP_\Bmatrix\Bmat_ThAr_ord14_lane1.npz
+B matrix : C:\Users\Martin\Documents\Stage IRAP 2018\NeoNarval\TEMP_\Bmatrix\Bmat_FP_ord15_lane1.npz

@@ -34,8 +34,12 @@ def fill_B_ThAr(ref_data):
                 to_del.append(x_pos_next)
     for x in to_del:
         tab_centre.remove(x)
-        
-    for [x_pos, _] in tab_centre:
+    
+    min_data = 0
+    for [x_pos, y_pos] in tab_centre:
+        if x_pos == -1:
+            min_data = y_pos/thickness
+            print('min_data= ', min_data)
         if (ini_index<= x_pos <= end_index):
             
             min_x = rint(max(ini_index, x_pos-search_window))
@@ -51,7 +55,7 @@ def fill_B_ThAr(ref_data):
             for x in range(min_x, max_x):
                 X = rint(x+delta_x_pos)
                 curv_pos = int(np.floor(left_lane(x)))
-                if ref_data[X,curv_pos]<=0.0001:
+                if ((ref_data[X,curv_pos]-min_data)/(np.mean(ref_data[rint(x_pos),curv_pos:curv_pos+thickness])-min_data))<=0.0001:
                     print("!", curv_pos)
                     curv_pos+=1
                 for y in rng_thickness:
@@ -59,7 +63,7 @@ def fill_B_ThAr(ref_data):
                     col.append(rint(wavelength-ini_index*pix))
 
                     Y = y+curv_pos
-                    d = float(ref_data[X,Y])
+                    d = float((ref_data[X,Y]-min_data)/(np.mean(ref_data[rint(x_pos),curv_pos:curv_pos+thickness])-min_data))
                     # if d<=0.0001:
                     #     d = 0
                     data.append(d)
@@ -73,11 +77,6 @@ def fill_B_ThAr(ref_data):
     # col = col[search_window:-search_window]
     # data = data[search_window:-search_window]
     #print(row)
-    min_data = min(data)
-    print(min_data)
-    for i in range(len(data)):
-        data[i]-=min_data
-    print(rint((end_index-ini_index)*thickness), rint((end_index-ini_index)*pix))
     
     B_shape = (rint((end_index-ini_index)*thickness), rint((end_index-ini_index)*pix))
     B = sparse.coo_matrix((data, (row, col)), shape=B_shape, dtype='float')
@@ -111,7 +110,7 @@ def interpolate(i):
         frac_dy = (1. / (1 + 2 * (dy ** 2)))
         
         # settings to extrapolate at the edge of the matrix
-        if i==0:
+        if i==1:
             interp_window0 = 0
         else:
             interp_window0 = arx0
@@ -214,7 +213,7 @@ def fill_B_matrix(ref_data):
     # p.terminate()
     # p.join()
     DATA = []
-    for i in range(0, len(tab_centre)-1):
+    for i in range(1, len(tab_centre)-1):
         DATA.append(interpolate(i))
     zip_data = zip(*DATA)
     col = sum(list(zip_data[0]), [])
@@ -329,7 +328,7 @@ def create_B_matrix(test):
 # test = 'ThAr' : ThAr
 # test = 'test' : CCD random issue de CCD _creator
 # test = 'FP' : FP
-create_B_matrix('ThAr')
+create_B_matrix('FP')
     
     
     
