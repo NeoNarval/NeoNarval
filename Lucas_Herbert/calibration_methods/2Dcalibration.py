@@ -232,3 +232,64 @@ def clean_plt():
 
 
 
+"""
+Another try of a different fit :
+2D fit of the f(m,indice) : ex : f(1,10) = 0.5[f(0,10)+f(2,10)]
+"""
+
+def grid2D():
+    
+    # Creating the grid
+    param = (34,order_len)
+    grid = np.zeros(param)
+    
+    # Filling the grid
+    for i in range(34):
+        
+        # Loading the better polynomial fit for each order
+        coeffs_file = open("results/Interpolation coefficients/Interpolation_coefficients_order_"+str(i)+"_"+str(0.1)+"_"+str(0.1),'r')
+        old_coeffs  = pickle.load(coeffs_file)
+        coeffs_file.close()
+        #print(old_coeffs)
+        
+        order_polynom = np.poly1d(old_coeffs)
+        indices = [k for k in range(order_len*i , order_len*(i+1))]
+        for j in range(order_len):
+            grid[i,j] = order_polynom(indices[j])
+    
+    print(grid)
+    # Now we have that big matrix containing all the informations about the conversions of all orders. We can easily use it to interpolate between the orders and find a new "vertical" fit. The result will be a 2D cross fit between the 1D horizontal fit for each order and the 1D vertical fit between the orders.
+     
+    orders = [o for o in range(34)]
+    
+    new_grid = np.zeros(param)
+    
+    for ind in range(order_len):
+        
+        vertical_values = [ grid[order,ind] for order in orders ] # Creating the list of values to fit for each ind
+        
+        try :    
+            coeffs = np.polyfit(orders,vertical_values,10)
+            
+        except :
+            print("Polynomial fitting failed!")
+                        
+        # Computation of the fit
+        pol = np.poly1d(coeffs)
+        
+        for o in orders : 
+            new_grid[o,ind] = pol(o)  
+    
+    print(new_grid)
+    # Now the new grid has been computed, we can compute a new matching for each order.
+    for o in orders :
+        
+        order_lambdas = [ new_grid[o,ind] for ind in range(order_len) ]
+        order_lambdas_file = open("temporary_file_for_vertical_fit",'w')
+        pickle.dump(order_lambdas,order_lambdas_file)
+        order_lambdas_file.close()
+        order_matching_results = mtch.order_matching("temporary_file_for_vertical_fit",0.1,o,0.1)
+    
+    return(None)    
+        
+    
