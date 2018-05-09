@@ -13,9 +13,9 @@ def generate_spectrum(test_data, B_matrix):
    
     
     # B_matrix[B_matrix.nonzero()] = 1
-    plt.matshow(B_matrix.toarray(), aspect = 'auto')
-    plt.show()
-    
+    # plt.matshow(B_matrix.toarray(), aspect = 'auto')
+    # plt.show()
+    # 
     lambd_max = int(end_index*pix - ini_index)
     lambd_min = int(ini_index*pix - ini_index)
     
@@ -72,6 +72,8 @@ def get_spectrum(test):
         test_file       = dic["test file"]
     elif test == 'FP':
         test_file       = dic["FP fts file"]
+    elif test =='flat':
+        test_file       =dic["flat file"]
     order               = int(dic["order"])
     nbr_lanes           = int(dic["nb lane per order"])
     lane                = int(dic["lane"])
@@ -97,10 +99,10 @@ def get_spectrum(test):
         test_data = image_file[0].data.astype(np.float32) # Data of the ccd of the star fts file
         image_file.close()
     lenX = test_data.shape[0]
-    
-    
+    min = np.min(test_data)
+    test_data = test_data-min
     Spectrum = generate_spectrum(test_data, B_matrix)
     pickle_name = r'C:\Users\Martin\Documents\Stage IRAP 2018\NeoNarval\TEMP_\ThAr_based_spec'+ '_OR'+str(order)+'_LA'+str(lane)+'.p'
     cPickle.dump(Spectrum, open(pickle_name, 'wb'))
     
-get_spectrum('ThAr')
+get_spectrum('test')

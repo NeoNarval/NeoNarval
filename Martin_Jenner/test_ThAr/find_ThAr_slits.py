@@ -176,6 +176,8 @@ def find_ThAr_slits(test):
     order               = int(dic["order"])
     ThAr_file           = dic["ThAr fts file"]
     test_file            =dic["test file"]
+    flat_file           = dic["flat file"]
+    FP_file             = dic["FP fts file"]
     nbr_lanes           = int(dic["nb lane per order"])
     lane                = int(dic["lane"])
     
@@ -192,6 +194,15 @@ def find_ThAr_slits(test):
         image_file.close()
     elif test == 'test':
         ThAr_data = cPickle.load(open(test_file, 'r'))
+    elif test =='flat':
+        image_file = pyfits.open(flat_file)
+        ThAr_data = image_file[0].data.astype(np.float32) # Data of the ThAr fts file
+        image_file.close()
+    elif test =='FP':
+        image_file = pyfits.open(FP_file)
+        ThAr_data = image_file[0].data.astype(np.float32) # Data of the ThAr fts file
+        image_file.close()
+        
         
     (lenDataX, lenDataY) = ThAr_data.shape
     
@@ -201,7 +212,7 @@ def find_ThAr_slits(test):
     norm_int = np.zeros(end_index-ini_index)
     for i in range(end_index-ini_index):
         norm_int[i]=intensities[i]-int_min
-    threshold = np.mean(norm_int)  
+    threshold = 2*np.mean(norm_int)  
     print(threshold)
     lambdas = np.linspace(ini_index,end_index,len(intensities), dtype = 'int')
     
@@ -214,7 +225,7 @@ def find_ThAr_slits(test):
     #print(intensities)
     
     slits = find_spikes_data(lambdas, norm_int)
-    tab_pos = []
+    tab_pos = [[-1,int_min]]
     for s in slits:
         (x_pos, _) = fit_the_spike(s[0], s[1])
         y_mean = np.mean(s[1])
@@ -236,7 +247,7 @@ def find_ThAr_slits(test):
     
     
 
-find_ThAr_slits('ThAr')
+find_ThAr_slits('FP')
         
     
     
