@@ -17,6 +17,11 @@ import calibration_methods.interpolated_conversion as cnv
 import validation_methods.matching as mtch
 import validation_methods.compute_order as cporder
 
+# Definition of global values
+global order_len # length of an order
+order_len = 4612
+global order_total # number of orders
+order_total = 36
 
 """
 This python module's role is to use the previous functions in validation_methods and calibration_methods in order to improve the calibration. It starts by using an already converted wavelengths list (converted by the cross correlation method used by Arthur Fezard in Thar3.py) to find which were the right spikes in this list thanks to the comparison with the ThAr Atlas. When those matching wavelengths have been found, it interpolates between those values to find each order's conversion law. Thanks to this law, it is able to convert the original arturo's scaled wavelengths list to an Angstrom's scaled list. This one is used to find the matching spikes, which are used to interpolate the conversion law, which is used to find another wavelengths list, etc. By iterating the process, we hope we can find the better possible conversion. The algorithm will stop the iteration when the errors between matched wavelengths and converted wavelengths are satisfying. We can use the standard deviation of the errors between matched and converted wavelengths as an indicator of the precision of our conversion.
@@ -42,9 +47,9 @@ Outputs :
 
 def compute_order_first_conversion(order,max_detection,precision,converted_lambdas_file_path):
     
-    # First of all, we will compute the list of matched wavelengths and indices, using the matching algorithms and the inputs. The wavelengths used for the first computation will always be the original wavelengths recorded in ThAr_calibered_original_lambdas.pkl.
+    # First of all, we will compute the list of matched wavelengths and indices, using the matching algorithms and the inputs. The wavelengths used for the first computation will always be the original wavelengths recorded in ThAr_calibered_lambdas.pkl.
     
-    mtch.order_matching_pickle("ThAr_calibered_original_lambdas.pkl",order,'temporary_file_for_conversion.pkl',max_detection,precision)
+    mtch.order_matching_pickle("ThAr_calibered_lambdas.pkl",order,'temporary_file_for_conversion.pkl',max_detection,precision)
     
     data = mtch.matching_reader('temporary_file_for_conversion.pkl')
     
@@ -66,9 +71,9 @@ def compute_order_first_conversion(order,max_detection,precision,converted_lambd
     plt.show()
     
     # Now we have our list of wavelengths and indices, so we can compute the interpolation.
+    conversion_results = cnv.arturo_convert_angstroms_order(spikes_lambdas,spikes_indices,order)
+    lambdas_Angstrom = conversion_results[0]
     
-    lambdas_Angstrom = cnv.arturo_convert_angstroms_order(spikes_lambdas,spikes_indices,order)
-
     # Recording the results 
     conversion_result_file = open(converted_lambdas_file_path,'w')
     data_pickle = pickle.dump(lambdas_Angstrom,conversion_result_file)
@@ -76,12 +81,12 @@ def compute_order_first_conversion(order,max_detection,precision,converted_lambd
     
     if (order == 34 or order == 35 ):
 
-        lambdas_Angstrom = cporder.search_orders("ThAr_calibered_original_lambdas.pkl","ThAr_calibered_original_intensitites.pkl")[order][0]
+        lambdas_Angstrom = cporder.search_orders("ThAr_calibered_lambdas.pkl","ThAr_calibered_original_intensitites.pkl")[order][0]
     
     # Comparing to the original drs wavelengths with a little plot : 
-    lambdas_ThAr_calibered = cporder.search_orders("ThAr_calibered_original_lambdas.pkl","ThAr_calibered_original_intensitites.pkl")[order][0]
-    indices_list = [i for i in range(0,166032)]
-    order_lambdas_indices = indices_list[4612*order:4612*(order+1)]
+    lambdas_ThAr_calibered = cporder.search_orders("ThAr_calibered_lambdas.pkl","ThAr_calibered_original_intensitites.pkl")[order][0]
+    indices_list = [i for i in range(0,order_total*order_len)]
+    order_lambdas_indices = indices_list[order_len*order:order_len*(order+1)]
     plt.figure(18)
     plt.title("Comparison : black = calibered lambdas, red = interpolated lambdas")
     plt.plot(order_lambdas_indices,lambdas_ThAr_calibered,'b+-')
@@ -176,27 +181,39 @@ def compute_order_conversion(lambdas_path, order, max_detection, precision, new_
     plt.ylabel('Proportion of the matched wavelengths')
     plt.show()
     
-    # Now we have our list of wavelengths and indices, so we can compute the interpolation.
+    # We can also compute the error in m/s and record it in a pickle
     
-    lambdas_Angstrom = cnv.arturo_convert_angstroms_order(spikes_lambdas,spikes_indices,order)
+    errors_file = open("results/Calibration errors/calibration_errors_"+str(order)+"_"+str(max_detection)+"_"+str(precision),'w')
+    calibration_errors = [ 3*10**8*spikes_errors[i]/spikes_lambdas[i] for i in range(len(spikes_errors)) ]
+    errors_data = [spikes_lambdas,calibration_errors]
+    pickle.dump(errors_data,errors_file)
+    errors_file.close()
+    
+    # Now we have our list of wavelengths and indices, so we can compute the interpolation.
+    conversion_results = cnv.arturo_convert_angstroms_order(spikes_lambdas,spikes_indices,order)
+    lambdas_Angstrom = conversion_results[0]
+    order_coeffs = conversion_results [1]
     
     # Recording the results 
-    
     conversion_result_file = open(new_converted_lambdas_path,'w')
     data_pickle = pickle.dump(lambdas_Angstrom,conversion_result_file)
     conversion_result_file.close()
+    
+    coeffs_file = open("results/Interpolation coefficients/Interpolation_coefficients_order_"+str(order)+"_"+str(max_detection)+"_"+str(precision),'w')
+    pickle.dump(order_coeffs,coeffs_file)
+    coeffs_file.close()
     
     # Dealing with the two lasts orders, which don't have any data to interpolate for now.
     
     if (order == 34 or order == 35 ):
 
-        lambdas_Angstrom = cporder.search_orders("ThAr_calibered_original_lambdas.pkl","ThAr_calibered_original_intensitites.pkl")[order][0]
+        lambdas_Angstrom = cporder.search_orders("ThAr_calibered_lambdas.pkl","ThAr_calibered_original_intensitites.pkl")[order][0]
     
     # Comparing to the original drs wavelengths with a little plot : 
     
-    lambdas_ThAr_calibered = cporder.search_orders("ThAr_calibered_original_lambdas.pkl","ThAr_calibered_original_intensitites.pkl")[order][0]
-    indices_list = [i for i in range(0,166032)]
-    order_lambdas_indices = indices_list[4612*order:4612*(order+1)]
+    lambdas_ThAr_calibered = cporder.search_orders("ThAr_calibered_lambdas.pkl","ThAr_calibered_original_intensitites.pkl")[order][0]
+    indices_list = [i for i in range(0,order_total*order_len)]
+    order_lambdas_indices = indices_list[order_len*order:order_len*(order+1)]
     plt.figure(18)
     plt.title("Comparison : black = calibered lambdas, red = interpolated lambdas")
     plt.plot(order_lambdas_indices,lambdas_ThAr_calibered,'b+-')
@@ -349,6 +366,7 @@ def order_iterated_conversion(order,max_detection,precision,stop_value,final_con
     
     return(std_evolution,mean_evolution)
     
+    
 """  
 Now we have everything we need to build the iteration : we can initiate it with compute_first_conversion and then use compute_conversion to compare the successive strandard deviations and decide if we iterate or not.
 The following function will do this job and implement the iteration process.
@@ -441,8 +459,10 @@ def ThAr_pickler():
 
 
 
-##
-
+"""
+Little script to plot everything we have computed before
+"""
+"""
 means = []
 stds = []
 
@@ -472,9 +492,153 @@ plt.figure(101)
 plt.title("Standard deviation for each order's error after iteration convergence")
 plt.plot(stds,'b+')
 plt.show()
+"""
+"""
+average_lambdas = []
 
-##
+for i in range(34) : 
+    lambda_file = open("results/Converted wavelengths/Converted wavelengthstest0.1_0.1_1e-08_order_"+str(i)+"_"+str(i)+"_0.1_0.1_1e-08",'r')
+    lambdas = pickle.load(lambda_file)
+    lambda_file.close()
+    average_lambdas.insert(i,np.mean(lambdas))
+
+
+errors_file = open("mean_evolutions_0.1_0.1_1e-08",'r')
+errors = pickle.load(errors_file)
+errors_file.close()
+final_errors = [errors[i][-1] for i in range(len(errors))]
+
+radial_vel = [final_errors[i]/average_lambdas[i]*3*10**8 for i in range(len(final_errors))]
+# plt.figure(56)
+# plt.plot(final_errors,'ro')
+plt.figure(200)
+plt.plot(average_lambdas,radial_vel,'ro')
+plt.xlabel("Wavelength (Angtroms)")
+plt.ylabel("Absolute calibration error (m/s)")
+plt.title("Evolution of calibration error after computation of the errors between Atlas and DRS (erreur moyenne et lambda moyen Angtroms par ordre puis vitesse)")
+plt.show()
+"""
+
+"""
+plt.figure(31)
+plt.title('Calibration errors ("ThAr_calibered.fits" compared to ThAr Atlas)  ')
+
+for i in range(34):
+    order_data_file = open("results/Calibration errors/calibration_errors_"+str(i)+"_0.1_0.1",'r')
+    data = pickle.load(order_data_file)
+    order_data_file.close()
     
+    lambdas = data[0]
+    errors = data[1]
+    plt.plot(lambdas,errors,'r+')
+plt.xlabel("Wavelength (Angstroms)")
+plt.ylabel("Calibration error (m/s)")
+plt.show()
+
+plt.figure(32)
+plt.title("Evolution of calibration error after computation of the errors between Atlas and DRS (moyenne sur les erreurs en m/s)")
+average_lambdas = []
+average_errors = []
+for i in range(34):
+    order_data_file = open("results/Calibration errors/calibration_errors_"+str(i)+"_0.1_0.1",'r')
+    data = pickle.load(order_data_file)
+    order_data_file.close()
     
+    lambdas = data[0]
+    errors = data[1]
+    
+    average_lambdas.insert(i,np.mean(lambdas))
+    average_errors.insert(i,np.mean(errors))
+plt.plot(average_lambdas,average_errors,'ro')
+plt.xlabel("Wavelength (Angstroms)")
+plt.ylabel("Calibration error (m/s)")
+plt.show()
+"""
+
+
+"""
+all_coeffs = []
+for i in range(34):
+    
+    coeffs_file = open("results/Interpolation coefficients/Interpolation_coefficients_order_"+str(i)+"_"+str(0.1)+"_"+str(0.1),'r')
+    
+    coeffs  = pickle.load(coeffs_file)
+    print(coeffs)
+    coeffs_file.close()
+    all_coeffs.insert(i,coeffs)
+    plt.figure(40)
+    plt.title("Degre du coefficient : "+str(5))
+    plt.plot(i,coeffs[0],'r+')
+    plt.figure(41)
+    plt.title("Degre du coefficient : "+str(4))
+    plt.plot(i,coeffs[1],'b+')
+    plt.figure(42)
+    plt.title("Degre du coefficient : "+str(3))
+    plt.plot(i,coeffs[2],'g+')
+    plt.figure(43)
+    plt.title("Degre du coefficient : "+str(2))
+    plt.plot(i,coeffs[3],'r.')
+    plt.figure(44)
+    plt.title("Degre du coefficient : "+str(1))
+    plt.plot(i,coeffs[4],'b.')
+    plt.figure(45)
+    plt.title("Degre du coefficient : "+str(0))
+    plt.plot(i,coeffs[5],'g.')
+    plt.show()
+"""
+"""
+data = read_fits("th_calibered.fits")
+lambdas_artur = data[0]
+
+lambdas_all_orders = []
+
+for i in range(34):
+    
+    name = "results/Converted wavelengths/Converted wavelengthstest0.1_0.1_1e-08_order_"+str(33-i)+"_"+str(33-i)+"_0.1_0.1_1e-08"
+    file = open(name,'r')
+    lambdas = pickle.load(file)
+    file.close()
+    for j in range(len(lambdas)):
+        lambdas_all_orders.append(lambdas[j])
+
+plt.plot(lambdas_artur,color = 'black')
+
+for i in range(2*order_len):
+    lambdas_all_orders.insert(i,lambdas_artur[i])
+
+
+plt.plot(lambdas_all_orders,color='red')
+plt.show()
+
+file1 = open("Wavelengths_corrected_after_iteration",'w')
+pickle.dump(lambdas_all_orders,file1)
+file1.close()
+"""
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     
