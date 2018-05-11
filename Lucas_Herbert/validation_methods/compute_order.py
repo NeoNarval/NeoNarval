@@ -54,7 +54,7 @@ def fits_to_pkl():
     lambdas = read_fits(file_path)[0]
     intensities = read_fits(file_path)[1]
     
-    lambdas_file = open("ThAr_calibered_original_lambdas.pkl",'w')
+    lambdas_file = open("ThAr_calibered_lambdas.pkl",'w')
     intensities_file = open("ThAr_calibered_original_intensitites.pkl",'w')
     
     lambdas_pkl = pickle.dump(lambdas,lambdas_file)
@@ -81,7 +81,6 @@ def search_orders(lambdas_pkl_path,intensities_pkl_path):
     # ThAr_calibered_lambdas = read_fits(file_path)[0]
     lambdas = pickle.load(open(lambdas_pkl_path,'r'))
     # We have to complete the two lasts order of the wavelengths list with the ThAr list because when we convert a new wavelengths list we don't have values in those two order due to the lack of spikes in the red wavelengths. You can refer to the comments of the module called "calibration_methods" and "matching.py" to understand.
-    # lambdas[2*4612:166032] = ThAr_calibered_lambdas[2*4612:166032]
     
     intensities = pickle.load(open(intensities_pkl_path,'r'))
     
@@ -120,7 +119,7 @@ def search_orders(lambdas_pkl_path,intensities_pkl_path):
 
     
 """
-Once an order has been defined thanks to search_orders, we can compute its offset and return the precise normalized spectrum we want to study. That's the role of this function. You can notice that we will always the "ThAr_calibered_original_lambdas.pkl" file because we don't care about which wavelengths we choose.
+Once an order has been defined thanks to search_orders, we can compute its offset and return the precise normalized spectrum we want to study. That's the role of this function. You can notice that we will always the "ThAr_calibered_lambdas.pkl" file because we don't care about which wavelengths we choose.
 Input :
 - n : int, number of the order to compute
 Output :
@@ -129,7 +128,7 @@ Output :
 
 def compute_order(n) :
     
-    orders = search_orders("ThAr_calibered_original_lambdas.pkl","ThAr_calibered_original_intensitites.pkl")
+    orders = search_orders("ThAr_calibered_lambdas.pkl","ThAr_calibered_original_intensitites.pkl")
     order_lambdas = orders[n][0]
     order_indices = orders[n][1]
     order_intensities = orders[n][2]
@@ -154,11 +153,11 @@ None.
 """
 def plot_order(n):
     
-    orders = search_orders("ThAr_calibered_original_lambdas.pkl","ThAr_calibered_original_intensitites.pkl")
+    orders = search_orders("ThAr_calibered_lambdas.pkl","ThAr_calibered_original_intensitites.pkl")
     order_lambdas = orders[n][0]
     order_intensities = orders[n][2]
     order_indices = orders[n][1]
-    computed_order_intensities = compute_order("ThAr_calibered_original_lambdas.pkl",n)
+    computed_order_intensities = compute_order("ThAr_calibered_lambdas.pkl",n)
     plt.figure(1)
     plt.plot(order_lambdas,order_intensities, color='black')
     plt.plot(order_lambdas, computed_order_intensities, color='red')

@@ -41,10 +41,10 @@ Outputs :
 
 def polyfit_dispersion2D():
     
-    N = 15 # How many orders do you want to fit (the N first orders will be fitted)
+    N = 34 # How many orders do you want to fit (the N first orders will be fitted)
     
     # Order of the polynomial fit :
-    p = 15
+    p = 20
     
     lists_of_coeffs = []
     list_of_fitted_coeffs = []
