@@ -10,6 +10,7 @@ import pickle
 import lmfit 
 from scipy.optimize import leastsq
 from scipy.optimize import curve_fit
+import math as maths
 
 # Validation methods imports :
 import validation_methods.compute_spikes as cpspikes
@@ -30,14 +31,15 @@ This function will compare the two lists used as an input. It will return the pr
 Inputs :
 - x : list of the values of the first list we want to compare (drs wavelengths list actually).
 - indices : list of the associated indices (we want to know which x matches with which y and what is the index of each of those x because we will use them later).
+- widths : list of data associated with the x and indices inputs which will be used and returned after the matching (we want to keep only the widths of the matched lambdas)
 - y : second list of values (atlas wavelengths list actually).
 - precision : float representing the maximum possible difference between one value in x and one value in y to consider them as matching values.
 Outputs :
-- matching_data : list of lists containing the data of each matched values : the two matching values in x and y and their difference (called "gap") and the associated index for the x value.
+- matching_data : list of lists containing the data of each matched values : the two matching values in x and y and their difference (called "gap"), the associated index for the x value and the associated width of the spike at this index.
 - matching_rate : float representing the proportion of the x's values which find a matching value in y.
 """
 
-def lambdas_matching(x,indices,y,precision):
+def lambdas_matching(x,indices,widths,y,precision):
     
     matching_data = []  # initiating the list we will use to register the matching wavelengths and their differences
     
@@ -55,7 +57,7 @@ def lambdas_matching(x,indices,y,precision):
                     gap_min = abs(x[i]-y[j])
                     best_matching_value = y[j]
         # Now that we have the minimum gap and the matching value, we can register this data
-        data = [x[i],best_matching_value,gap_min,indices[i]]            
+        data = [x[i],best_matching_value,gap_min,indices[i],widths[i]]            
         if (best_matching_value != None ):
             matching_data.insert(i,data)
     
@@ -85,6 +87,7 @@ EDIT : we will try to replace the list of wavelengths matching by the Atlas wave
 """
 
 def order_matching(lambdas_path,max_detection,n,precision):
+    
     print(" ")
     print(" _________________________ Matching  _________________________ ")
     print(" ")
@@ -153,7 +156,7 @@ def order_matching(lambdas_path,max_detection,n,precision):
     atlas_file.close()
     
     # Let's compare our data with the atlas data.
-    data = lambdas_matching(spikes_centers_lambdas,spikes_centers_indices,atlas_lambdas,precision)
+    data = lambdas_matching(spikes_centers_lambdas,spikes_centers_indices,spikes_widths,atlas_lambdas,precision)
     
     
     # We need to initialize to last lists to countain the comparison's results.
@@ -161,6 +164,7 @@ def order_matching(lambdas_path,max_detection,n,precision):
     matched_lambdas_drs = []
     matched_lambdas_atlas = []
     matched_lambdas_indices = []
+    matched_lambdas_widths = []
     matching_data = data[0]
     
     for i in range(len(matching_data)):
@@ -168,16 +172,19 @@ def order_matching(lambdas_path,max_detection,n,precision):
         matched_lambdas_drs.insert(i,matching_data[i][0])
         matched_lambdas_atlas.insert(i,matching_data[i][1])
         matched_lambdas_indices.insert(i,matching_data[i][3])
+        matched_lambdas_widths.insert(i,matching_data[i][4])
         
-        # We can allso plot the lambda_atlas on the spectrum to see the evolution of the iterated conversion (see calibration_methods)
+        # We can also plot the lambda_atlas on the spectrum to see the evolution of the iterated conversion (see calibration_methods)
         plt.figure(1)
         plt.axvline(matching_data[i][0],color='orange')
         plt.axvline(matching_data[i][1],color='yellow')
         plt.show()
     
         
-        
-    # We can plot the comparison's result for the in different scales (wavelengths and indices)
+    
+    # We can plot the comparison's result for the in different scales (wavelength and indices)
+    
+    #plt.close(2)
     plt.figure(2)
     plt.plot(matched_lambdas_atlas,gaps,'yo')
     plt.plot(matched_lambdas_drs,gaps,'.',color='red')
@@ -185,6 +192,7 @@ def order_matching(lambdas_path,max_detection,n,precision):
     plt.xlabel("Wavelengths(Angstrom)")
     plt.show() 
     
+    #plt.close(4)
     plt.figure(4)
     plt.plot(matched_lambdas_indices,gaps,'.',color='red')
     plt.title("Error = f(Indice)")
@@ -193,7 +201,7 @@ def order_matching(lambdas_path,max_detection,n,precision):
     average_error = float(np.sum(gaps)/len(matching_data))
     average_width = float(np.sum(spikes_widths)/len(spikes_widths))
     #print("Average width",average_width)
-    #print("Average error : "+str(average_error))
+    print("Average error (Angstroms): "+str(average_error))
     
     
     # Modification of the returned wavelengths : if the precision is high enough, that can be understood as if there is no doubt about the matching, we can replace the drs wavelengths by the atlas wavlengths in the output of this function because it will be used to compute a new conversion which can benefit from this idea. It is only a try for the moment.
@@ -206,6 +214,43 @@ def order_matching(lambdas_path,max_detection,n,precision):
         else :
             matched_lambdas.insert(i,matched_lambdas_drs[i])
     
+    # Finally, to have a better idea of what those values mean in term of radial velocities, we can compute for each lambda the value of its error in radial velocity (Doppler effect) and plot it.
+    
+    c = 3*10**8  # light's celerity in m/s
+    radial_velocities = []
+    for i in range(len(matched_lambdas)):
+        
+        radial_velocity = c*gaps[i]/matched_lambdas[i]
+        radial_velocities.insert(i,radial_velocity)
+    #plt.close(30)
+    plt.figure(30)
+    plt.plot(matched_lambdas,radial_velocities,'r+')
+    plt.title("Calibration error for each matched wavelength in m/s")
+    plt.xlabel("Wavelengths in Angstrom")
+    plt.ylabel("Calibration errors in m/s")
+    plt.show()
+    print("Average error (m/s):"+str(c*np.mean(gaps)/(np.mean(matched_lambdas))))
+    
+    
+    # Then, we can record all those matching data in a pkl file. The objective is to know which wavelengths are good and with which precision, and their associated widths and intensities.
+    
+    # Let's get the associated intensities
+    intensities_file = open("ThAr_calibered_original_intensitites.pkl",'r')
+    intensities = pickle.load(intensities_file)
+    intensities_file.close()
+    matched_lambdas_intensities = []
+    
+    for i in range(len(matched_lambdas_indices)) :
+        
+        # Since the index is not an int we have to find the associated intensity among floor(index) and ceil(index)
+        intensity = np.max( [ intensities[int(maths.floor(matched_lambdas_indices[i]))], intensities[int(maths.ceil(matched_lambdas_indices[i]))] ] )
+        matched_lambdas_intensities.insert(i,intensity)
+      
+    matching_results = [ matched_lambdas,matched_lambdas_widths,matched_lambdas_intensities,gaps ]
+    
+    matching_results_file = open("Matching_stats/Matching_results_order_"+str(n),'w')
+    matching_pkl = pickle.dump(matching_results,matching_results_file)
+    matching_results_file.close()
     
     return(data[1],average_error,matched_lambdas,matched_lambdas_indices,gaps)
     
@@ -367,4 +412,82 @@ def errors_distribution(path):
     
     
     
+""" 
+A little function which plots some results about the matching. It will inform us about errors, widths and intensities for each lambda matched.
+"""
+
+def matching_stats():
     
+    # First of all we need to gather all informations about each matched wavelength. We are going to build a big list with for each matched lambda : a list like [lambda, width, error, intensity]
+    matching_data = []
+    
+    for order in range(34):
+        
+        file_name = "Matching_stats/Matching_results_order_"+str(order)
+        
+        order_file = open(file_name,'r')
+        order_results = pickle.load(order_file)
+        order_file.close()
+        
+        order_lambdas = order_results[0]
+        order_widths = order_results[1]
+        order_intensities = order_results[2]
+        order_gaps = order_results[3]
+        
+        for k in range(len(order_lambdas)):
+            matching_data.append([ order_lambdas[k],order_widths[k],order_gaps[k],order_intensities[k] ])
+    
+    matching_data.sort()
+    matched_lambdas = np.zeros(len(matching_data))
+    errors = np.zeros(len(matching_data))
+    widths = np.zeros(len(matching_data))
+    intensities = np.zeros(len(matching_data))
+    
+        
+    # Let's get the global list of each data type
+    for k in range(len(matching_data)):
+        matched_lambdas[k] = matching_data[k][0]
+        errors[k] = matching_data[k][2]
+        widths[k] = matching_data[k][1]
+        intensities[k] = matching_data[k][3]
+        
+    # Computing the radial velocities corresponding to the errors :
+    radvel_errors = np.zeros(len(errors))
+    for i in range(len(errors)) :
+        radvel_errors[i] = 3*10**8*errors[i]/matched_lambdas[i]
+        
+        
+    plt.figure(50)
+    plt.title(" Calibration error distribution (m/s) ")  
+    plt.xlabel(" Calibration error (m/s) ")
+    plt.ylabel("Number of corresponding errors")
+    plt.hist(radvel_errors,bins= 500,color = 'red')
+    
+    plt.figure(51)
+    plt.title(" Fits widths distribution (Angstroms) ")
+    plt.xlabel(" Width (Angqtroms) ")
+    plt.ylabel("Number of corresponding widths")
+    plt.hist(widths,bins=500,color='brown')
+    
+    plt.figure(52)
+    plt.title(" Widths of the matched wavelengths (Angstroms) ")
+    plt.plot(matched_lambdas,widths,'b+')
+    plt.xlabel("Wavelength in Angstroms")
+    plt.ylabel("Width of the fitted gaussian (Angstroms) ")
+    
+    plt.figure(53)
+    plt.title("Calibration error (m/s) ")
+    plt.plot(matched_lambdas,radvel_errors,'r+')
+    plt.xlabel("Wavelength in Angstroms")
+    plt.ylabel("Calibration error (m/s) ")
+    
+    
+    plt.show()
+    
+    
+    # Recording the results in a pickle :
+    file = open("Matching_stats/Matching_results_global",'w')
+    matching_pickle_global = pickle.dump(matching_data,file)
+    file.close()
+    
+    return(None)

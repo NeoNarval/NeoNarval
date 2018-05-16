@@ -135,7 +135,7 @@ def fit_spikes_order(lambdas_path,max_detection,n) :
     
     # First case : everything is normal, we use the ThAr_calibered original wavelengths, let's go!
     
-    if ( lambdas_path == "ThAr_calibered_original_lambdas.pkl" ):
+    if ( lambdas_path == "ThAr_calibered_lambdas.pkl" ):
         
         # To verify the job has been done correctly, we can plot the different things we do.The original data are the wavelengths and intensities we have in the begining, plotted in black. 
         orders = cporder.search_orders(lambdas_path, "ThAr_calibered_original_intensitites.pkl")
@@ -185,14 +185,16 @@ def fit_spikes_order(lambdas_path,max_detection,n) :
     else : 
     
         # To verify the job has been done correctly, we can plot the different things we do.The original data are the wavelengths and intensities we have in the begining, plotted in black. 
-        orders = cporder.search_orders("ThAr_calibered_original_lambdas.pkl", "ThAr_calibered_original_intensitites.pkl")
+        orders = cporder.search_orders("ThAr_calibered_lambdas.pkl", "ThAr_calibered_original_intensitites.pkl")
         order_lambdas = pickle.load(open(lambdas_path,'r'))
         order_indices = orders[n][1]
         order_intensities = cporder.compute_order(n)
         # plotting everything
+        #plt.close(1)
         plt.figure(1)
         plt.plot(order_lambdas, order_intensities, color='black')
         plt.xlabel("Wavelengths(Angstrom)")
+        #plt.close(3)
         plt.figure(3)
         plt.plot(order_indices, order_intensities, color='black')
         plt.xlabel("Indices")

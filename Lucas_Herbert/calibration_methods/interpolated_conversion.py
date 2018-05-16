@@ -14,7 +14,11 @@ from scipy.optimize import curve_fit
 # Other module's imports
 import validation_methods.tests_fit as fit
 
-
+# Definition of global values
+global order_len # length of an order
+order_len = 4612
+global order_total # number of orders
+order_total = 36
 
 """
 The module calibration_methods called interpolated_conversion uses the results obtained by the matching.py script from validation_methods. It takes the lists of wavelengths and indices of the matched spikes and use it to compute a polynom which fits the wavelengths given the indices for each order. The role of this script is to find the law giving the wavelength in Angstroms as a function of the indice (int). Thus we will be able to iterate the conversion as explained in the itered_calibration script.
@@ -62,8 +66,9 @@ def matching_reader(path):
     lambdas = data['Spikes_wavelengths']
     errors = data['Matching_gaps_between_drs_and_atlas']
     indices = data['Spikes_indices']
-
-
+    
+    
+    # We will record those data in a particular pickle to be able to have an access later
     file.close()
     return(data)
 
@@ -73,7 +78,7 @@ spikes_indices = data['Spikes_indices']
 
 
 """
-This function will reconstitute each order's indices and associated wavelengths, knowing the fact that there is exactly 4612 values (and thus also indices) per order.
+This function will reconstitute each order's indices and associated wavelengths, knowing the fact that there is exactly  values (and thus also indices) per order.
 Input : 
 - spikes_lambdas : list of the spikes wavelengths
 - spikes_indices : list of the corresponding indices
@@ -86,8 +91,8 @@ OutPut :
 def select_order(spikes_lambdas,spikes_indices,n):
     
     # Indices of the order which will be computed
-    index_begining = 4612.0*n
-    index_end = 4612.0*(n+1)
+    index_begining = order_len*n
+    index_end = order_len*(n+1)
     
     selected_order_indices = []
     selected_order_wavelengths = []
@@ -174,6 +179,7 @@ Input :
 - order : int, number of the order to convert.
 Output :
 - order_lambdas_Angstroms : list of floats, conversion of arturos_list in Angstroms
+- coeffs : list of the coefficients of the polynom used for the interpolation
 """
 
 
@@ -184,7 +190,7 @@ def arturo_convert_angstroms_order(spikes_lambdas,spikes_indices,order):
     print(" _________________________ Converting  _________________________ ")
     print(" ")
     
-    arturos_list = [i for i in range(0,166032)]
+    arturos_list = [i for i in range(0,order_total*order_len)]
     lambdas_Angstroms = []
     
     order_lambdas_arturos = [] 
@@ -192,15 +198,16 @@ def arturo_convert_angstroms_order(spikes_lambdas,spikes_indices,order):
     
     # Selection of the arturos to convert :
 
-    order_lambdas_arturos = arturos_list[4612*order:4612*(order+1)]
+    order_lambdas_arturos = arturos_list[order_len*order:order_len*(order+1)]
 
-    # Convertion using the inteprolation :
+    # Convertion using the interpolation :
     order_coeffs = polynomial_interpolation(spikes_lambdas,spikes_indices,order)
     print("Polynomial coefficients",order_coeffs)
     pol = np.poly1d(order_coeffs)
     order_lambdas_Angstroms = pol(order_lambdas_arturos)
+
     
-    return(order_lambdas_Angstroms)
+    return(order_lambdas_Angstroms,order_coeffs)
 
 """
 This function converts all orders, using arturo_convert_angstroms_order.
@@ -216,14 +223,14 @@ def arturo_convert_angstroms(spikes_lambdas,spikes_indices):
     lambdas_Angstroms = []
     
     for order in range(36):
-        order_lambdas_Angstroms = arturo_convert_angstroms_order(spikes_lambdas,spikes_indices,order)
+        order_lambdas_Angstroms = arturo_convert_angstroms_order(spikes_lambdas,spikes_indices,order)[0]
         for i in range(len(order_lambdas_Angstroms)):
             lambdas_Angstroms.insert(order+(i),order_lambdas_Angstroms[i])
             
             
     # We have to replace the two lasts order's wavelengths with the ThAr_calibered wevelengths because the interpolation is impossible due to the lack of spikes in the red wavelengths. That will avoid us many troubles later, it is not a good solution but it is the only one we have found yet.
-    lambdas_ThAr_calibered = pickle.load(open("ThAr_calibered_original_lambdas.pkl",'r'))
-    lambdas_Angstroms[0:2*4612] = lambdas_ThAr_calibered[0:2*4612]
+    lambdas_ThAr_calibered = pickle.load(open("ThAr_calibered_lambdas.pkl",'r'))
+    lambdas_Angstroms[0:2*order_len] = lambdas_ThAr_calibered[0:2*order_len]
     # Comparing to the original drs wavelengths with a little plot : 
     plt.figure(16)
     plt.title("Comparison : black = calibered lambdas, red = interpolated lambdas")
