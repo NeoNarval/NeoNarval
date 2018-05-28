@@ -16,7 +16,7 @@ for line in content:
         nom_param = param[0]
         value_param = param[1]
         dic[nom_param] = value_param
-pix = int(dic["pix/arturo"])
+pix = float(dic["pix/arturo"])
 lambd_ini = int(dic["initial index"])*pix
 lambd_end = int(dic["final index"])*pix
 order = dic["order"]

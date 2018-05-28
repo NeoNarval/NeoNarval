@@ -31,9 +31,12 @@ def generate_spectrum(test_data, B_matrix):
     
  # We use the method of Normal Equations to retrieve the spectrum of the lane
     C = np.dot(B_matrix.T, B_matrix)            # C = At * A
-    C = C + np.identity(C.shape[0]) * 0.000001  # We get rid of the potential null values on the diagonal
+    C = C + np.identity(C.shape[0])# * 0.000001  # We get rid of the potential null values on the diagonal
 
-    G = np.linalg.cholesky(C)   # Cholesky factorization
+    G = np.linalg.cholesky(C) # Cholesky factorization
+    plt.matshow(G, aspect ='auto')
+    #plt.matshow(np.linalg.inv(C)*B_matrix.T, aspect='auto')
+    plt.show()
     d = (B_matrix.T).dot(CCD)
     y = np.linalg.solve(G, d)
     X = np.linalg.solve(G.T, y)

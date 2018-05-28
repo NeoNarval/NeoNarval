@@ -55,9 +55,9 @@ def fill_B_ThAr(ref_data):
             for x in range(min_x, max_x):
                 X = rint(x+delta_x_pos)
                 curv_pos = int(np.floor(left_lane(x)))
-                if ((ref_data[X,curv_pos]-min_data)/(np.mean(ref_data[rint(x_pos),curv_pos:curv_pos+thickness])-min_data))<=0.0001:
-                    print("!", curv_pos)
-                    curv_pos+=1
+                # if ((ref_data[X,curv_pos]-min_data)/(np.mean(ref_data[rint(x_pos),curv_pos:curv_pos+thickness])-min_data))<=0.0001:
+                #     print("!", curv_pos)
+                #     curv_pos+=1
                 for y in rng_thickness:
                     row.append(rint((x-ini_index)*thickness + y))
                     col.append(rint(wavelength-ini_index*pix))
@@ -328,7 +328,7 @@ def create_B_matrix(test):
 # test = 'ThAr' : ThAr
 # test = 'test' : CCD random issue de CCD _creator
 # test = 'FP' : FP
-create_B_matrix('FP')
+create_B_matrix('test')
     
     
     
