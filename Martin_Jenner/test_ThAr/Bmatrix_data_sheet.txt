@@ -9,10 +9,10 @@ ThAr slits file : C:\Users\Martin\Documents\Stage IRAP 2018\NeoNarval\TEMP_\ThAr
 ThAr slits file old : C:\Users\Martin\Documents\Stage IRAP 2018\NeoNarval\TEMP_\ThAr_slits_position_old
 test slits file old : C:\Users\Martin\Documents\Stage IRAP 2018\NeoNarval\TEMP_\test_slits_position_old
 FP slits file old : C:\Users\Martin\Documents\Stage IRAP 2018\NeoNarval\TEMP_\FP_slits_position_old
-order : 15
+order : 14
 lane : 1
 nb lane per order : 2
 initial index : 500
 final index : 1000
 pix/arturo : 1
-B matrix : C:\Users\Martin\Documents\Stage IRAP 2018\NeoNarval\TEMP_\Bmatrix\Bmat_FP_ord15_lane1.npz
+B matrix : C:\Users\Martin\Documents\Stage IRAP 2018\NeoNarval\TEMP_\Bmatrix\Bmat_test_ord14_lane1.npz

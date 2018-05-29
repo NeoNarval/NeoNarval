@@ -75,4 +75,4 @@ def fits_reader(path):
 # #plot_all(lambd, intensity)
 # plot_orders(lambd, intensity, 23)
 
-plot_mat(path_fp)
+plot_mat(path_th)

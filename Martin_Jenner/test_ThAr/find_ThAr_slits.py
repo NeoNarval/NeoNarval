@@ -247,7 +247,7 @@ def find_ThAr_slits(test):
     
     
 
-find_ThAr_slits('FP')
+find_ThAr_slits('test')
         
     
     
