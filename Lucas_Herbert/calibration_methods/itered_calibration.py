@@ -314,7 +314,7 @@ def order_iterated_conversion(order,max_detection,precision,stop_value,final_con
     # This variable is an iteration limit to make sure the programm ends
     stop = 2
     
-    while ( (abs(old_standard_deviation - new_standard_deviation) > stop_value) and (stop != 100) ):
+    while ( (abs(old_standard_deviation - new_standard_deviation) > stop_value) and (stop != 10) ):
         
         print(" ")
         print(" _________________________ "+" New iteration "+str(stop)+" _________________________ ")
@@ -618,8 +618,10 @@ file1.close()
 
 
 
-
-
+def test():
+    for i in range(34) :
+        order_iterated_conversion(i,0.1,0.1,1e-9,"test_plot_Torsten")
+    
 
 
 

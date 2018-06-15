@@ -92,8 +92,6 @@ def normalize_offset(lambdas, intensities):
     # Computation of the new spectrum without the offset :
     spectrum = [intensities[i] - offset[i] for i in range(len(intensities)) ]
 
-    
-    
     return(spectrum) 
     
     
