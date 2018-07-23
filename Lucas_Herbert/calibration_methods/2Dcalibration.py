@@ -203,7 +203,7 @@ def coeffs(order):
     F=388.  #mm focal length
     p=13.5e-3 # 12 micron pixel in mm
 
-    m = 57 -order
+    m = 21 + order
     
     # On multiplie par 1e7 pour passer des mm aux Angstroms
     a0 = 1e7*(1.0/m)*2*np.cos(gamma)*np.sin(alpha)/G
@@ -292,4 +292,3 @@ def grid2D():
     
     return(None)    
         
-    

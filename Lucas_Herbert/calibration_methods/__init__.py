@@ -2,6 +2,8 @@ __all__ = [
 
 'interpolated_conversion'
 
-'intered_calibration'
+'itered_calibration'
+
+'2Dcalibration'
 
 ]

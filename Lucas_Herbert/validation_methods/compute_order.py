@@ -128,24 +128,24 @@ Output :
 
 def compute_order(n) :
     
-    orders = search_orders("ThAr_calibered_lambdas.pkl","ThAr_calibered_original_intensitites.pkl")
+    orders = search_orders("calibration_methods/Calibration_files/ThAr_calibered_lambdas.pkl","calibration_methods/Calibration_files/ThAr_calibered_original_intensitites.pkl")
     order_lambdas = orders[n][0]
     order_indices = orders[n][1]
     order_intensities = orders[n][2]
     
     order_normalized_spectrum = cpoffset.normalize_offset(order_lambdas,order_intensities)
     
-    plt.figure(1)
-    plt.plot(order_lambdas,order_intensities,color='brown')
-    plt.figure(3)
-    plt.plot(order_indices,order_intensities,color='brown')
-    plt.show()
+    # plt.figure(1)
+    # plt.plot(order_lambdas,order_intensities,color='brown')
+    # plt.figure(3)
+    # plt.plot(order_indices,order_intensities,color='brown')
+    # plt.show()
     return(order_normalized_spectrum)
     
     
 
 """
-We can also print an order after its computation.
+We can also plot an order after its computation.
 Input :
 - n : int, number of the order to plot.
 Output :
@@ -153,18 +153,23 @@ None.
 """
 def plot_order(n):
     
-    orders = search_orders("ThAr_calibered_lambdas.pkl","ThAr_calibered_original_intensitites.pkl")
+    orders = search_orders("calibration_methods/Calibration_files/ThAr_calibered_lambdas.pkl","calibration_methods/Calibration_files/ThAr_calibered_original_intensitites.pkl")
     order_lambdas = orders[n][0]
     order_intensities = orders[n][2]
     order_indices = orders[n][1]
-    computed_order_intensities = compute_order("ThAr_calibered_lambdas.pkl",n)
-    plt.figure(1)
-    plt.plot(order_lambdas,order_intensities, color='black')
-    plt.plot(order_lambdas, computed_order_intensities, color='red')
-    plt.xlabel("Wavelengths(Angstrom)")
+    computed_order_intensities = compute_order(n)
+    # plt.figure(1)
+    # plt.plot(order_lambdas,order_intensities, color='black')
+    # plt.plot(order_lambdas, computed_order_intensities, color='red')
+    # plt.xlabel("Wavelengths(Angstrom)")
     
-    plt.figure(3)
+    plt.figure(4)
     plt.plot(order_indices,order_intensities, color='black')
-    plt.plot(order_indices, computed_order_intensities, color='red')
-    plt.show()
+    #plt.plot(order_indices, computed_order_intensities, color='purple')
     
+    
+    plt.show()
+
+    
+for k in range(35):
+    plot_order(k)

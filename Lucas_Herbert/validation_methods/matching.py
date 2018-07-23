@@ -248,7 +248,7 @@ def order_matching(lambdas_path,max_detection,n,precision):
       
     matching_results = [ matched_lambdas,matched_lambdas_widths,matched_lambdas_intensities,gaps ]
     
-    matching_results_file = open("Matching_stats/Matching_results_order_"+str(n),'w')
+    matching_results_file = open("Matching_stats/Matching_results_new_plot_order_"+str(n),'w')
     matching_pkl = pickle.dump(matching_results,matching_results_file)
     matching_results_file.close()
     
@@ -410,20 +410,53 @@ def errors_distribution(path):
             
     
     
+"""
+A little function which is usefull to plot results as histograms
+"""
+def OptimalNbins(a):
     
+    nbins=10.
+    if np.max(a) == np.min(a):
+        return nbins
+    rango=np.max(a)-np.min(a)
+    memoria=nbins
+    Cmin=1.0e9
+    for nbins in np.arange(10.,100.): 
+        p,b=np.histogram(a,bins=nbins.astype(int))
+        k0=np.mean(p)
+        k1=np.sum((p-k0)**2)/nbins
+        bins=rango/nbins
+        C=(2*k0-k1)/bins**2
+        if C < Cmin:
+            memoria=nbins
+            Cmin=C  
+
+    return memoria
     
+def cleanplt():
+    for k in range(100):
+        plt.close()
+        
+        
 """ 
 A little function which plots some results about the matching. It will inform us about errors, widths and intensities for each lambda matched.
 """
 
 def matching_stats():
     
+    
+    cleanplt()
+    
     # First of all we need to gather all informations about each matched wavelength. We are going to build a big list with for each matched lambda : a list like [lambda, width, error, intensity]
     matching_data = []
     
+    all_pondered_distrib  = []
+    all_pondered_reso_distrib = []
+    
+    
     for order in range(34):
         
-        file_name = "Matching_stats/Matching_results_order_"+str(order)
+        file_name = "Matching_stats/Matching_results_new_plot_order_"+str(order)
         
         order_file = open(file_name,'r')
         order_results = pickle.load(order_file)
@@ -433,6 +466,46 @@ def matching_stats():
         order_widths = order_results[1]
         order_intensities = order_results[2]
         order_gaps = order_results[3]
+        
+        
+        """
+        beginning plot Torsten
+        """
+        test_bins = [10*i for i in range(100)]
+        order_errors = np.zeros(len(order_gaps))
+        for i in range(len(order_gaps)):
+            order_errors[i] = 3*10**8*order_gaps[i]/order_lambdas[i]
+        plt.figure(70)    
+        order_hist = plt.hist(order_errors,bins = test_bins)
+        plt.show()
+        order_distrib = order_hist[0]
+
+        order_pondered_distrib = np.zeros(len(order_distrib))
+        for k in range(len(order_distrib)):
+            order_pondered_distrib[k] = order_distrib[k]/len(order_gaps)
+
+        all_pondered_distrib.append(order_pondered_distrib)
+        
+        reso_bins = [2000*i for i in range(90) ]
+        order_reso = np.zeros(len(order_widths))
+        for k in range(len(order_widths)):
+            order_reso[k] = order_lambdas[k]/order_widths[k]/2.32
+        
+        plt.figure(71)
+        order_reso_hist = plt.hist(order_reso,bins=reso_bins)
+        order_reso_distrib = order_reso_hist[0]
+        plt.show()
+        
+        order_pondered_reso_distrib = np.zeros(len(order_reso_distrib))
+        for k in range(len(order_reso_distrib)):
+            order_pondered_reso_distrib[k] = order_reso_distrib[k] / len(order_widths)
+        
+        all_pondered_reso_distrib.append(order_pondered_reso_distrib)
+        
+        
+        """
+        end plot Torsten
+        """
         
         for k in range(len(order_lambdas)):
             matching_data.append([ order_lambdas[k],order_widths[k],order_gaps[k],order_intensities[k] ])
@@ -456,18 +529,25 @@ def matching_stats():
     for i in range(len(errors)) :
         radvel_errors[i] = 3*10**8*errors[i]/matched_lambdas[i]
         
+    spectral_resolutions = np.zeros(len(widths))
+    for i in range(len(widths)):
+        spectral_resolutions[i] = matched_lambdas[i]/widths[i]/2.32
         
     plt.figure(50)
     plt.title(" Calibration error distribution (m/s) ")  
     plt.xlabel(" Calibration error (m/s) ")
     plt.ylabel("Number of corresponding errors")
-    plt.hist(radvel_errors,bins= 500,color = 'red')
+    optbins = int(OptimalNbins(radvel_errors))
+    plt.hist(radvel_errors,bins= optbins,color = 'red')
+    plt.axvline(150,color='black')
     
     plt.figure(51)
-    plt.title(" Fits widths distribution (Angstroms) ")
-    plt.xlabel(" Width (Angqtroms) ")
-    plt.ylabel("Number of corresponding widths")
-    plt.hist(widths,bins=500,color='brown')
+    plt.title(" Spectral resolution distribution ")
+    plt.xlabel(" Spectral resolution ")
+    plt.ylabel(" Distribution ")
+    optbins = int(OptimalNbins(spectral_resolutions))
+    plt.hist(spectral_resolutions,bins=optbins,color='brown')
+    plt.axvline(65000,color='black')
     
     plt.figure(52)
     plt.title(" Widths of the matched wavelengths (Angstroms) ")
@@ -475,14 +555,80 @@ def matching_stats():
     plt.xlabel("Wavelength in Angstroms")
     plt.ylabel("Width of the fitted gaussian (Angstroms) ")
     
+    
     plt.figure(53)
+    
+    plt.title(" Spectral resolution of the matched wavelengths ")
+    plt.plot(matched_lambdas,spectral_resolutions,'b+')
+    plt.xlabel("Wavelength in Angstroms")
+    plt.ylabel("Spectral resolution ")
+    plt.axhline(65000,color='black')
+    
+    plt.figure(54)
     plt.title("Calibration error (m/s) ")
     plt.plot(matched_lambdas,radvel_errors,'r+')
     plt.xlabel("Wavelength in Angstroms")
     plt.ylabel("Calibration error (m/s) ")
+    plt.axhline(150,color='black')
     
+
+    
+    """ plot Torsten"""
+    plt.figure(90)
+    plt.title("Distribution de l'erreur de calibration (ponderee par ordre) en m/s")
+    
+    pondered_distrib = np.zeros(len(order_distrib))   
+    for order in range(34):
+        for i in range(len(order_distrib)):
+            pondered_distrib[i] += all_pondered_distrib[order][i]
+
+    test_bins.pop()
+    total_errors = np.sum(pondered_distrib)
+    for j in range(len(pondered_distrib)):
+        pondered_distrib[j] = pondered_distrib[j]/total_errors
+    plt.plot(test_bins,pondered_distrib,'ro')
+    plt.plot(test_bins,pondered_distrib,color='red')
+    plt.axvline(150,color='black')
+    plt.xlabel(" Calibration error (m/s) ")
+    plt.ylabel("Proportion of corresponding errors")
+    
+    plt.figure(91)
+    plt.title(" Calibration error distribution (m/s) ")  
+    plt.xlabel(" Calibration error (m/s) ")
+    plt.ylabel("Number of corresponding errors")
+    plt.hist(radvel_errors,bins= test_bins,color = 'red')
+    plt.axvline(150,color='black')
+    
+    
+    plt.figure(80)
+    plt.title("Distribution de la resolution spectrale (ponderee par ordre)")
+    pondered_reso_distrib = np.zeros(len(order_reso_distrib))
+    for order in range(34):
+        for i in range(len(order_reso_distrib)):
+            pondered_reso_distrib[i] += all_pondered_reso_distrib[order][i]
+    reso_bins.pop()
+    total_reso = np.sum(pondered_reso_distrib)
+    for j in range(len(pondered_reso_distrib)):
+        pondered_reso_distrib[j] = pondered_reso_distrib[j]/total_reso
+    
+    plt.plot(reso_bins,pondered_reso_distrib,'ro')
+    plt.plot(reso_bins,pondered_reso_distrib,color='brown')
+    plt.xlabel(" Resolution ")
+    plt.ylabel(" Distribution ")
+    
+    plt.figure(81)
+    plt.title("Distribution de la resolution spectrale (non ponderee par ordre)")
+    plt.xlabel(" Resolution ")
+    plt.ylabel(" Distribution ")
+    plt.hist(spectral_resolutions,reso_bins,color='brown')
+    plt.axvline(65000,color='black')
     
     plt.show()
+    
+    """ end """
+    
+        
+    
     
     
     # Recording the results in a pickle :
