@@ -1,0 +1,8 @@
+Lane thickness file : /home/main/Documents/DRS/TEMP/lanes_thickness_1.p
+Lane envelope file : /home/main/Documents/DRS/TEMP/lanes_position_1.p
+Fabry Perot fts file : /home/main/Documents/DRS/FILES/Narval_20170629_091530_fp1.fts
+Test fts file : /home/main/Documents/DRS/FILES/Narval_20170629_095843_st1.fts
+Order n° : 39
+Lane n° : 2
+A matrix : ./Amatrix_OR39_LA2.npz
+FP slits position file : /home/main/Documents/DRS/TEMP/fp_slit_position.p

@@ -1,0 +1,8 @@
+Lane thickness file : /home/main/Documents/Arturo/Source_files/order_thickness_1.p
+Lane envelope file : /home/main/Documents/Arturo/Source_files/order_position_1.p
+Fabry Perot fts file : /home/main/Documents/Arturo/Source_files/Narval_20170609_175552_fp1.fts
+Test fts file : /home/main/Documents/Arturo/Source_files/Narval_20170610_011611_10f.fts
+Order n° : 39
+Lane n° : 2
+A matrix : ./Amatrix_OR39_LA2.npz
+FP slits position file : /home/main/Documents/Arturo/Source_files/fp_slit_position_Sun.p
