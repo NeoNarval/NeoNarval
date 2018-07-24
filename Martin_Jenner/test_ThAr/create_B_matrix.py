@@ -12,11 +12,11 @@ def rint(x): return int(round(x))
 def fill_B_ThAr(ref_data):
     
     row, col, data = [], [], []
-    print(thickness)
+    #print(thickness)
     rng_thickness = range(thickness)
     #print(first_pix)
     #print(len(tab_centre))
-    #print(tab_centre)
+    #print(len(tab_centre),len(tab_centre[0]))
     to_del = []
     for i in range(1,len(tab_centre)-1):
         x_pos = tab_centre[i]
@@ -39,18 +39,18 @@ def fill_B_ThAr(ref_data):
     for [x_pos, y_pos] in tab_centre:
         if x_pos == -1:
             min_data = y_pos/thickness
-            print('min_data= ', min_data)
+            #print('min_data= ', min_data)
         if (ini_index<= x_pos <= end_index):
             
             min_x = rint(max(ini_index, x_pos-search_window))
-
-            max_x = rint(min(end_index, x_pos+search_window))
+            max_x = rint(min(end_index, x_pos+search_window)+1)
+            
             wavelength = rint(x_pos * pix)# wavelength in arturos
             delta_x_pos = x_pos - rint(x_pos) #error due to round number
             #print(delta_x_pos)
             #delta_x_pos = 0
             
-            print(min_x, max_x, x_pos)
+            #print(min_x, max_x, x_pos)
             
             for x in range(min_x, max_x):
                 X = rint(x+delta_x_pos)
@@ -63,7 +63,8 @@ def fill_B_ThAr(ref_data):
                     col.append(rint(wavelength-ini_index*pix))
 
                     Y = y+curv_pos
-                    d = float((ref_data[X,Y]-min_data)/(np.mean(ref_data[rint(x_pos),curv_pos:curv_pos+thickness])-min_data))
+                    d = float(((ref_data[X,Y]-Bzero)/Bscale)/(np.sum((ref_data[rint(x_pos-search_window):rint(x_pos+search_window),curv_pos:curv_pos+thickness]-Bzero)/Bscale))) 
+                    # d = float(((ref_data[X,Y]-np.min(ref_data[rint(x_pos-search_window):rint(x_pos+search_window),curv_pos:curv_pos+thickness])-Bzero)/Bscale)/(np.max((ref_data[rint(x_pos-search_window):rint(x_pos+search_window),curv_pos:curv_pos+thickness]-Bzero)/Bscale)))
                     # if d<=0.0001:
                     #     d = 0
                     data.append(d)
@@ -78,7 +79,7 @@ def fill_B_ThAr(ref_data):
     # data = data[search_window:-search_window]
     #print(row)
     
-    B_shape = (rint((end_index-ini_index)*thickness), rint((end_index-ini_index)*pix))
+    B_shape = (rint((end_index-ini_index+1)*thickness), rint((end_index-ini_index)*pix))
     B = sparse.coo_matrix((data, (row, col)), shape=B_shape, dtype='float')
 
     return B
@@ -100,6 +101,7 @@ def interpolate(i):
     x0 -= ini_index
     x1 -= ini_index
     
+    
     if (x0 < end_index-ini_index and x1 < end_index+1-ini_index and x0 != x1):
         arx0, arx1 = rint(x0 * pix), rint(x1 * pix)                 # Rounded wavelength of the slits in arturos
         dy = -float(left_lane(x1) - left_lane(x0)) / float(x1-x0)   # Gap on the Y axis between the slits because of the curved lane
@@ -118,7 +120,7 @@ def interpolate(i):
             interp_window1 = int(np.floor((end_index- ini_index) * pix))
         else:
             interp_window1 = arx1
-            
+           
             
         # We successively consider each wavelength (hence each column) between the two slits.
         # for j in range(arx0 + 1, arx1):     # Case 1 : real value of the F-P are kept (discontinuity)
@@ -213,19 +215,24 @@ def fill_B_matrix(ref_data):
     # p.terminate()
     # p.join()
     DATA = []
+    
+    #print(len(tab_centre), tab_centre)
     for i in range(1, len(tab_centre)-1):
         DATA.append(interpolate(i))
+    
     zip_data = zip(*DATA)
+
+    
     col = sum(list(zip_data[0]), [])
     row = sum(list(zip_data[1]), [])
     data = sum(list(zip_data[2]), [])  
-    print(len(row),len(col),len(data))
+    #print(len(row),len(col),len(data))
     rp_lenX = rint((end_index-ini_index) * pix) # Round number of arturos in one lane
     
-    print(max(row),max(col))
-    print(rint((end_index-ini_index)*thickness),rp_lenX)
+    #print(max(row),max(col))
+    #print(rint((end_index-ini_index)*thickness),rp_lenX)
     # Creation of the full interpolated matrix with the header, in CRS format
-    B_shape = (rint((end_index-ini_index)*thickness), rp_lenX)
+    B_shape = (rint((end_index-ini_index+1)*thickness), rp_lenX)
     B = sparse.coo_matrix((data, (row, col)), shape=B_shape, dtype='float')
     B_full = B.tocsr()
 
@@ -244,9 +251,13 @@ def create_B_matrix(test):
     global pix          # Number of arturos per pixel : 1.5 art/pix <=> 1.73km/s / pix 
     global B_ThAr       # B matrice only filled for ThAr wavelengths
     global first_pix    # first pixel of the slab of order considered
+    global Bzero        # BZERO of the fits considered
+    global Bscale       # BSCALE of the fits considered
     global search_window
-    search_window = 8
-    path = r'C:\Users\Martin\Documents\Stage IRAP 2018\NeoNarval\NeoNarval\Martin_Jenner\test_ThAr\Bmatrix_data_sheet.txt'
+    Bzero = 0
+    Bscale = 1
+    search_window = 11
+    path = r'C:\Users\Martin\Documents\Stage_IRAP_2018\NeoNarval\NeoNarval\Martin_Jenner\test_ThAr\Bmatrix_data_sheet.txt'
     dic = collections.OrderedDict()
     with open(path, 'r') as file:
         content = file.readlines()
@@ -257,18 +268,27 @@ def create_B_matrix(test):
             nom_param = param[0]
             value_param = param[1]
             dic[nom_param] = value_param
-                 
-    thickness_data_file = dic["Lane thickness file"]
-    polys_data_file     = dic["Polys envelope file"]
-    if test =='ThAr':
-        position_file   = dic["ThAr slits file old"]
-    elif test =='test':
-        position_file   = dic["test slits file old"]
-    elif test=='FP':
-        position_file   = dic["FP slits file old"]
+         
+    #--------------postion of the lanes---------------
+    
+    # thickness_data_file = dic["n lanes thic"]
+    # polys_data_file     = dic["n polys env"]
+    # thickness_data_file = dic["Lane thickness file"]
+    # polys_data_file     = dic["Polys envelope file"]
+    thickness_data_file = dic["a lanes thic"]
+    polys_data_file     = dic["a polys env"]
+    
+    #------------------------------------------------
+    
+    position_file       = dic["position file"]
+    if test =='test':
+        position_file   = dic["test position file"]
+        
     ThAr_file           = dic["ThAr fts file"]
     test_file           = dic["test file"]
     FP_file             = dic["FP fts file"]
+    simu_file           = dic["simu fts file"]
+    flat_file           = dic["flat file"]
     order               = int(dic["order"])
     nbr_lanes           = int(dic["nb lane per order"])
     lane                = int(dic["lane"])
@@ -290,36 +310,64 @@ def create_B_matrix(test):
     left_lane[0] += thickness_float * (lane - 1)
     if test=='ThAr':     
         image_file = pyfits.open(ThAr_file)
+        image_header = image_file[0].header
+        # Bzero = image_header['BZERO']
+        # Bscale = image_header['BSCALE']
         data = image_file[0].data.astype(np.float32) # Data of the ThAr fts file
         image_file.close()
     elif test=='test':
         data = cPickle.load(open(test_file, 'r'))
     elif test=='FP':
         image_file = pyfits.open(FP_file)
+        image_header = image_file[0].header
+        # Bzero = image_header['BZERO']
+        # Bscale = image_header['BSCALE']
         data = image_file[0].data.astype(np.float32) # Data of the ThAr fts file
         image_file.close()
-    
-    
-        
+    elif test=='simu':
+        image_file = pyfits.open(simu_file)
+        image_header = image_file[0].header
+        # Bzero = image_header['BZERO']
+        # Bscale = image_header['BSCALE']
+        data = image_file[0].data.astype(np.float32) # Data of the ThAr fts file
+        image_file.close()
+    # plt.figure(75)
+    # plt.matshow(np.array([data[i,int(np.floor(left_lane(i))):int(np.floor(left_lane(i)))+thickness] for i in range(4612)]),aspect = 'auto')
+    # plt.show()
     B_ThAr = fill_B_ThAr(data).tocsr()  # Creation of the B matrix only filled with ThAr
     
-    plt.matshow(B_ThAr.toarray(), aspect = 'auto')
-    plt.show()
+    # plt.matshow(B_ThAr.toarray(), aspect = 'auto')
+    # plt.show()
     
     B_matrix = fill_B_matrix(data)
     
     plt.matshow(B_matrix.toarray(), aspect ='auto')
     plt.show()
     #------ print interpolation ------
-    B= B_matrix.toarray()
-    sum = np.sum(B,axis=0)
-    plt.figure()
-    plt.plot(sum)
-    plt.show()
+    # B= B_matrix.toarray()
+    # sum = np.sum(B,axis=0)
+    # plt.figure()
+    # plt.plot(sum)
+    # plt.show()
     #-------------------------------------
-    B_matrix_name = r'C:\Users\Martin\Documents\Stage IRAP 2018\NeoNarval\TEMP_\Bmatrix\Bmat_'+test+'_ord'+str(order)+r'_lane'+str(lane)+r'.npz'
+    #------print one line--------
+    [n,m] = np.shape(B_matrix)
+    plt.figure()
+    plt.plot(B_matrix.toarray()[:, m//2])
+    plt.show()
+    plt.figure()
+    plt.plot(B_matrix.toarray()[n//2,:])
+    plt.show()
+    #-------------------------
+    #print(Bzero, Bscale)
+   
+    B_origin = test
+    
+    B_matrix_name = r'C:\Users\Martin\Documents\Stage_IRAP_2018\NeoNarval\TEMP_\Bmatrix\Bmat_'+B_origin+'_ord'+str(order)+r'_lane'+str(lane)+r'.npz'
+    print(B_matrix_name)
     sparse.save_npz(B_matrix_name, B_matrix)    # B matrix saved with sparse format
     dic["B matrix"] = B_matrix_name
+    dic["B matrix origin"] = B_origin
     with open(path, 'w') as file:
         for value in dic.items():
             line = value[0] + " : " + value[1] + "\n"
@@ -328,7 +376,7 @@ def create_B_matrix(test):
 # test = 'ThAr' : ThAr
 # test = 'test' : CCD random issue de CCD _creator
 # test = 'FP' : FP
-create_B_matrix('test')
+create_B_matrix('simu')
     
     
     

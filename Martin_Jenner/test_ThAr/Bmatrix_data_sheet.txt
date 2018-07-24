@@ -1,18 +1,27 @@
-Lane envelope file : C:\Users\Martin\Documents\Stage IRAP 2018\NeoNarval\NeoNarval\DRS\TEMP\lanes_position_1.p
-Polys envelope file : C:\Users\Martin\Documents\Stage IRAP 2018\NeoNarval\NeoNarval\DRS\TEMP\polys_envelope_1.p
-Lane thickness file : C:\Users\Martin\Documents\Stage IRAP 2018\NeoNarval\NeoNarval\DRS\TEMP\lanes_thickness_1.p
-ThAr fts file : C:\Users\Martin\Documents\Stage IRAP 2018\NeoNarval\NeoNarval\DRS\FILES\Narval_20180313_181059_th1.fts
-FP fts file : C:\Users\Martin\Documents\Stage IRAP 2018\NeoNarval\NeoNarval\DRS\FILES\Narval_20180313_181342_fp1.fts
-test file : C:\Users\Martin\Documents\Stage IRAP 2018\NeoNarval\TEMP_\random_CCD_500-1000
-flat file : C:\Users\Martin\Documents\Stage IRAP 2018\NeoNarval\NeoNarval\DRS\FILES\Narval_20180313_180054_10f.fts
-ThAr slits file : C:\Users\Martin\Documents\Stage IRAP 2018\NeoNarval\TEMP_\ThAr_slits_position
-ThAr slits file old : C:\Users\Martin\Documents\Stage IRAP 2018\NeoNarval\TEMP_\ThAr_slits_position_old
-test slits file old : C:\Users\Martin\Documents\Stage IRAP 2018\NeoNarval\TEMP_\test_slits_position_old
-FP slits file old : C:\Users\Martin\Documents\Stage IRAP 2018\NeoNarval\TEMP_\FP_slits_position_old
+Lane envelope file : C:\Users\Martin\Documents\Stage_IRAP_2018\NeoNarval\NeoNarval\DRS\TEMP\lanes_position_1.p
+Polys envelope file : C:\Users\Martin\Documents\Stage_IRAP_2018\NeoNarval\NeoNarval\DRS\TEMP\polys_envelope_1.p
+Lane thickness file : C:\Users\Martin\Documents\Stage_IRAP_2018\NeoNarval\NeoNarval\DRS\TEMP\lanes_thickness_1.p
+n lanes pos : C:\Users\Martin\Documents\Stage_IRAP_2018\NeoNarval\NeoNarval\Martin_Jenner\arturo_lanes_pos.p
+n lanes thic : C:\Users\Martin\Documents\Stage_IRAP_2018\NeoNarval\NeoNarval\Martin_Jenner\arturo_lanes_thic.p
+n polys env : C:\Users\Martin\Documents\Stage_IRAP_2018\NeoNarval\NeoNarval\Martin_Jenner\arturo_poly_env.p
+order ref : C:\Users\Martin\Documents\Stage_IRAP_2018\NeoNarval\NeoNarval\Martin_Jenner\order_reference.pkl
+order curv : C:\Users\Martin\Documents\Stage_IRAP_2018\NeoNarval\NeoNarval\Martin_Jenner\Order_Curvature.pkl
+a lanes pos : C:\Users\Martin\Documents\Stage_IRAP_2018\NeoNarval\NeoNarval\13mar18\ccd_order_data\lanes_position_1.p
+a lanes thic : C:\Users\Martin\Documents\Stage_IRAP_2018\NeoNarval\NeoNarval\13mar18\ccd_order_data\lanes_thickness_1.p
+a polys env : C:\Users\Martin\Documents\Stage_IRAP_2018\NeoNarval\NeoNarval\13mar18\ccd_order_data\polys_envelope_1.p
+ThAr fts file : C:\Users\Martin\Documents\Stage_IRAP_2018\NeoNarval\NeoNarval\13mar18\Narval_20180313_181059_th0.fts
+FP fts file : C:\Users\Martin\Documents\Stage_IRAP_2018\NeoNarval\NeoNarval\13mar18\Narval_20180313_181342_fp0.fts
+simu fts file : C:\Users\Martin\Documents\Stage_IRAP_2018\NeoNarval\NeoNarval\13mar18\simu00_20180723_123949_fp0.fts
+test file : C:\Users\Martin\Documents\Stage_IRAP_2018\NeoNarval\TEMP_\random_CCD_1306-3306
+flat file : C:\Users\Martin\Documents\Stage_IRAP_2018\NeoNarval\NeoNarval\13mar18\Narval_20180313_180054_10f.fts
+star file : C:\Users\Martin\Documents\Stage_IRAP_2018\NeoNarval\NeoNarval\13mar18\Narval_20180314_003846_st0.fts
+position file : C:\Users\Martin\Documents\Stage_IRAP_2018\NeoNarval\TEMP_\slits_position.p
+test position file : C:\Users\Martin\Documents\Stage_IRAP_2018\NeoNarval\TEMP_\test_slits_position.p
 order : 14
 lane : 1
 nb lane per order : 2
-initial index : 500
-final index : 1000
 pix/arturo : 1
-B matrix : C:\Users\Martin\Documents\Stage IRAP 2018\NeoNarval\TEMP_\Bmatrix\Bmat_test_ord14_lane1.npz
+initial index : 1306
+final index : 3306
+B matrix : C:\Users\Martin\Documents\Stage_IRAP_2018\NeoNarval\TEMP_\Bmatrix\Bmat_simu_ord14_lane1.npz
+B matrix origin : simu

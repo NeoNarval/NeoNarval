@@ -11,7 +11,7 @@ def rint(x) : return int(round(x))
 
 def randomizer(nb_slits):
     lenCCD = end_index-ini_index
-    CCD = 0.0001*np.ones((4000,4000))
+    CCD = (2**15)*np.ones((4612,2098))
     slits = []
     while len(slits)<nb_slits:
         index = rd.randint(0,lenCCD)
@@ -24,8 +24,8 @@ def randomizer(nb_slits):
     slits.sort()
     print(slits)
     for s in slits:
-        for y in range(thickness):
-            CCD[s+ini_index][rint(y+left_lane[s+ini_index])] = 1
+        for y in range(5,thickness):
+            CCD[s+ini_index][rint(y+left_lane[s+ini_index])] += 400
             
     return CCD
   
@@ -34,10 +34,12 @@ def gaussian(x,amp,wid):
     return(amp*np.exp(-(x)**2/(2*wid**2)))
     
     
+    
 def gaussianizer(nb_slits):
+    alph = np.tan(7*np.pi/180) 
     window = 6
     lenCCD = end_index-ini_index
-    CCD = 30000*np.ones((4000,4000))
+    CCD = (2**15)*np.ones((4612,2098))
     slits = []
     while len(slits)<nb_slits:
         index = rd.randint(0,lenCCD)
@@ -52,7 +54,7 @@ def gaussianizer(nb_slits):
     print(slits)
     for s in slits:
         # wid = rd.uniform(1,5)
-        wid = 2
+        wid = 1
         # amp = 1
         
         #--------sans repartion aleatoire des amplitudes-------
@@ -104,22 +106,22 @@ def gaussianizer(nb_slits):
         sig = 10
         sum = gaussian(0,val_col,wid)
         amp = sum/thickness
-        err = np.sqrt(amp)
+        err = 2*np.sqrt(amp)
         for y in range(thickness):
-            coeff = gaussian(y-(thickness//2),1,sig)
-            CCD[s+ini_index][rint(y+left_lane[s+ini_index])]+= err*rd.randn()+amp*coeff
+            coeff = gaussian(y-(thickness//4),0.8,sig) + gaussian(y-(thickness//2),1,sig) + gaussian(y-(3*thickness//4),0.8,sig)
+            CCD[s+ini_index-rint(y*alph)][rint(y+left_lane[s+ini_index])]+= err*rd.randn()+amp*coeff
         
         for w in range(1,window):
             sum_plus = gaussian(w,val_col,wid)
             sum_moins = gaussian(-w,val_col,wid)
             amp_plus = sum_plus/thickness
             amp_moins = sum_moins/thickness
-            err_plus=np.sqrt(amp_plus)
-            err_moins = np.sqrt(amp_moins)
+            err_plus=2*np.sqrt(amp_plus)
+            err_moins = 2*np.sqrt(amp_moins)
             for y in range(thickness):
-                coeff = gaussian(y-(thickness//2),1,sig)
-                CCD[s+ini_index+w][rint(y+left_lane[s+ini_index])]+= err_plus*rd.randn() + amp_plus*coeff
-                CCD[s+ini_index-w][rint(y+left_lane[s+ini_index])]+= err_moins*rd.randn() +amp_moins*coeff
+                coeff = gaussian(y-(thickness//4),0.8,sig) + gaussian(y-(thickness//2),1,sig) + gaussian(y-(3*thickness//4),0.8,sig)
+                CCD[s+ini_index+w-rint(y*alph)][rint(y+left_lane[s+ini_index])]+= err_plus*rd.randn() + amp_plus*coeff
+                CCD[s+ini_index-w-rint(y*alph)][rint(y+left_lane[s+ini_index])]+= err_moins*rd.randn() +amp_moins*coeff
             
         
             
@@ -127,7 +129,7 @@ def gaussianizer(nb_slits):
             
 def regulizer(nb_slits):
     lenCCD = end_index-ini_index
-    CCD = 0.0001*np.ones((4000,4000))
+    CCD = 0.0001*np.ones((4612,2098))
     delta_slits = rint(lenCCD/nb_slits)
     for i in range(nb_slits):
         s = i*delta_slits
@@ -137,7 +139,7 @@ def regulizer(nb_slits):
     return CCD
 
 def CCD_creator(nb_slits, test):
-    path = r'C:\Users\Martin\Documents\Stage IRAP 2018\NeoNarval\NeoNarval\Martin_Jenner\test_ThAr\Bmatrix_data_sheet.txt'
+    path = r'C:\Users\Martin\Documents\Stage_IRAP_2018\NeoNarval\NeoNarval\Martin_Jenner\test_ThAr\Bmatrix_data_sheet.txt'
     global ini_index       # first index of the window of ThAr to be processed
     global end_index       # last index of the window of ThAr to be processed
     global envelope_data    # Upper envelope of each lane
@@ -159,9 +161,11 @@ def CCD_creator(nb_slits, test):
             nom_param = param[0]
             value_param = param[1]
             dic[nom_param] = value_param
-                 
-    envelope_data_file  = dic["Lane envelope file"]
-    thickness_data_file = dic["Lane thickness file"]
+        
+    envelope_data_file  = dic["a lanes pos"]
+    thickness_data_file = dic["a lanes thic"]    
+    # envelope_data_file  = dic["Lane envelope file"]
+    # thickness_data_file = dic["Lane thickness file"]
     ini_index           = int(dic["initial index"])
     end_index           = int(dic["final index"])
     order               = int(dic["order"])
@@ -183,7 +187,7 @@ def CCD_creator(nb_slits, test):
     elif test == 'gauss':
         CCD = gaussianizer(nb_slits)
     print(np.shape(CCD))
-    pklpath = r'C:\Users\Martin\Documents\Stage IRAP 2018\NeoNarval\TEMP_\random_CCD_'+str(ini_index)+'-'+str(end_index)
+    pklpath = r'C:\Users\Martin\Documents\Stage_IRAP_2018\NeoNarval\TEMP_\random_CCD_'+str(ini_index)+'-'+str(end_index)
     file = open(pklpath, 'w')    
     cPickle.dump(CCD, file)
     file.close()
@@ -194,4 +198,4 @@ def CCD_creator(nb_slits, test):
             file.write(line)
     plt.matshow(CCD, aspect='auto')
     plt.show()
-CCD_creator(10, 'gauss')
+CCD_creator(10, 'rand')

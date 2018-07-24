@@ -5,12 +5,91 @@ import collections
 from scipy import sparse
 import matplotlib.pyplot as plt
 
+
+
 # Method used to get the closest integer of a real number
 def rint(x): return int(round(x))
 
-def generate_spectrum(test_data, B_matrix):
+def ichol(A):
+    G = np.copy(A)
+    n =np.shape(G)[0]
+    for k in range(0,n):
+        G[k,k] = np.sqrt(G[k,k])
+        for i in range(k+1,n):
+            if (G[i,k] != 0):
+                G[i,k] = G[i,k]/G[k,k]            
+            
+
+        for j in range(k+1,n):
+            for i in range(j,n):
+                if (G[i,j]!=0):
+                    G[i,j] = G[i,j]-G[i,k]*G[j,k]  
+
+    for i in range(0,n):
+        for j in range(i+1,n):
+            G[i,j] = 0
+    return(G)
     
-   
+def conjugate_grad_prec(A,Y):
+    iter = 100
+    plt.figure(200)
+
+    # ========== Precondtioned conjugate gratient method ==========
+    # https://en.wikipedia.org/wiki/Conjugate_gradient_method#The_preconditioned_conjugate_gradient_method
+    # Pas besoin de preconditionner donc on peut directement utiliser C1 et b1
+    n = np.shape(Y)[0]
+    sig = sparse.spdiags(np.sqrt(Y.T), 0, n,n) 
+    C=((A.T).dot(sig)).dot(A)
+    b=A.T.dot(Y)
+    
+    # Calcul de la matrice M de preconditionnement
+    
+    G = ichol(C)
+    
+    M = np.dot(G.T,G)
+    DM = np.diag(M)
+    #DM=np.zeros_like(M) 
+    #np.fill_diagonal(DM,1./np.diag(M))
+    np.fill_diagonal(M,DM)
+    
+    # Initialisation :
+    x0 = np.zeros((np.shape(C)[0],1))
+    r0 = b - np.dot(C,x0)
+    z0 = np.dot(M,r0)
+    p0 = r0
+    k = 0
+    
+    xk = x0
+    pk = p0
+    rk = r0
+    zk = z0
+    print(np.shape(xk),np.shape(pk),np.shape(rk),np.shape(zk))
+    print(np.shape(C.dot(pk)))
+    # Iteration
+    for i in range(iter):
+        
+        ak = float(np.dot(zk.T,rk) / np.dot(pk.T, C.dot(pk) ))
+        new_xk = xk + ak*pk
+        new_rk = rk - ak*np.dot(C,pk)
+
+        new_zk = np.dot(M.T,new_rk)
+        bk = float(np.dot(new_zk.T,new_rk) / np.dot(zk.T,rk))
+        new_pk = new_zk + bk*pk
+
+        xk = new_xk
+        rk = new_rk
+        pk = new_pk
+        zk = new_zk
+
+    # Plotting the results
+    new_xk = new_xk/np.max(new_xk)		
+    plt.plot(new_xk,color='blue')
+    plt.show()
+
+    return new_xk
+
+
+def generate_spectrum(test_data, B_matrix):
     
     # B_matrix[B_matrix.nonzero()] = 1
     # plt.matshow(B_matrix.toarray(), aspect = 'auto')
@@ -26,23 +105,90 @@ def generate_spectrum(test_data, B_matrix):
         for j in range(thickness):
             CCD.append(test_data[i, rint(left_lane(i)+j)])
     CCD = np.matrix(CCD).T
-    print(len(CCD))
+    cPickle.dump(CCD, open(r'C:\Users\Martin\Documents\Stage IRAP 2018\NeoNarval\TEMP_\second_membre_CCD', 'wb'))
+    print(np.shape(CCD))
     
     
- # We use the method of Normal Equations to retrieve the spectrum of the lane
-    C = np.dot(B_matrix.T, B_matrix)            # C = At * A
-    C = C + np.identity(C.shape[0])# * 0.000001  # We get rid of the potential null values on the diagonal
-
-    G = np.linalg.cholesky(C) # Cholesky factorization
-    plt.matshow(G, aspect ='auto')
-    #plt.matshow(np.linalg.inv(C)*B_matrix.T, aspect='auto')
+ # # We use the method of Normal Equations to retrieve the spectrum of the lane
+    n = np.shape(CCD)[0]
+    sig = sparse.spdiags(np.sqrt(CCD.T), 0, n,n)      
+    C = (B_matrix.T).dot(sig)
+    C = C.dot(B_matrix)
+    C = C.toarray()
+    print(np.linalg.cond(C))
+    k = ((B_matrix.T).dot(sig)).dot(CCD)
+    
+#--------------------linalg_solve------------------
+    # x_lin = np.linalg.solve(C,k)
+    # 
+    # # plt.figure()
+    # # plt.plot(x_lin)
+    # # plt.show()
+    # spectrum = (list(np.array(x_lin.T.tolist()[0])))
+# # #--------------------SSOR Method-----------------------
+    omega = 1
+    iter = 50
+    diag = np.diag(C)
+    D = np.zeros_like(C)
+    inv_D  = np.zeros_like(C)
+    np.fill_diagonal(D, diag)
+    np.fill_diagonal(inv_D, 1./diag)
+    
+    L = np.dot(inv_D,-np.tril(C))
+    U = np.dot(inv_D,-np.triu(C))
+    I = np.identity(C.shape[0])
+    
+    
+    x_simple = inv_D.dot(k)
+    # plt.close(100)
+    # plt.figure(100)
+    # plt.plot(x_simple)
+    # plt.show()
+    
+    Alpha = I-omega*L
+    Beta = (1-omega)*I + omega*U
+    #x_old = np.linalg.solve(C,k)
+    
+    #print(np.linalg.cond(Alpha))
+    
+    x_old = x_simple
+    
+    for i in range(iter):
+        x = np.linalg.solve(Alpha, Beta.dot(x_old)+ omega*inv_D.dot(k))
+        #x = np.linalg.pinv(Alpha).dot(Beta).dot(x_old) + omega
+        x_old = x
+        #plt.cla()
+    plt.figure()
+    plt.plot(x)
+    plt.title("SSOR iteration {0}".format(iter))
     plt.show()
-    d = (B_matrix.T).dot(CCD)
-    y = np.linalg.solve(G, d)
-    X = np.linalg.solve(G.T, y)
-    spectrum = (list(np.array(X.T.tolist()[0])))
-    
+
+    spectrum = (list(np.array(x.T.tolist()[0])))
+#-----------------------------------------------------
+
+#---------------Lucas Method--------------------
+    # spectrum = (list(np.array(conjugate_grad_prec(B_matrix.toarray(),CCD).T.tolist()[0])))
+#-----------------------------------------------
+
+#-------------------Cholesky -simple- Method----------
+    # G = np.linalg.cholesky(C) # Cholesky factorization
+    # #plt.matshow(G, aspect ='auto')
+    # #plt.matshow(np.linalg.inv(C)*B_matrix.T, aspect='auto')
+    # #plt.show()
+    # y = np.linalg.solve(G, k)
+    # X = np.linalg.solve(G.T, y)
+    # spectrum = (list(np.array(X.T.tolist()[0])))
+#-----------------------------------------------------
+
+# #---------------Landweber Method----------------------
+#  for i in range(iter):
+#     x = np.linalg.solve(Alpha, Beta.dot(x_old)+ omega*inv_D.dot(k))
+#     #x = np.linalg.pinv(Alpha).dot(Beta).dot(x_old) + omega
+#     x_old = x
+#-----------------------------------------------------
+
     return spectrum
+    
     
 def get_spectrum(test):
     global nbr_lanes
@@ -77,6 +223,9 @@ def get_spectrum(test):
         test_file       = dic["FP fts file"]
     elif test =='flat':
         test_file       =dic["flat file"]
+    elif test == 'star':
+        test_file       =dic["star file"]
+    flat_file           =dic["flat file"]
     order               = int(dic["order"])
     nbr_lanes           = int(dic["nb lane per order"])
     lane                = int(dic["lane"])
@@ -101,11 +250,24 @@ def get_spectrum(test):
         image_file = pyfits.open(test_file)
         test_data = image_file[0].data.astype(np.float32) # Data of the ccd of the star fts file
         image_file.close()
+    
+    image_f_file = pyfits.open(flat_file)
+    flat_data = image_f_file[0].data.astype(np.float32) # Data of the ccd of the star fts file
+    image_f_file.close()
+    
     lenX = test_data.shape[0]
     min = np.min(test_data)
     test_data = test_data-min
+    #------------flat-field handling---------
     Spectrum = generate_spectrum(test_data, B_matrix)
+    flat_field = generate_spectrum(flat_data, B_matrix)
+    for i in range(len(Spectrum)):
+        Spectrum[i] = Spectrum[i]/flat_field[i]
+    plt.figure()
+    plt.plot(Spectrum)
+    plt.show()
+    #-----------------------------------------
     pickle_name = r'C:\Users\Martin\Documents\Stage IRAP 2018\NeoNarval\TEMP_\ThAr_based_spec'+ '_OR'+str(order)+'_LA'+str(lane)+'.p'
     cPickle.dump(Spectrum, open(pickle_name, 'wb'))
     
-get_spectrum('test')
+get_spectrum('ThAr')

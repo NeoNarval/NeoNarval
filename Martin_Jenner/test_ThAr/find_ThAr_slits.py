@@ -26,9 +26,9 @@ def sum_on_y_axis(left_lane, thickness, ini_index, end_index):
    
     for i in range(ini_index, end_index):
         intensity[i-ini_index] = sum(ThAr_data[i][min(rint(left_lane[i]+j), lenDataY-1)] for j in range(nb_col))
-    plt.figure()
+    plt.figure(1)
     #abscisse = np.linspace(ini_index,end_index,lenX)
-    plt.plot(intensity)
+    plt.plot(np.arange(order*4612 + ini_index,order*4612 + end_index), intensity)
     plt.show()    
     return intensity
 
@@ -121,13 +121,13 @@ def fit_the_spike(lambdas,data):
         best_wid = result.best_values['wid']
         best_amp = result.best_values['amp']
         best_params_gaussian = [ gaussian(x,best_cen,best_amp,best_wid) for x in lambdas ]
-        plt.figure(100)
+        # plt.figure(100)
         #plt.plot(lambdas, best_params_gaussian, 'b', color='purple')
         #plt.axvline(best_cen, color = 'red')
         computed_centre = float(np.sum(X*best_gaussian_fit))/np.sum(best_gaussian_fit) 
-        plt.plot(lambdas, best_gaussian_fit, 'b--' ,color='green')
-        #plt.axvline(computed_centre, color='green')
-        plt.show()
+        # plt.plot(lambdas, best_gaussian_fit, 'b--' ,color='green')
+        # plt.axvline(computed_centre, color='green')
+        # plt.show()
         lambda_centre = best_cen
         lambda_width = best_wid
         # we need the report data to improve our understanding of the results
@@ -136,7 +136,7 @@ def fit_the_spike(lambdas,data):
         
     except : 
         report = "Computation failed for this spike : default data = naive fit"
-        print(report)
+        #print(report)
         pass
         
     return(lambda_centre,lambda_width)
@@ -147,7 +147,7 @@ def fit_the_spike(lambdas,data):
 main script that open and compute all the lists needed for the algorithm
 """
 def find_ThAr_slits(test):
-    path = r"C:\Users\Martin\Documents\Stage IRAP 2018\NeoNarval\NeoNarval\Martin_Jenner\test_ThAr\Bmatrix_data_sheet.txt"
+    path = r"C:\Users\Martin\Documents\Stage_IRAP_2018\NeoNarval\NeoNarval\Martin_Jenner\test_ThAr\Bmatrix_data_sheet.txt"
     global ini_index       # first index of the window of ThAr to be processed
     global end_index       # last index of the window of ThAr to be processed
     global lane             # considered lane
@@ -156,6 +156,7 @@ def find_ThAr_slits(test):
     global lenDataY         # Dimension of the CCD (width)
     global ThAr_data        # The ThAr data
     global threshold        # detection threshold 
+    global order
     
     # Import of data from data file
     dic = collections.OrderedDict()
@@ -168,16 +169,24 @@ def find_ThAr_slits(test):
             nom_param = param[0]
             value_param = param[1]
             dic[nom_param] = value_param
-                 
-    envelope_data_file  = dic["Lane envelope file"]
-    thickness_data_file = dic["Lane thickness file"]
-    ini_index          = int(dic["initial index"])
-    end_index          = int(dic["final index"])
+    #--------------postion of the lanes---------------       
+     
+    # envelope_data_file  = dic["n lanes pos"]
+    # thickness_data_file = dic["n lanes thic"]
+    envelope_data_file  = dic["a lanes pos"]
+    thickness_data_file = dic["a lanes thic"]
+    # envelope_data_file  = dic["Lane envelope file"]
+    # thickness_data_file = dic["Lane thickness file"]
+    
+    #-------------------------------------------------
+    ini_index           = int(dic["initial index"])
+    end_index           = int(dic["final index"])
     order               = int(dic["order"])
     ThAr_file           = dic["ThAr fts file"]
-    test_file            =dic["test file"]
+    test_file           = dic["test file"]
     flat_file           = dic["flat file"]
     FP_file             = dic["FP fts file"]
+    simu_file           = dic["simu fts file"]
     nbr_lanes           = int(dic["nb lane per order"])
     lane                = int(dic["lane"])
     
@@ -202,27 +211,31 @@ def find_ThAr_slits(test):
         image_file = pyfits.open(FP_file)
         ThAr_data = image_file[0].data.astype(np.float32) # Data of the ThAr fts file
         image_file.close()
-        
+    
+    elif test =='simu':
+        image_file = pyfits.open(simu_file)
+        ThAr_data = image_file[0].data.astype(np.float32) # Data of the ThAr fts file
+        image_file.close()
         
     (lenDataX, lenDataY) = ThAr_data.shape
     
     intensities = sum_on_y_axis(left_lane, thickness, ini_index, end_index)
     int_min = np.min(intensities)
-    print(int_min)
+    #print(int_min)
     norm_int = np.zeros(end_index-ini_index)
     for i in range(end_index-ini_index):
         norm_int[i]=intensities[i]-int_min
     threshold = 2*np.mean(norm_int)  
-    print(threshold)
+    #print(threshold)
     lambdas = np.linspace(ini_index,end_index,len(intensities), dtype = 'int')
     
     
     
-    plt.figure(100)
-    plt.plot(lambdas, norm_int, color = 'black')
-    plt.show()
-    #print(lambdas)
-    #print(intensities)
+    # plt.figure(100)
+    # plt.plot(lambdas, norm_int, color = 'black')
+    # plt.show()
+    # print(lambdas)
+    # print(intensities)
     
     slits = find_spikes_data(lambdas, norm_int)
     tab_pos = [[-1,int_min]]
@@ -231,23 +244,26 @@ def find_ThAr_slits(test):
         y_mean = np.mean(s[1])
         tab_pos.append([x_pos, y_mean])
         
-    if test == 'ThAr':
-        cPickle.dump(tab_pos, open(r'C:\Users\Martin\Documents\Stage IRAP 2018\NeoNarval\TEMP_\ThAr_slits_position_old', 'w'))
-    elif test == 'test':
-        cPickle.dump(tab_pos, open(r'C:\Users\Martin\Documents\Stage IRAP 2018\NeoNarval\TEMP_\test_slits_position_old', 'w'))
+    
+    if test == 'test':
+        cPickle.dump(tab_pos, open(r'C:\Users\Martin\Documents\Stage_IRAP_2018\NeoNarval\TEMP_\test_slits_position.p', 'w'))
+    else:
+        cPickle.dump(tab_pos, open(r'C:\Users\Martin\Documents\Stage_IRAP_2018\NeoNarval\TEMP_\slits_position.p', 'w'))
+    
+    print(tab_pos)
     
     # to plot the pos  
-    tab_x = []
-    tab_y = []  
-    for a in tab_pos:
-        tab_x.append(a[0])
-        tab_y.append(a[1])
-    print(tab_x)
-    print(tab_y)
+    # tab_x = []
+    # tab_y = []  
+    # for a in tab_pos:
+    #     tab_x.append(a[0])
+    #     tab_y.append(a[1])
+    # print(tab_x)
+    # print(tab_y)
     
     
 
-find_ThAr_slits('test')
+find_ThAr_slits('simu')
         
     
     
