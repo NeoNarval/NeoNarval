@@ -15,13 +15,12 @@ import numpy.ma as ma
 workdir='./temp'
 CCDsize=4640
 ref=2320 
-ancho=5
 
 # On lit l'atlas solaire sur a
-# atlas="/Users/arturo/DeepStokes/SolarSpectrum.pkl"
-# f=open(atlas,'r')
-# sol=pickle.load(f)
-# f.close()
+atlas="extraction_methods/Extraction_files/SolarSpectrum.pkl"
+f=open(atlas,'r')
+sol=pickle.load(f)
+f.close()
 
 
 f=open('extraction_methods/Extraction_files/REF/order_reference.pkl','r')
@@ -56,7 +55,7 @@ f=pyfits.open(datafile)
 img=f[0].data
 f.close()
 
-fout=open("extraction_methods/Extraction_files/REF/FP_map.pkl","r")
+fout=open("extraction_methods/Extraction_files/REF/FP_map_new.pkl","r")
 a=pickle.load(fout)
 FPpics=a['picos']
 fout.close()
@@ -68,23 +67,22 @@ SL=[]
 WL=[]
 plt.ion()
 all_Xshow = []
-
-for orden in range(0,35):
+all_w = []
+all_Solw = []
+all_SolI = []
+for orden in range(0,36):
 	t0=time.time()
 	print("Empezamos orden {0}".format(60-orden))
-	nombre='extraction_methods/Extraction_files/REF/Amatrix_order{0}_lane1.pkl'.format(orden)
 
 	o0=interorden[orden]
 	o1=interorden[orden+1]
 	ov=interpol[orden]
-
-
 	
 	picos=FPpics[orden]
 	# jini=5
 	# jfin=len(picos)-10
 
-	nombre='extraction_methods/Extraction_files/REF/Amatrix_order{0}_lane1.pkl'.format(orden)
+	nombre='extraction_methods/Extraction_files/REF/Amatrix_order{0}_lane1_ancho5_flat_edge.pkl'.format(orden)
 	f=open(nombre,'r')
 	matriz=pickle.load(f)
 	Acompleta=matriz['Amatrix']#.toarray()
@@ -127,9 +125,9 @@ for orden in range(0,35):
 	angstroms=wvl[Orderlimit[orden]:Orderlimit[orden+1]]
 	w=angstroms[int(cual0):int(cualf)]
 	# Je vais chercher dans l'atlas le morceaux de spectre choisi
-	# donde=ma.masked_inside(sol["Wavelength"],w[0],w[-1])
-	# Solw=np.asarray(sol["Wavelength"])[donde.mask]
-	# SolI=np.asarray(sol["Intensity"])[donde.mask]
+	donde=ma.masked_inside(sol["Wavelength"],w[0],w[-1])
+	Solw=np.asarray(sol["Wavelength"])[donde.mask]
+	SolI=np.asarray(sol["Intensity"])[donde.mask]
 
 
 # 		print("LibreEsprit encontrado en {0}s".format(time.time()-t0)) #+0.005 sec
@@ -169,15 +167,16 @@ for orden in range(0,35):
 
 
 
-	wrelax=0.5   # <2./lambda_max**2
+	wrelax = 1./lambda_max #2./lambda_max**2
+	print(1/lambda_max) 
 	X=X0.copy()
 	diff=1.
 	diff0=0.
+	k = 0
 	
+	Morozov=0.5*np.median(Sigma)  #Value of tau=1. for the Moon
 	
-	Morozov=.75*np.median(Sigma)  #Value of tau=1. for the Moon
-	
-	while (diff>Morozov) and (np.abs(diff-diff0)>1e-10) :
+	while (diff>Morozov) and (np.abs(diff-diff0)>1e-10) and k<1000 :
 		diff0=diff
 		r=np.sqrt(Sigma)*sparse.csc_matrix.dot(A,X)-np.sqrt(Sigma)*Y2
 		rF=np.sqrt(FSigma)*sparse.csc_matrix.dot(A,FX)-np.sqrt(FSigma)*FY2
@@ -186,37 +185,47 @@ for orden in range(0,35):
 		X=X-wrelax*sparse.csr_matrix.dot(A.T,r)
 		FX=FX-wrelax*sparse.csr_matrix.dot(A.T,rF)
 		diff=np.linalg.norm(r)/np.linalg.norm(X)
+		k+=1
 		
-		
-	print(diff,Morozov)
-
-	Xshow=X/(FX+1e-40)
-	Xshow=Xshow/np.amax(Xshow[10:-10])
+	print(k,diff,Morozov)
+	
+	
+	Xshow=X/FX
+	#Xshow=Xshow/np.amax(Xshow[10:-10])
+	Xshow = Xshow/np.max(Xshow)
 	print("		Landweber converge en {0}s".format(time.time()-t0)) #+1sec
-	plt.figure(1)
-	plt.plot(Xshow,color = 'blue')
-	plt.show()
-	# if len(SolI)>0:
-	# 	slope=(1.-np.amin(Xshow[10:-10]))/(np.amax(SolI)-np.amin(SolI))
-	# 	off=1.-slope*np.amax(SolI)
-	# 	SL.extend(SolI*slope+off)
-	# 	WL.extend(Solw)
-	# 
+	#plt.figure(11)
+	#plt.plot(w,Xshow,color = 'blue')
+	#plt.show()
+	if len(SolI)>0:
+		slope=(1.-np.amin(Xshow[10:-10]))/(np.amax(SolI)-np.amin(SolI))
+		off=1.-slope*np.amax(SolI)
+		SL.extend(SolI*slope+off)
+		WL.extend(Solw)
+	#plt.plot(Solw,SolI,'black')
+	#plt.show()
 	all_Xshow.extend(Xshow)
+	all_w.extend(w)
+	all_Solw.extend(Solw)
+	all_SolI.extend(SolI)
 	sp.extend(FX)#Xshow)	
 	calw.extend(w)
 	#plt.cla()
 	# asi=np.argsort(calw)
-# 	plt.plot(np.asarray(calw)[asi],np.asarray(sp)[asi])
-	#plt.plot(WL,SL,'g')
-	#plt.plot(calw,sp,'r')
+	# plt.plot(np.asarray(calw)[asi],np.asarray(sp)[asi])
+	# plt.plot(WL,SL,'g')
+	# plt.plot(calw,sp,'r')
 	
-	#plt.ylim(0,1)
+	# plt.ylim(0,1)
 	# for i in np.arange(jini,jfin+1):
-# 		plt.axvline(w[picos[i]-cual0+7],linestyle='--')
-	#plt.draw()
-plt.figure(3)
-plt.plot(all_Xshow,color = 'blue')
+	# 	plt.axvline(w[picos[i]-cual0+7],linestyle='--')
+	# plt.draw()
+plt.figure(11)
+plt.plot(all_w,all_Xshow,color = 'black')
+plt.figure(10)
+plt.plot(all_Xshow,'black')
+#plt.plot(all_Solw,all_SolI,color='black')
+plt.show()
 plt.show()
 
 

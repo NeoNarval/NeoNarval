@@ -21,23 +21,23 @@ global order_total # number of orders
 order_total = 36
 
 # Opening some files to get data :
-f = open("ThAr_calibered_original_intensitites.pkl",'r')
+f = open("calibration_methods/Calibration_files/ThAr_calibered_original_intensitites.pkl",'r')
 Sr = pickle.load(f)
 f.close()
 
-f = open("ThAr_calibered_lambdas.pkl",'r')
+f = open("calibration_methods/Calibration_files/ThAr_calibered_lambdas.pkl",'r')
 Lr = pickle.load(f)
 f.close()
 
-HDUlist = pyfits.open("spectrum_Narval_20161201_154102_th1.fits")
+HDUlist = pyfits.open("calibration_methods/Calibration_files/spectrum_Narval_20161201_154102_th1.fits")
 data = HDUlist[1].data
 Sth1 = data['intensity_lane1'][0:4612*36]
 
-HDUlist = pyfits.open("Narval_20161003_160900_th2.fits")
+HDUlist = pyfits.open("calibration_methods/Calibration_files/Narval_20161003_160900_th2.fits")
 data = HDUlist[1].data
 S1 = data['intensity_lane1'][0:4612*36]
 
-HDUlist = pyfits.open("Narval_20161004_053934_th2.fits")
+HDUlist = pyfits.open("calibration_methods/Calibration_files/Narval_20161004_053934_th2.fits")
 data = HDUlist[1].data
 S2 = data['intensity_lane1'][0:4612*36]
 

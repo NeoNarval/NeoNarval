@@ -9,6 +9,11 @@ from extraction_methods.Chelli_Module import *
 from scipy.optimize import curve_fit
 from scipy import sparse
 import time
+import extraction_methods.gaussianfit2D as gf2D
+from pylab import *
+from mpl_toolkits.mplot3d import Axes3D
+
+
 
 def Vfunction(x,a,p,d):
 		gauss=a * np.exp(-(x-p)**2/d)
@@ -18,7 +23,7 @@ def Vfunction(x,a,p,d):
 workdir='./temp'
 CCDsize=4640
 ref=2320 
-ancho=5
+ancho=11
 
 dir='extraction_methods/Extraction_files/13mar18/'
 #dir='extraction_methods/Extraction_files/Moon/'
@@ -40,6 +45,13 @@ else:
 	fp=a[0].data
 	a.close()	
 
+f = pyfits.open('extraction_methods/Extraction_files/temp/Narval_20180313_180054_f10.fts')
+flat = f[0].data
+f.close()
+
+
+#fp = fp/flat
+
 
 f=open('extraction_methods/Extraction_files/temp/order_reference.pkl','r')
 a=pickle.load(f) 
@@ -54,7 +66,7 @@ f.close()
 mapa=a['map']
 Norders=len(interorden)-2
 
-if (True): 	
+if (False): 	
 	
 	FPmap=[]
 	FPpics=[]
@@ -101,16 +113,15 @@ if (True):
 # 		plt.show()
 
 	
-		fout=open("extraction_methods/Extraction_files/temp/FP_map.pkl","w")
+		fout=open("extraction_methods/Extraction_files/temp/FP_map_new.pkl","w")
 		pickle.dump({'picos':FPpics,'perfiles':FPmap,'info':"Positions of the FP peaks, order by order"},fout)
 		fout.close()
 else:
-	fout=open("extraction_methods/Extraction_files/temp/FP_map.pkl","r")
+	fout=open("extraction_methods/Extraction_files/temp/FP_map_new.pkl","r")
 	a=pickle.load(fout)
 	FPpics=a['picos']
 	FPmap=a['perfiles']
 	fout.close()
-
 
 
 for i in np.arange(0,Norders-1):
@@ -128,55 +139,42 @@ for i in np.arange(0,Norders-1):
 	
 	
 
-		
-	A=np.zeros( ((ov+1)*CCDsize,arturos))
+	#modif	
+	#A=np.zeros( ((ov+1)*CCDsize,arturos))
 
+	
+	A2 = sparse.lil_matrix((arturos,(ov+1)*CCDsize)) # A2 = A.T
+	
 	for j in np.arange(jini,jfin+1):
 		cual=int(np.floor(picos[j]))
 		desp=mapa[i,cual]
 
 		B1=fp[int(cual-ancho):int(cual+ancho+1),int(o0+np.floor(desp)):int(o0+ov+np.floor(desp)+1)]
-		B1=B1/np.sum(B1)
+		B1 -= np.min(B1)
+		B1 = B1/np.max(B1) 
 		cualn=int(np.floor(picos[j+1]))
 		desp=mapa[i,cualn]
 		B2=fp[int(cualn-ancho):int(cualn+ancho+1),int(o0+np.floor(desp)):int(o0+ov+np.floor(desp)+1)]
-		B2=B2/np.sum(B2)
+		B2 -= np.min(B2)
+		B2 = B2/np.max(B2)
 		delta=cualn-cual
 		for cual2 in np.arange(cual,cual+delta+1):
 			alfa=(cual2-cual)/(delta+1)
 			#A[np.floor((cual2-ancho)*(ov+1)):np.floor((cual2+ancho+1)*(ov+1)),cual2]=(1.-alfa)*np.ravel(B1)+alfa*np.ravel(B2)
-			A[int((cual2-ancho)*(ov+1)):int((cual2+ancho+1)*(ov+1)),int(cual2)]=(1.-alfa)*np.ravel(B1)+alfa*np.ravel(B2)
-
+			#A[int((cual2-ancho)*(ov+1)):int((cual2+ancho+1)*(ov+1)),int(cual2)]=(1.-alfa)*np.ravel(B1)+alfa*np.ravel(B2)
+			A2.rows[cual2] = np.arange(((cual2-ancho)*(ov+1)).astype(int),((cual2+ancho+1)*(ov+1)).astype(int))
+			A2.data[cual2] = (1.-alfa)*np.ravel(B1)+alfa*np.ravel(B2)
+			
 	cual0=np.floor(picos[jini])
 	cualf=np.floor(picos[jfin+1])
 	#A2=A[(cual0-ancho)*(ov+1):cualf*(ov+1),cual0:cualf]
 	
-	# plt.imshow(A[20000:23000,:],aspect='auto',interpolation='nearest')
-# 	plt.colorbar()
-# 	plt.title('Order {0}'.format(i))
-# 	#plt.clim(200,400)
-# 	plt.show()
-#  	
 
 
-	#print(np.linalg.cond(A2))
-	#C=np.dot(A2.T,A2)
-	#C=C/np.amax(C)
-# 	
-# 	for j in np.arange(0,(ov+1)):
-# 		C[j,j]=1.
-	# for j in np.arange(np.floor(picos[-2])+1,arturos):
-# 		Cs[j,j]=1.
-# 	stop
-	#G=np.linalg.cholesky(C)
-	# plt.imshow(G,interpolation='nearest')
-# 	plt.show()
-
-	nombre='extraction_methods/Extraction_files/REF/Amatrix_order{0}_lane1.pkl'.format(i)
+	nombre='extraction_methods/Extraction_files/REF/Amatrix_order'+str(i)+'_lane1_ancho'+str(ancho)+'_test.pkl'
 	fout=open(nombre,'w')
 		
-	#sG = sparse.csr_matrix(G) 
-	As= sparse.csc_matrix(A) 
+	As= A2.tocsr().transpose()
 		
 	# COmpute the largest singular value....it will hint on the relaxation parameter for Landweber's
 	U,l,v=sparse.linalg.svds(A,1)

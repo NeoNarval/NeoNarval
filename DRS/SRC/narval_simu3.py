@@ -17,7 +17,7 @@ import time
 
 tps1 = time.clock()
 type_image = settings.type_image
-hdulist = pyfits.open('../DATA/Narval_20161028_053601_10b.fts')
+hdulist = pyfits.open('../DATA/Narval_20161003_155730_10b.fts')  #Narval_20161028_053601_10b.fts
 dark = hdulist[0].data.T
 offset_lin = np.linspace(400, 50, dark.shape[0])
 for i, line in enumerate(dark):
@@ -35,9 +35,9 @@ for row in a:
     i=i+1
 f.close()
 
-# CALCUL DE LA PSF SOUS-ECHANTILLONNEE
+# CALCUL DE LA PSF SOUS-ECHANTILLONNEE
 rapport = 14 # rapport entre la taille d'un pixel image et un pixel PSF
-rapport_PSF = 1 # mouais
+rapport_PSF = 1 # mouais
 taillex_pxlimg = 6
 tailley_pxlimg = 14
 PSF = PSF[160 - tailley_pxlimg/2 * rapport:160 + taillex_pxlimg/2 * rapport,\
@@ -114,7 +114,7 @@ def execu(input):
     for _lambda, beta in lambdas:
         
         # Calcul de l'indice de refraction
-        ##PBL25Y
+        #PBL25Y
         n = (1+1.31960626/(1-1.01863415e-02/(_lambda*10**(3))**2)+1.23752633E-01/ \
             (1-4.83593508E-02/(_lambda*10**(3))**2)+2.10055351E-01/(1-2.73272029E+01/(_lambda*10**(3))**2))**.5
         
