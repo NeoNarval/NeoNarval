@@ -30,28 +30,28 @@ This python module's role is to use the previous functions in validation_methods
 
 
     
-"""
-The following function will use the validation_methods module's scripts to generate the list of matching wavelengths we need to achieve the interpolation, for a given order. It will also plot some usefull informations. Then it will use this matching wavelengths list to compute a new conversion and record the result (which is a new wavelengths list from which we can iterate the process).
-Inputs :
-- order : int, number of the order
-/!\ If order = 34 or 35, this function won't be able to do the job correctly due to the lack of spikes in those two orders, so it will just return the list of wavelengths computed previously in ThAr_calibered
-- max_detection : float representing the minimum value of the detected maxima in the compute_spikes algorithm.
-- precision : when comparing the atlas to the drs data, we will consider that two close wavelengths are matching only if they are closer than precision Angstroms.
-- record_path : it is the path of the pkl file created to record our results
-Outputs :
-- lambdas_Angstrom : list of the new converted_wavelengths
-- initial_standard_deviation : the value which tells us about the accuracy of our conversion
-- initial_mean : average error between the matched wavelengths (lambda_drs - lambda_atlas)
-"""
-
 
 def compute_order_first_conversion(order,max_detection,precision,converted_lambdas_file_path):
-    
+        
+    """
+    The following function will use the validation_methods module's scripts to generate the list of matching wavelengths we need to achieve the interpolation, for a given order. It will also plot some usefull informations. Then it will use this matching wavelengths list to compute a new conversion and record the result (which is a new wavelengths list from which we can iterate the process).
+    Inputs :
+    - order : int, number of the order
+    /!\ If order = 34 or 35, this function won't be able to do the job correctly due to the lack of spikes in those two orders, so it will just return the list of wavelengths computed previously in ThAr_calibered
+    - max_detection : float representing the minimum value of the detected maxima in the compute_spikes algorithm.
+    - precision : when comparing the atlas to the drs data, we will consider that two close wavelengths are matching only if they are closer than precision Angstroms.
+    - record_path : it is the path of the pkl file created to record our results
+    Outputs :
+    - lambdas_Angstrom : list of the new converted_wavelengths
+    - initial_standard_deviation : the value which tells us about the accuracy of our conversion
+    - initial_mean : average error between the matched wavelengths (lambda_drs - lambda_atlas)
+    """
+
     # First of all, we will compute the list of matched wavelengths and indices, using the matching algorithms and the inputs. The wavelengths used for the first computation will always be the original wavelengths recorded in ThAr_calibered_lambdas.pkl.
     
-    mtch.order_matching_pickle("ThAr_calibered_lambdas.pkl",order,'temporary_file_for_conversion.pkl',max_detection,precision)
+    mtch.order_matching_pickle("calibration_methods/Calibration_files/ThAr_calibered_lambdas.pkl",order,'calibration_methods/Calibration_files/temporary_file_for_conversion.pkl',max_detection,precision)
     
-    data = mtch.matching_reader('temporary_file_for_conversion.pkl')
+    data = mtch.matching_reader('calibration_methods/Calibration_files/temporary_file_for_conversion.pkl')
     
     spikes_lambdas = data['Spikes_wavelengths']
     spikes_errors = data['Matching_gaps_between_drs_and_atlas']
@@ -81,10 +81,10 @@ def compute_order_first_conversion(order,max_detection,precision,converted_lambd
     
     if (order == 34 or order == 35 ):
 
-        lambdas_Angstrom = cporder.search_orders("ThAr_calibered_lambdas.pkl","ThAr_calibered_original_intensitites.pkl")[order][0]
+        lambdas_Angstrom = cporder.search_orders("calibration_methods/Calibration_files/ThAr_calibered_lambdas.pkl","calibration_methods/Calibration_files/ThAr_calibered_original_intensitites.pkl")[order][0]
     
     # Comparing to the original drs wavelengths with a little plot : 
-    lambdas_ThAr_calibered = cporder.search_orders("ThAr_calibered_lambdas.pkl","ThAr_calibered_original_intensitites.pkl")[order][0]
+    lambdas_ThAr_calibered = cporder.search_orders("calibration_methods/Calibration_files/ThAr_calibered_lambdas.pkl","calibration_methods/Calibration_files/ThAr_calibered_original_intensitites.pkl")[order][0]
     indices_list = [i for i in range(0,order_total*order_len)]
     order_lambdas_indices = indices_list[order_len*order:order_len*(order+1)]
     plt.figure(18)
@@ -96,20 +96,20 @@ def compute_order_first_conversion(order,max_detection,precision,converted_lambd
     return(lambdas_Angstrom,initial_standard_deviation,initial_mean)
 
 
-"""
-The following function will use the validation_methods module's scripts to generate the list of matching wavelengths we need to achieve the interpolation, for all orders. It will also plot some usefull informations. Then it will use this matching wavelengths list to compute a new conversion and record the result (which is a new wavelengths list from which we can iterate the process).
-Inputs :
-- max_detection : float representing the minimum value of the detected maxima in the compute_spikes algorithm.
-- precision : when comparing the atlas to the drs data, we will consider that two close wavelengths are matching only if they are closer than precision Angstroms.
-- record_path : it is the path of the pkl file created to record our results
-Outputs :
-- lambdas_Angstrom : list of the new converted_wavelengths
-- initial_stds : the list of the values (standard_deviaitons) which tells us about the accuracy of our conversion
-"""
-
-
 def compute_first_conversion(max_detection, precision, converted_lambdas_file_path):
     
+
+    """
+    The following function will use the validation_methods module's scripts to generate the list of matching wavelengths we need to achieve the interpolation, for all orders. It will also plot some usefull informations. Then it will use this matching wavelengths list to compute a new conversion and record the result (which is a new wavelengths list from which we can iterate the process).
+    Inputs :
+    - max_detection : float representing the minimum value of the detected maxima in the compute_spikes algorithm.
+    - precision : when comparing the atlas to the drs data, we will consider that two close wavelengths are matching only if they are closer than precision Angstroms.
+    - record_path : it is the path of the pkl file created to record our results
+    Outputs :
+    - lambdas_Angstrom : list of the new converted_wavelengths
+    - initial_stds : the list of the values (standard_deviaitons) which tells us about the accuracy of our conversion
+    """
+
     # Creation of the lists containing the global informations that we will compute
     lambdas_Angstrom = []
     initial_stds = []
@@ -136,30 +136,30 @@ def compute_first_conversion(max_detection, precision, converted_lambdas_file_pa
 
 
 
-    
-    
-"""
-This version concerns only a particular order, we'll extend it to all orders after that.
-Now we have initiated the process by computing the first conversion and recording the first standard_deviation, we need to compute the validation again and see if the standard_deviation has been improved or not, and use the matching results to compute another conversion to iterate the process if need be. The following function will do this job, using a converted list of wavelengths to compute the corresponding standard_deviation. Then it will compute a new conversion and record the wevelengths in a pickle file.
-Inputs :
-- lambdas_path : path to the file containing the wavelengths list which will be used to compute the validation scripts (since we are gonna compare different wavelengths lists to know if the conversion has been good, we need to indicate which wavelengths we want to use) 
-- order : int, number of the order which we want to compute
-/!\ If order = 34 or 35, this function won't be able to do the job correctly due to the lack of spikes in those two orders, so it will just return the list of wavelengths computed previously in ThAr_calibered
-- max_detection : float representing the minimum value of the detected maxima in the compute_spikes algorithm.
-- precision : when comparing the atlas to the drs data, we will consider that two close wavelengths are matching only if they are closer than precision Angstroms.
-- new_converted_lambdas_path : path to the file where the converted wavelengths will be recorded
-Outputs :
-- lambdas_Angstroms : new converted list of wavelengths
-- new_standard_deviation : new computed standard deviation
-- new_mean : new average error beteween drs and atlas in Angstroms
-"""
+
 
 def compute_order_conversion(lambdas_path, order, max_detection, precision, new_converted_lambdas_path):
     
+    """
+    This version concerns only a particular order, we'll extend it to all orders after that.
+    Now we have initiated the process by computing the first conversion and recording the first standard_deviation, we need to compute the validation again and see if the standard_deviation has been improved or not, and use the matching results to compute another conversion to iterate the process if need be. The following function will do this job, using a converted list of wavelengths to compute the corresponding standard_deviation. Then it will compute a new conversion and record the wevelengths in a pickle file.
+    Inputs :
+    - lambdas_path : path to the file containing the wavelengths list which will be used to compute the validation scripts (since we are gonna compare different wavelengths lists to know if the conversion has been good, we need to indicate which wavelengths we want to use) 
+    - order : int, number of the order which we want to compute
+    /!\ If order = 34 or 35, this function won't be able to do the job correctly due to the lack of spikes in those two orders, so it will just return the list of wavelengths computed previously in ThAr_calibered
+    - max_detection : float representing the minimum value of the detected maxima in the compute_spikes algorithm.
+    - precision : when comparing the atlas to the drs data, we will consider that two close wavelengths are matching only if they are closer than precision Angstroms.
+    - new_converted_lambdas_path : path to the file where the converted wavelengths will be recorded
+    Outputs :
+    - lambdas_Angstroms : new converted list of wavelengths
+    - new_standard_deviation : new computed standard deviation
+    - new_mean : new average error beteween drs and atlas in Angstroms
+    """
+    
     # Let's compute the matching data : spikes indices and wavelengths, erros, etc in order to get the necessary data for our polynomial inteprolation.
     
-    mtch.order_matching_pickle(lambdas_path,order,"temporary_file_for_order_conversion.pkl",max_detection,precision)
-    data = mtch.matching_reader("temporary_file_for_order_conversion.pkl")
+    mtch.order_matching_pickle(lambdas_path,order,"calibration_methods/Calibration_files/temporary_file_for_order_conversion.pkl",max_detection,precision)
+    data = mtch.matching_reader("calibration_methods/Calibration_files/temporary_file_for_order_conversion.pkl")
     
     spikes_lambdas = data['Spikes_wavelengths']
     spikes_errors = data['Matching_gaps_between_drs_and_atlas']
@@ -183,7 +183,7 @@ def compute_order_conversion(lambdas_path, order, max_detection, precision, new_
     
     # We can also compute the error in m/s and record it in a pickle
     
-    errors_file = open("results/Calibration errors/calibration_errors_"+str(order)+"_"+str(max_detection)+"_"+str(precision),'w')
+    errors_file = open("calibration_methods/Calibration_files/results/Calibration errors/calibration_errors_"+str(order)+"_"+str(max_detection)+"_"+str(precision),'w')
     calibration_errors = [ 3*10**8*spikes_errors[i]/spikes_lambdas[i] for i in range(len(spikes_errors)) ]
     errors_data = [spikes_lambdas,calibration_errors]
     pickle.dump(errors_data,errors_file)
@@ -199,7 +199,7 @@ def compute_order_conversion(lambdas_path, order, max_detection, precision, new_
     data_pickle = pickle.dump(lambdas_Angstrom,conversion_result_file)
     conversion_result_file.close()
     
-    coeffs_file = open("results/Interpolation coefficients/Interpolation_coefficients_order_"+str(order)+"_"+str(max_detection)+"_"+str(precision),'w')
+    coeffs_file = open("calibration_methods/Calibration_files/results/Interpolation coefficients/Interpolation_coefficients_order_"+str(order)+"_"+str(max_detection)+"_"+str(precision),'w')
     pickle.dump(order_coeffs,coeffs_file)
     coeffs_file.close()
     
@@ -207,11 +207,11 @@ def compute_order_conversion(lambdas_path, order, max_detection, precision, new_
     
     if (order == 34 or order == 35 ):
 
-        lambdas_Angstrom = cporder.search_orders("ThAr_calibered_lambdas.pkl","ThAr_calibered_original_intensitites.pkl")[order][0]
+        lambdas_Angstrom = cporder.search_orders("calibration_methods/Calibration_files/ThAr_calibered_lambdas.pkl","calibration_methods/Calibration_files/ThAr_calibered_original_intensitites.pkl")[order][0]
     
     # Comparing to the original drs wavelengths with a little plot : 
     
-    lambdas_ThAr_calibered = cporder.search_orders("ThAr_calibered_lambdas.pkl","ThAr_calibered_original_intensitites.pkl")[order][0]
+    lambdas_ThAr_calibered = cporder.search_orders("calibration_methods/Calibration_files/ThAr_calibered_lambdas.pkl","calibration_methods/Calibration_files/ThAr_calibered_original_intensitites.pkl")[order][0]
     indices_list = [i for i in range(0,order_total*order_len)]
     order_lambdas_indices = indices_list[order_len*order:order_len*(order+1)]
     plt.figure(18)
@@ -223,21 +223,23 @@ def compute_order_conversion(lambdas_path, order, max_detection, precision, new_
     return(lambdas_Angstrom,new_standard_deviation,new_mean)
 
 
-"""
-This version compute all orders one after the other.
-Now we have initiated the process by computing the first conversion and recording the first standard_deviation, we need to compute the validation again and see if the standard_deviation has been improved or not, and use the matching results to compute another conversion to iterate the process if need be. The following function will do this job, using a converted list of wavelengths to compute the corresponding standard_deviation. Then it will compute a new conversion and record the wevelengths in a pickle file.
-Inputs :
-- lambdas_path : path to the file containing the wavelengths list which will be used to compute the validation scripts (since we are gonna compare different wavelengths lists to know if the conversion has been good, we need to indicate which wavelengths we want to use) 
-- max_detection : float representing the minimum value of the detected maxima in the compute_spikes algorithm.
-- precision : when comparing the atlas to the drs data, we will consider that two close wavelengths are matching only if they are closer than precision Angstroms.
-- new_converted_lambdas_path : path to the file where the converted wavelengths will be recorded
-Outputs :
-- new_standard_deviation : new computed standard deviation
-- new_lambdas : new list of converted wavlengths
-"""
+
 
 def compute_all_order_conversion(lambdas_path, max_detection, precision, new_converted_lambdas_path):
     
+    """
+    This version compute all orders one after the other.
+    Now we have initiated the process by computing the first conversion and recording the first standard_deviation, we need to compute the validation again and see if the standard_deviation has been improved or not, and use the matching results to compute another conversion to iterate the process if need be. The following function will do this job, using a converted list of wavelengths to compute the corresponding standard_deviation. Then it will compute a new conversion and record the wevelengths in a pickle file.
+    Inputs :
+    - lambdas_path : path to the file containing the wavelengths list which will be used to compute the validation scripts (since we are gonna compare different wavelengths lists to know if the conversion has been good, we need to indicate which wavelengths we want to use) 
+    - max_detection : float representing the minimum value of the detected maxima in the compute_spikes algorithm.
+    - precision : when comparing the atlas to the drs data, we will consider that two close wavelengths are matching only if they are closer than precision Angstroms.
+    - new_converted_lambdas_path : path to the file where the converted wavelengths will be recorded
+    Outputs :
+    - new_standard_deviation : new computed standard deviation
+    - new_lambdas : new list of converted wavlengths
+    """
+
     # Creation of the lists containing the global informations that we will compute
     lambdas_Angstrom = []
     new_stds = []
@@ -263,27 +265,31 @@ def compute_all_order_conversion(lambdas_path, max_detection, precision, new_con
     return(lambdas_Angstrom, new_stds)
     
     
-"""  
-Now we have everything we need to build the iteration : we can initiate it with compute_first_conversion and then use compute_conversion to compare the successive strandard deviations and decide if we iterate or not.
-The following function will do this job and implement the iteration process.
-Inputs :
-- order : int, number of the order 
-- max_detection : float representing the minimum value of the detected maxima in the compute_spikes algorithm.
-- precision : when comparing the atlas to the drs data, we will consider that two close wavelengths are matching only if they are closer than precision Angstroms.
-Outputs :
-- std_evolution : list containing the successives computed standard_deviation
-- mean_evolution : list containing the successives computed means
-"""
 
 def order_iterated_conversion(order,max_detection,precision,stop_value,final_converted_lambdas_path):
+        
+    """  
+    Now we have everything we need to build the iteration : we can initiate it with compute_first_conversion and then use compute_conversion to compare the successive strandard deviations and decide if we iterate or not.
+    The following function will do this job and implement the iteration process.
+    Inputs :
+    - order : int, number of the order 
+    - max_detection : float representing the minimum value of the detected maxima in the compute_spikes algorithm.
+    - precision : when comparing the atlas to the drs data, we will consider that two close wavelengths are matching only if they are closer than precision Angstroms.
+    - stop_value : convergence criteria top stop the loop (precision we want to reach)
+    - final_converted_lambdas_path : file where we will record the new lambdas converted
+    Outputs :
+    - std_evolution : list containing the successives computed standard_deviation
+    - mean_evolution : list containing the successives computed means
+    """
+
     print(" ")
     print(" _________________________ Initial conversion _________________________ ")
     print(" ")
     
     # Defining the detailed record file's name 
-    record = "results/Converted wavelengths"+final_converted_lambdas_path+"_"+str(order)+"_"+str(max_detection)+"_"+str(precision)+"_"+str(stop_value)
+    record = "calibration_methods/Calibration_files/results/Converted wavelengths"+final_converted_lambdas_path+"_"+str(order)+"_"+str(max_detection)+"_"+str(precision)+"_"+str(stop_value)
     
-    first_results = compute_order_first_conversion(order,max_detection,precision,"results/first_converted_lambdas.pkl")
+    first_results = compute_order_first_conversion(order,max_detection,precision,"calibration_methods/Calibration_files/results/first_converted_lambdas.pkl")
     old_lambdas = first_results[0]
     old_standard_deviation = first_results[1]
     old_mean = first_results[2]
@@ -295,7 +301,7 @@ def order_iterated_conversion(order,max_detection,precision,stop_value,final_con
     
     # Initiating the iteration loop
     
-    new_results = compute_order_conversion('results/first_converted_lambdas.pkl',order,max_detection,precision,record)
+    new_results = compute_order_conversion('calibration_methods/Calibration_files/results/first_converted_lambdas.pkl',order,max_detection,precision,record)
     new_lambdas = new_results[0]
     new_standard_deviation = new_results[1]
     new_mean = new_results[2]
@@ -303,11 +309,11 @@ def order_iterated_conversion(order,max_detection,precision,stop_value,final_con
     mean_evolution.append(new_mean)
     
     # First record of the results in a pkl file :
-    std_file = open("results/standard_deviation_evolution_"+str(order)+"_"+str(max_detection)+"_"+str(precision)+"_"+str(stop_value),'w')
+    std_file = open("calibration_methods/Calibration_files/results/standard_deviation_evolution_"+str(order)+"_"+str(max_detection)+"_"+str(precision)+"_"+str(stop_value),'w')
     pickle.dump(std_evolution,std_file)
     std_file.close()
     
-    mean_file = open("results/mean_evolution_"+str(order)+"_"+str(max_detection)+"_"+str(precision)+"_"+str(stop_value),'w')
+    mean_file = open("calibration_methods/Calibration_files/results/mean_evolution_"+str(order)+"_"+str(max_detection)+"_"+str(precision)+"_"+str(stop_value),'w')
     pickle.dump(mean_evolution,mean_file)
     mean_file.close()
     
@@ -341,11 +347,11 @@ def order_iterated_conversion(order,max_detection,precision,stop_value,final_con
         mean_evolution.append(new_mean)
         
         # Recording the results in a pkl file :
-        std_file = open("results/standard_deviation_evolution_"+str(order)+"_"+str(max_detection)+"_"+str(precision)+"_"+str(stop_value),'w')
+        std_file = open("calibration_methods/Calibration_files/results/standard_deviation_evolution_"+str(order)+"_"+str(max_detection)+"_"+str(precision)+"_"+str(stop_value),'w')
         pickle.dump(std_evolution,std_file)
         std_file.close()
         
-        mean_file = open("results/mean_evolution_"+str(order)+"_"+str(max_detection)+"_"+str(precision)+"_"+str(stop_value),'w')
+        mean_file = open("calibration_methods/Calibration_files/results/mean_evolution_"+str(order)+"_"+str(max_detection)+"_"+str(precision)+"_"+str(stop_value),'w')
         pickle.dump(mean_evolution,mean_file)
         mean_file.close()
         
@@ -366,21 +372,25 @@ def order_iterated_conversion(order,max_detection,precision,stop_value,final_con
     
     return(std_evolution,mean_evolution)
     
-    
-"""  
-Now we have everything we need to build the iteration : we can initiate it with compute_first_conversion and then use compute_conversion to compare the successive strandard deviations and decide if we iterate or not.
-The following function will do this job and implement the iteration process.
-The version below is the same as order_iterated_conversion but for every order (except 34 and 35 as because it makes no sense to match without converting after...), so it takes something like an eternity to compute, do it only if you have several hours or even days!
-Inputs :
-- max_detection : float representing the minimum value of the detected maxima in the compute_spikes algorithm.
-- precision : when comparing the atlas to the drs data, we will consider that two close wavelengths are matching only if they are closer than precision Angstroms.
-Outputs :
-- std_evolutions : list containing the successives computed standard deviation evolutions lists (one per order)
-- mean_evolutions : list containing the successives computed mean evolutions lists (one per order)
-"""
+
 
 def all_orders_iterated_conversion(max_detection,precision,stop_value,iteration_converted_lambdas):
     
+        
+    """  
+    Now we have everything we need to build the iteration : we can initiate it with compute_first_conversion and then use compute_conversion to compare the successive strandard deviations and decide if we iterate or not.
+    The following function will do this job and implement the iteration process.
+    The version below is the same as order_iterated_conversion but for every order (except 34 and 35 as because it makes no sense to match without converting after...), so it takes something like an eternity to compute, do it only if you have several hours or even days!
+    Inputs :
+    - max_detection : float representing the minimum value of the detected maxima in the compute_spikes algorithm.
+    - precision : when comparing the atlas to the drs data, we will consider that two close wavelengths are matching only if they are closer than precision Angstroms.
+    - stop_value : convergence criteria top stop the loop (precision we want to reach)
+    - final_converted_lambdas_path : file where we will record the new lambdas converted
+    Outputs :
+    - std_evolutions : list containing the successives computed standard deviation evolutions lists (one per order)
+    - mean_evolutions : list containing the successives computed mean evolutions lists (one per order)
+    """
+
     # Defining a more detailed name :
     iteration_converted_lambdas = iteration_converted_lambdas+str(max_detection)+"_"+str(precision)+"_"+str(stop_value)
     
@@ -405,17 +415,17 @@ def all_orders_iterated_conversion(max_detection,precision,stop_value,iteration_
         
         
         # Recording the results in a pkl file :
-        std_evolutions_file = open("std_evolutions_"+str(max_detection)+"_"+str(precision)+"_"+str(stop_value),"w")
+        std_evolutions_file = open("calibration_methods/Calibration_files/results/Std evolution/std_evolutions_"+str(max_detection)+"_"+str(precision)+"_"+str(stop_value),"w")
         pickle.dump(std_evolutions,std_evolutions_file)
         std_evolutions_file.close()
         
-        mean_evolutions_file = open("mean_evolutions_"+str(max_detection)+"_"+str(precision)+"_"+str(stop_value),"w")
+        mean_evolutions_file = open("calibration_methods/Calibration_files/results/Mean_evolution/mean_evolutions_"+str(max_detection)+"_"+str(precision)+"_"+str(stop_value),"w")
         pickle.dump(mean_evolutions,mean_evolutions_file)
         mean_evolutions_file.close()
     
     
         # Recording the results in a pkl file :
-        std_evolutions_file = open("std_evolutions_"+str(max_detection)+"_"+str(precision)+"_"+str(stop_value),"w")
+        std_evolutions_file = open("calibration_methods/Calibration_files/results/Std evolution/std_evolutions_"+str(max_detection)+"_"+str(precision)+"_"+str(stop_value),"w")
         pickle.dump(std_evolutions,std_evolutions_file)
         std_evolutions_file.close()
         
@@ -429,13 +439,14 @@ def all_orders_iterated_conversion(max_detection,precision,stop_value,iteration_
     
 
 
-"""
-Some of the values used in the ThAr Atlas pkl can't be used for the comparison because they match with wavelengths which are blinded in the ThAr calibered spectrum. We won't use them so we will modify the ThAr pkl to avoid those problematic values. Tis function will be used to do those modifications. It will be done order per order empically, using the other algorithms. The new list (which we will record with a pkl), will be used to compute the new matching and improve the results.
-"""
 
 def ThAr_pickler():
+
+    """
+    Some of the values used in the ThAr Atlas pkl can't be used for the comparison because they match with wavelengths which are blinded in the ThAr calibered spectrum. We won't use them so we will modify the ThAr pkl to avoid those problematic values. Tis function will be used to do those modifications. It will be done order per order empically, using the other algorithms. The new list (which we will record with a pkl), will be used to compute the new matching and improve the results.
+    """
     
-    name = "ThAr_Atlas_filtered.pkl"
+    name = "calibration_methods/Calibration_files/ThAr_Atlas_filtered.pkl"
     file = open(name,'r')
     Th_Ar_list = pickle.load(file)
     
@@ -447,7 +458,7 @@ def ThAr_pickler():
     
     deleted_lambda = input()
     
-    file = open("ThAr_Atlas_filtered.pkl",'w')
+    file = open("calibration_methods/Calibration_files/ThAr_Atlas_filtered.pkl",'w')
     if ( not Th_Ar_list.__contains__(deleted_lambda) ):
         print("Error : this wavelengths is not even in the list!")
     Th_Ar_list.remove(deleted_lambda)
@@ -620,16 +631,8 @@ file1.close()
 
 def test():
     for i in range(34) :
-        order_iterated_conversion(i,0.1,0.1,1e-9,"test_plot_Torsten")
+        order_iterated_conversion(i,0.1,0.1,1e-9,"test")
     
-
-
-
-
-
-
-
-
 
 
 

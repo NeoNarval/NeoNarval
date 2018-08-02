@@ -11,17 +11,18 @@ This script is used to deal with the offset which can make the computing of the 
 """
 
 
-"""
-The following function searchs for the minima of a spectrum and then computes its offset by interpolating between those minima. There are some particular cases of blended spikes which we have to consider, that's why we use the average value of intensity to discriminate those cases.
-Inputs :
-- lambdas : list of wavelengths 
-- intensities : list of the associated intensities (spectrum)
-Output :
-- spectrum : list of the normalized intensities after computation of the offset.
-"""
 
 def normalize_offset(lambdas, intensities):
     
+    """
+    The following function searchs for the minima of a spectrum and then computes its offset by interpolating between those minima. There are some particular cases of blended spikes which we have to consider, that's why we use the average value of intensity to discriminate those cases.
+    Inputs :
+    - lambdas : list of wavelengths 
+    - intensities : list of the associated intensities (spectrum)
+    Output :
+    - spectrum : list of the normalized intensities after computation of the offset.
+    """
+
     offset = [0 ]*len(intensities)
     i_minima = [] # intensities of the minima
     l_minima = [] # wavelengths of the minima

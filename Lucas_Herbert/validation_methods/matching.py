@@ -19,28 +19,28 @@ import validation_methods.tests_fit as tfit
 
 
 """
-This script's objective is to use the data reduction's computing (offset computing, maxima and spikes computing and their gaussian fit, etc) to compare the output to the ThAr Atlas. The main goal is to see which wavelengths are matching and the precision of those matchings.
+This code's objective is to use the data reduction's computing (offset computing, maxima and spikes computing and their gaussian fit, etc) to compare the output to the ThAr Atlas. The main goal is to see which wavelengths are matching and the precision of those matchings.
 """
 
 
 
 
-
-""" 
-This function will compare the two lists used as an input. It will return the proportion of values in the first list that find an equivalent with the given precision in the second list, and also a list with the matching values and their gaps.
-Inputs :
-- x : list of the values of the first list we want to compare (drs wavelengths list actually).
-- indices : list of the associated indices (we want to know which x matches with which y and what is the index of each of those x because we will use them later).
-- widths : list of data associated with the x and indices inputs which will be used and returned after the matching (we want to keep only the widths of the matched lambdas)
-- y : second list of values (atlas wavelengths list actually).
-- precision : float representing the maximum possible difference between one value in x and one value in y to consider them as matching values.
-Outputs :
-- matching_data : list of lists containing the data of each matched values : the two matching values in x and y and their difference (called "gap"), the associated index for the x value and the associated width of the spike at this index.
-- matching_rate : float representing the proportion of the x's values which find a matching value in y.
-"""
 
 def lambdas_matching(x,indices,widths,y,precision):
-    
+
+
+    """ 
+    This function will compare the two lists used as an input. It will return the proportion of values in the first list that find an equivalent with the given precision in the second list, and also a list with the matching values and their gaps.
+    Inputs :
+    - x : list of the values of the first list we want to compare (drs wavelengths list actually).
+    - indices : list of the associated indices (we want to know which x matches with which y and what is the index of each of those x because we will use them later).
+    - widths : list of data associated with the x and indices inputs which will be used and returned after the matching (we want to keep only the widths of the matched lambdas)
+    - y : second list of values (atlas wavelengths list actually).
+    - precision : float representing the maximum possible difference between one value in x and one value in y to consider them as matching values.
+    Outputs :
+    - matching_data : list of lists containing the data of each matched values : the two matching values in x and y and their difference (called "gap"), the associated index for the x value and the associated width of the spike at this index.
+    - matching_rate : float representing the proportion of the x's values which find a matching value in y.
+    """
     matching_data = []  # initiating the list we will use to register the matching wavelengths and their differences
     
     for i in range(len(x)):
@@ -69,25 +69,26 @@ def lambdas_matching(x,indices,widths,y,precision):
     return(matching_data,matching_rate)
     
     
-"""
-This functions returns the matching rate and the matching data for one particular order, between this order's computing spikes wavelengths and the ThAr Atlas wavelengths, using lambdas_matching.
-Before computing the matchings, it filters the spikes wavelengths according to the accuracy of their fit and the thickness of their width in order to keep only the right values (those which are accurate enough to be compared without doing a big mistake). This function will use the read_chi_square function which is written and described below to filter the chi_square values.
-Inputs : 
-- lambdas_path : path to the file containing the wavelengths list which will be used to compute the validation scripts (since we are gonna compare different wavelengths lists to know if the conversion has been good, we need to indicate which wavelengths we want to use) 
-- n : int, number of the order
-- precision : float representing the maximum possible difference between one value in x and one value in y to consider them as matching values.
-- max_detection : float representing the minimum value of the detected maxima in the compute_spikes algorithm.
-Outputs :
-- data[1] : this is the matching_rate from the lambdas_matching of the order's spikes wavelengths and the Atlas wavelengths.
-- average_error : float which is the average gap between the matched values.
-- matched_lambdas : list of the wavelengths of the spikes which have found a corresponding Altas wavelength closer than the input precision. 
-EDIT : we will try to replace the list of wavelengths matching by the Atlas wavelengths which have matched, but ONLY if precision <= 0.01, in order to have a better impatch on conversion with the iterated process of the calibrarion_methods module.
-- matched_lambdas_indices : list of the indices of the matched_lambdas (those are actually floats because those are the centers of the indices gaussian fits), which will be used in the interpolated_coversion algorithm.
-- gaps : list of the diffrences between the matched wavelengths
-"""
+
 
 def order_matching(lambdas_path,max_detection,n,precision):
     
+    """
+    This functions returns the matching rate and the matching data for one particular order, between this order's computing spikes wavelengths and the ThAr Atlas wavelengths, using lambdas_matching.
+    Before computing the matchings, it filters the spikes wavelengths according to the accuracy of their fit and the thickness of their width in order to keep only the right values (those which are accurate enough to be compared without doing a big mistake). This function will use the read_chi_square function which is written and described below to filter the chi_square values.
+    Inputs : 
+    - lambdas_path : path to the file containing the wavelengths list which will be used to compute the validation scripts (since we are gonna compare different wavelengths lists to know if the conversion has been good, we need to indicate which wavelengths we want to use) 
+    - n : int, number of the order
+    - precision : float representing the maximum possible difference between one value in x and one value in y to consider them as matching values.
+    - max_detection : float representing the minimum value of the detected maxima in the compute_spikes algorithm.
+    Outputs :
+    - data[1] : this is the matching_rate from the lambdas_matching of the order's spikes wavelengths and the Atlas wavelengths.
+    - average_error : float which is the average gap between the matched values.
+    - matched_lambdas : list of the wavelengths of the spikes which have found a corresponding Altas wavelength closer than the input precision. 
+    EDIT : we will try to replace the list of wavelengths matching by the Atlas wavelengths which have matched, but ONLY if precision <= 0.01, in order to have a better impact on the conversion with the iterated process of the calibrarion_methods module.
+    - matched_lambdas_indices : list of the indices of the matched_lambdas (those are actually floats because those are the centers of the indices gaussian fits), which will be used in the interpolated_coversion algorithm.
+    - gaps : list of the diffrences between the matched wavelengths
+    """
     print(" ")
     print(" _________________________ Matching  _________________________ ")
     print(" ")
@@ -151,7 +152,7 @@ def order_matching(lambdas_path,max_detection,n,precision):
     
     #atlas_lambdas = rdAtlas.read_ThAr_Atlas()
     # We will modify the atlas and use the modified atlas (we delete the value which match wrong wavelengths, in order to optimize the accurency)
-    atlas_file = open("ThAr_Atlas_filtered.pkl",'r')
+    atlas_file = open("validation_methods/Validation_files/ThAr_Atlas_filtered.pkl",'r')
     atlas_lambdas = pickle.load(atlas_file)
     atlas_file.close()
     
@@ -235,7 +236,7 @@ def order_matching(lambdas_path,max_detection,n,precision):
     # Then, we can record all those matching data in a pkl file. The objective is to know which wavelengths are good and with which precision, and their associated widths and intensities.
     
     # Let's get the associated intensities
-    intensities_file = open("ThAr_calibered_original_intensitites.pkl",'r')
+    intensities_file = open("validation_methods/Validation_files/ThAr_calibered_original_intensitites.pkl",'r')
     intensities = pickle.load(intensities_file)
     intensities_file.close()
     matched_lambdas_intensities = []
@@ -248,7 +249,7 @@ def order_matching(lambdas_path,max_detection,n,precision):
       
     matching_results = [ matched_lambdas,matched_lambdas_widths,matched_lambdas_intensities,gaps ]
     
-    matching_results_file = open("Matching_stats/Matching_results_new_plot_order_"+str(n),'w')
+    matching_results_file = open("calibration_methods/Calibration_files/Matching_stats/Matching_results_new_plot_order_"+str(n),'w')
     matching_pkl = pickle.dump(matching_results,matching_results_file)
     matching_results_file.close()
     
@@ -256,18 +257,18 @@ def order_matching(lambdas_path,max_detection,n,precision):
     
     
     
-""" 
-For each gaussian fit, there is a report which is a string countaining a lot of informations about the fit. The chi_square is a part of those informations which says if the fit is good or not, indicating the error between the fit and the fitted data. We need to get the chi_square from each report in order to discriminate the spikes fits. That's what this function does.
-In order to get the chi_square from the report, here is a little function which read the report and finds the chi_square, returning a float object which can be used in other functions.
-Input : 
-- report : string returned by the fitting algorithm giving all the informations about the fit, thus also giving the chi_square.
-Output :
-- chi_square : float giving information about the accuracy of the fit. The smaller it is, the more accurate is our fit.
-"""
+
 
 
 def read_chi_square(report) :
-    
+    """ 
+    For each gaussian fit, there is a report which is a string countaining a lot of informations about the fit. The chi_square is a part of those informations which says if the fit is good or not, indicating the error between the fit and the fitted data. We need to get the chi_square from each report in order to discriminate the spikes fits. That's what this function does.
+    In order to get the chi_square from the report, here is a little function which read the report and finds the chi_square, returning a float object which can be used in other functions.
+    Input : 
+    - report : string returned by the fitting algorithm giving all the informations about the fit, thus also giving the chi_square.
+    Output :
+    - chi_square : float giving information about the accuracy of the fit. The smaller it is, the more accurate is our fit.
+    """
     data = report[172:205]
     i = 0
     while ( data[i] != '=' ):
@@ -283,19 +284,20 @@ def read_chi_square(report) :
 
 
 
-"""
-This function calls order_matching for each order and print the results.
-Inputs : 
-- lambdas_path : path to the file containing the wavelengths list which will be used to compute the validation scripts (since we are gonna compare different wavelengths lists to know if the conversion has been good, we need to indicate which wavelengths we want to use) 
-- max_detection : float representing the minimum value of the detected maxima in the compute_spikes algorithm.
-- precision : float representing the maximum possible difference between one value in x and one value in y to consider them as matching values.
-Outputs :
-- lambdas_gaps : list of the matching wavelengths
-- gaps : list of the associated gaps
-- indices : list of the associated indices
-"""
-
 def global_matching(lambdas_path,max_detection,precision):
+
+
+    """
+    This function calls order_matching for each order and print the results.
+    Inputs : 
+    - lambdas_path : path to the file containing the wavelengths list which will be used to compute the validation scripts (since we are gonna compare different wavelengths lists to know if the conversion has been good, we need to indicate which wavelengths we want to use) 
+    - max_detection : float representing the minimum value of the detected maxima in the compute_spikes algorithm.
+    - precision : float representing the maximum possible difference between one value in x and one value in y to consider them as matching values.
+    Outputs :
+    - lambdas_gaps : list of the matching wavelengths
+    - gaps : list of the associated gaps
+    - indices : list of the associated indices
+    """
     gaps = []
     lambdas_gaps = []
     indices = []
@@ -307,23 +309,24 @@ def global_matching(lambdas_path,max_detection,precision):
             indices.append(data[3][i])
     return(lambdas_gaps,gaps,indices)        
 
-
-"""
-A little function which records the matching data in a pickle, for a given order.
-Inputs :
-- lambdas_path : path to the file containing the wavelengths list which will be used to compute the validation scripts (since we are gonna compare different wavelengths lists to know if the conversion has been good, we need to indicate which wavelengths we want to use)
-- order : int, order which will be computed 
-- record_path : string indicating the file name.
-- max_detection : float representing the minimum value of the detected maxima in the compute_spikes algorithm.
-- precision : float representing the maximum possible difference between one value in x and one value in y to consider them as matching values.
-Output :
-None.
-"""
-
 path = 'matching_data_0.1A_selection_0.01Itreshold.pkl'
 
+
 def order_matching_pickle(lambdas_path,order,record_path,max_detection,precision):
+
     
+    """
+    A little function which records the matching data in a pickle, for a given order.
+    Inputs :
+    - lambdas_path : path to the file containing the wavelengths list which will be used to compute the validation scripts (since we are gonna compare different wavelengths lists to know if the conversion has been good, we need to indicate which wavelengths we want to use)
+    - order : int, order which will be computed 
+    - record_path : string indicating the file name.
+    - max_detection : float representing the minimum value of the detected maxima in the compute_spikes algorithm.
+    - precision : float representing the maximum possible difference between one value in x and one value in y to consider them as matching values.
+    Output :
+    None.
+    """
+
     data_file = open(record_path,'w') # opening the file
     data = order_matching(lambdas_path,max_detection,order,precision)
     
@@ -336,20 +339,21 @@ def order_matching_pickle(lambdas_path,order,record_path,max_detection,precision
     data_file.close()
  
 
-"""
-A little function which records the matching data in a pickle.
-Inputs :
-- lambdas_path : path to the file containing the wavelengths list which will be used to compute the validation scripts (since we are gonna compare different wavelengths lists to know if the conversion has been good, we need to indicate which wavelengths we want to use) 
-- record_path : string indicating the file name.
-- max_detection : float representing the minimum value of the detected maxima in the compute_spikes algorithm.
-- precision : float representing the maximum possible difference between one value in x and one value in y to consider them as matching values.
-Output :
-None.
-"""
+
 
 
 def matching_pickle(lambdas_path,record_path,max_detection,precision):
-    
+        
+    """
+    A little function which records the matching data in a pickle.
+    Inputs :
+    - lambdas_path : path to the file containing the wavelengths list which will be used to compute the validation scripts (since we are gonna compare different wavelengths lists to know if the conversion has been good, we need to indicate which wavelengths we want to use) 
+    - record_path : string indicating the file name.
+    - max_detection : float representing the minimum value of the detected maxima in the compute_spikes algorithm.
+    - precision : float representing the maximum possible difference between one value in x and one value in y to consider them as matching values.
+    Output :
+    None.
+    """
     data_file = open(record_path,'w') # opening the file
     data = global_matching(lambdas_path,max_detection,precision)
     
@@ -360,18 +364,18 @@ def matching_pickle(lambdas_path,record_path,max_detection,precision):
     matching_data_pickle = pickle.dump(matching_data,data_file) # storing of the data
     #print("Macthing pickle recorded")
     data_file.close()
-    
-"""
-A little function which reads the matching data from a pkl file.
-Input : 
-- path : string indicating the name of the file
-Output : 
-- data : data contained by the file
-"""
 
 
 def matching_reader(path):
     
+    """
+    A little function which reads the matching data from a pkl file.
+    Input : 
+    - path : string indicating the name of the file
+    Output : 
+    - data : data contained by the file
+    """
+
     file = open(path,'r')  # opening the file
     data = pickle.load(file)  
     lambdas = data['Spikes_wavelengths']
@@ -381,40 +385,39 @@ def matching_reader(path):
     return(data)
     
 
-    
-"""
-Now that we are able to identify which wavelengths have a satisfying matching (under "precision" Angstrom), we want to demonstrate that actually the majority is around 0.005A, which would correpond to the actual accurency of the calibration algorithm. We want to plot a graph where we can see the proportion of wavelengths corresponding to different groups of errors : [0,0.001],[0.001,003];[0.003,0.006],[0.006,0.01],etc.
-That's the role of this function. 
-Input :
-- path : name of the pkl file where the matching data are stored.
-Output : 
-None.
-"""
-
 
 def errors_distribution(path):
     
-        data = matching_reader(path)
-        lambdas = data['Spikes_wavelengths']
-        errors = data['Matching_gaps_between_drs_and_atlas']
-        
-        standard_deviation = np.std(errors)
-        plt.close(25)
-        print("Standard deviation : "+str(standard_deviation))
-        plt.figure(25)
-        plt.hist(errors, bins=100,color='red')
-        plt.xlabel('Error in Angstrom')
-        plt.ylabel('Proportion of the matched wavelengths')
-        plt.show()
+    """
+    Now that we are able to identify which wavelengths have a satisfying matching (under "precision" Angstrom), we want to demonstrate that actually the majority is around 0.005A, which would correpond to the actual accurency of the calibration algorithm. We want to plot a graph where we can see the proportion of wavelengths corresponding to different groups of errors : [0,0.001],[0.001,003];[0.003,0.006],[0.006,0.01],etc.
+    That's the role of this function. 
+    Input :
+    - path : name of the pkl file where the matching data are stored.
+    Output : 
+    None.
+    """
+    
+    data = matching_reader(path)
+    lambdas = data['Spikes_wavelengths']
+    errors = data['Matching_gaps_between_drs_and_atlas']
+    
+    standard_deviation = np.std(errors)
+    plt.close(25)
+    print("Standard deviation : "+str(standard_deviation))
+    plt.figure(25)
+    plt.hist(errors, bins=100,color='red')
+    plt.xlabel('Error in Angstrom')
+    plt.ylabel('Proportion of the matched wavelengths')
+    plt.show()
             
             
     
     
-"""
-A little function which is usefull to plot results as histograms
-"""
+
 def OptimalNbins(a):
-    
+    """
+    A little function which is usefull to plot results as histograms
+    """
     nbins=10.
     if np.max(a) == np.min(a):
         return nbins
@@ -438,12 +441,12 @@ def cleanplt():
         plt.close()
         
         
-""" 
-A little function which plots some results about the matching. It will inform us about errors, widths and intensities for each lambda matched.
-"""
 
 def matching_stats():
-    
+    """ 
+    A little function which plots some results about the matching. It will inform us about errors, widths and intensities for each lambda matched.
+    """
+  
     
     cleanplt()
     
@@ -456,7 +459,7 @@ def matching_stats():
     
     for order in range(34):
         
-        file_name = "Matching_stats/Matching_results_new_plot_order_"+str(order)
+        file_name = "calibration_methods/Calibration_files/Matching_stats/Matching_results_new_plot_order_"+str(order)
         
         order_file = open(file_name,'r')
         order_results = pickle.load(order_file)
@@ -632,7 +635,7 @@ def matching_stats():
     
     
     # Recording the results in a pickle :
-    file = open("Matching_stats/Matching_results_global",'w')
+    file = open("calibration_methods/Calibration_files/Matching_stats/Matching_results_global",'w')
     matching_pickle_global = pickle.dump(matching_data,file)
     file.close()
     

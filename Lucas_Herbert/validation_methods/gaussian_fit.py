@@ -15,20 +15,20 @@ from scipy.optimize import curve_fit
 
 
 
-"""
-This function finds the gaussian function which is the closest from our data. It's a fitting algorithm which uses a least squares method. It takes an an input the necessary data for the fit : the wavelengths, lambdas, and their intensities (or whatever we need to fit), data. It returns the centre and width of the fitted gaussian and also the report of the fit (saying if it is good enough or not). It also plots the fitted gaussians and their centers so that we can "visualy check" if the fit is good enough.
-Inputs :
-- lambdas : list of wavelengths
-- data : list of intensities (or whatever) associated to the wavelengths list.
-Outputs :
-- lambda_centre : float, wavelength of the center of the gaussian which has been fitted to our data and lambdas. It represents the actual center of the spike.
-- lambda_width : float, width of the fitted gaussian. It represents the width of the spike.
-- report : string, the report contains all the informations about the fit : the chi_square, the nuber of iterations before converging to the solution, etc.
-"""
-
     
 def fit_the_spike(lambdas,data):
     
+    """
+    This function finds the gaussian function which is the closest from our data. It's a fitting algorithm which uses a least squares method. It takes an an input the necessary data for the fit : the wavelengths, lambdas, and their intensities (or whatever we need to fit), data. It returns the centre and width of the fitted gaussian and also the report of the fit (saying if it is good enough or not). It also plots the fitted gaussians and their centers so that we can "visualy check" if the fit is good enough.
+    Inputs :
+    - lambdas : list of wavelengths
+    - data : list of intensities (or whatever) associated to the wavelengths list.
+    Outputs :
+    - lambda_centre : float, wavelength of the center of the gaussian which has been fitted to our data and lambdas. It represents the actual center of the spike.
+    - lambda_width : float, width of the fitted gaussian. It represents the width of the spike.
+    - report : string, the report contains all the informations about the fit : the chi_square, the nuber of iterations before converging to the solution, etc.
+    """
+
     y = np.copy(data) - np.min(data)
     X = lambdas
     def gaussian(x,cen,amp,wid):

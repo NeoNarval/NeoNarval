@@ -16,6 +16,10 @@ from scipy.optimize import curve_fit
 import validation_methods.gaussian_fit as gfit
 import validation_methods.compute_order as cporder
 
+
+global order_len
+order_len = 4612
+
 """ 
 In this script, we will search for all the spikes of a normalized spectrum and then fit a gaussian to each of the interesting spikes in order to find its precise centre and width.
 
@@ -23,19 +27,20 @@ In this script, we will search for all the spikes of a normalized spectrum and t
 """
 global max_detection 
 max_detection = 0.25
-file_path = '/home/stagiaire/Documents/Données utiles/th_calibered.fits' # current path computed
+file_path = 'validation_methods/Validation_files/th_calibered.fits' # current path computed
 
 
-"""
-A little function which opens the ".fits" file which we want to reduce in a table.
-Input :
-- file_path : name of the file.
-Outputs :
-- lambdas : list of wavelengths of the file
-- intensities : list of the associated intensities ( = spectrum )
-"""    
-    
+
 def read_fits(file_path):
+    
+    """
+    A little function which opens the ".fits" file which we want to reduce in a table.
+    Input :
+    - file_path : name of the file.
+    Outputs :
+    - lambdas : list of wavelengths of the file
+    - intensities : list of the associated intensities ( = spectrum )
+    """    
     
     data_file = pyfits.open(file_path)
     
@@ -53,18 +58,19 @@ def read_fits(file_path):
 lambdas, intensities = read_fits(file_path)[0], read_fits(file_path)[1]
 
 
-""" 
-First function : we need to find the lists of wavelengths and intensities corresponding to each spike of the spectrum in order to go further.
-Inputs :
-- lambdas : list of wavelengths
-- indices : list of associated indices giving hte position of the wavelengths in the global wavelength list (because we may deal with spikes order per order and we don't want to lose the spike's absolute position in the intial global list).
-- max_detection : float representing the minimum value of the detected maxima. Below this value, a local maximum isn't considered as a spike.
-Output :
-- spikes_data : list of lists containing the data for each found spike : its wavelength list, indices list and intensities list.
-"""
+
 
 def find_spikes_data(lambdas,indices,intensities,max_detection):
     
+    """ 
+    First function : we need to find the lists of wavelengths and intensities corresponding to each spike of the spectrum in order to go further.
+    Inputs :
+    - lambdas : list of wavelengths
+    - indices : list of associated indices giving hte position of the wavelengths in the global wavelength list (because we may deal with spikes order per order and we don't want to lose the spike's absolute position in the intial global list).
+    - max_detection : float representing the minimum value of the detected maxima. Below this value, a local maximum isn't considered as a spike.
+    Output :
+    - spikes_data : list of lists containing the data for each found spike : its wavelength list, indices list and intensities list.
+    """
     spikes_data = []
     
     intensities_maxima = []
@@ -108,25 +114,25 @@ def find_spikes_data(lambdas,indices,intensities,max_detection):
     return(spikes_data)
     
     
-
+    
 """
 For each spike we have found, we need to localize more accurately its position to know its exact wavelengths. That's why we are gonna fit a gaussian on each spike thanks to another algorithm using lmfit and the least squares method. The centre of the gaussian will be the precise wavelength of the spike, and we can also have an access to informations like its width, all those data helping us to discriminate among the spikes. We will for example be able to filter the spikes which don't have a right fitting or which have a too large width, because they are not physically realistic enough.
 """
 
 
-"""
-/!\ There is a particular case in this function which is explained in the commentaries /!\
-The following function will compute the centers of the spikes of an given order and return data about the fits. 
-Input : 
-- lambdas_path : path to the file containing the wavelengths list which will be used to compute the validation scripts (since we are gonna compare different wavelengths lists to know if the conversion has been good, we need to indicate which wavelengths we want to use) 
-- max_detection : float representing the minimum value of the detected maxima in the compute_spikes algorithm.
-- n : int, number of the order
-Output :
-- spikes_fits_data : list of lists containing the data for each spike's fit : there is a fit in wavelengths and a fit in indices. We use those two fits because we need both the wavelengths to compare to the atlas and the indices to use them later to compute a more accurate wavelengths list. (See inteprolated_conversion and intered_calibration)
-"""
-
 def fit_spikes_order(lambdas_path,max_detection,n) :
     
+    
+    """
+    /!\ There is a particular case in this function which is explained in the comentaries /!\
+    The following function will compute the centers of the spikes of an given order and return data about the fits. 
+    Input : 
+    - lambdas_path : path to the file containing the wavelengths list which will be used to compute the validation scripts (since we are gonna compare different wavelengths lists to know if the conversion has been good, we need to indicate which wavelengths we want to use) 
+    - max_detection : float representing the minimum value of the detected maxima in the compute_spikes algorithm.
+    - n : int, number of the order
+    Output :
+    - spikes_fits_data : list of lists containing the data for each spike's fit : there is a fit in wavelengths and a fit in indices. We use those two fits because we need both the wavelengths to compare to the atlas and the indices to use them later to compute a more accurate wavelengths list. (See interpolated_conversion and intered_calibration)
+    """
     spikes_fits_data = []
     
         # /!\ Read the description of the calibration_methods module before taking a look at the if condition just below, if you understand the motivations of the itered_calibration functions, you will understand why this condition is necessary.
@@ -135,10 +141,10 @@ def fit_spikes_order(lambdas_path,max_detection,n) :
     
     # First case : everything is normal, we use the ThAr_calibered original wavelengths, let's go!
     
-    if ( lambdas_path == "ThAr_calibered_lambdas.pkl" ):
+    if ( lambdas_path == "calibration_methods/Calibration_files/ThAr_calibered_lambdas.pkl" ):
         
         # To verify the job has been done correctly, we can plot the different things we do.The original data are the wavelengths and intensities we have in the begining, plotted in black. 
-        orders = cporder.search_orders(lambdas_path, "ThAr_calibered_original_intensitites.pkl")
+        orders = cporder.search_orders(lambdas_path, "validation_methods/Validation_files/ThAr_calibered_original_intensitites.pkl")
         order_lambdas = orders[n][0]
         order_indices = orders[n][1]
         order_intensities = cporder.compute_order(n)
@@ -185,8 +191,9 @@ def fit_spikes_order(lambdas_path,max_detection,n) :
     else : 
     
         # To verify the job has been done correctly, we can plot the different things we do.The original data are the wavelengths and intensities we have in the begining, plotted in black. 
-        orders = cporder.search_orders("ThAr_calibered_lambdas.pkl", "ThAr_calibered_original_intensitites.pkl")
-        order_lambdas = pickle.load(open(lambdas_path,'r'))
+        orders = cporder.search_orders("validation_methods/Validation_files/ThAr_calibered_lambdas.pkl", "validation_methods/Validation_files/ThAr_calibered_original_intensitites.pkl")
+        print(lambdas_path)
+        order_lambdas = pickle.load(open(lambdas_path,'r')) #[n*order_len:(n+1)*order_len]
         order_indices = orders[n][1]
         order_intensities = cporder.compute_order(n)
         # plotting everything

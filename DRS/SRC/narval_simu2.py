@@ -27,9 +27,11 @@ f = open(file, 'r')
 a = reader(f, delimiter=';')
 PSF = np.zeros((320, 320))
 i = 0
+
 for row in a:
-    PSF[i, :] = np.asarray(map(float, row))
+    PSF[i, :] = np.asarray(map(float,row))
     i = i + 1
+""" """
 f.close()
 
 # CALCUL DE LA PSF SOUS-ECHANTILLONNEE
@@ -45,7 +47,7 @@ PSF = PSF[160 - tailley_pxlimg / 2 * rapport:160 + taillex_pxlimg / 2 * rapport,
 PSF2 = np.zeros((tailley_pxlimg, taillex_pxlimg))  # création de la PSF
 X = np.linspace(0, PSF.shape[1] - rapport, taillex_pxlimg)
 Y = np.linspace(0, PSF.shape[0] - rapport, tailley_pxlimg)
-angle = 9  # angle d'inclinaison de la fente
+angle = 0 #9  # angle d'inclinaison de la fente
 
 if angle != 0:
     for i in xrange(len(PSF)):
@@ -193,8 +195,8 @@ def main():
 
         for i, ligne in enumerate(image):
             for j, case in enumerate(ligne):
-                image[i, j] += np.random.normal(loc=0.0,
-                                                scale=np.sqrt(np.sqrt(image[i, j])))
+                image[i, j] += np.random.normal(loc=0.0,scale= np.sqrt(np.sqrt(image[i, j])))
+
         del image2
         meth.ecriture_FITS(image, "00", type_image)
         del matrices_ordre

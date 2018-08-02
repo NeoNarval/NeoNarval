@@ -308,7 +308,7 @@ Norders=len(interorden)
 
 datafile = "extraction_methods/Extraction_files/"
 
-datafileFlat = datafile + "temp/Narval_20180313_180054_f10.fts"
+datafileFlat = datafile + "temp/simu00_20180725_141934_fp0.fts"
 datafileStar = datafile + "13mar18/Narval_20180314_003846_st0.fts"
 datafileThar = datafile + "13mar18/Narval_20180313_181059_th0.fts"
 f=pyfits.open(datafileThar)
@@ -337,7 +337,7 @@ Orderlimit=np.concatenate(([0],np.where(np.diff(a['wavelength_lane1'])<0)[0],[le
 wvl=a['wavelength_lane1']
 
 
-ancho_list = ['10_new_test'] #['0_flat_edge','5_flat_edge','8_flat_edge','11_flat_edge','11_divided_by_flat'] #'3','5','8','15_flat_edge'
+ancho_list = ['8'] #['0_flat_edge','5_flat_edge','8_flat_edge','11_flat_edge','11_divided_by_flat'] #'3','5','8','15_flat_edge'
 graphs3, graphs4 , ancho_spectra, ancho_flat, ancho_thar_brut = [], [], [], [], []
 
 for ancho_str in ancho_list :
@@ -353,7 +353,7 @@ for ancho_str in ancho_list :
 	all_thar_brut = []
 	#	===== Selection de l'ordre =======
 	
-	for orden in range(14,15) :
+	for orden in range(10,20) :
 		
 		print("=================== ORDER : "+str(orden)+" ====================")
 		
@@ -372,7 +372,7 @@ for ancho_str in ancho_list :
 		YFlat = np.zeros(CCDsize*(ov+1))
 		arturos=np.shape(mapa)[1]
 		Souv=np.zeros((arturos,ov+1))
-		nombre='extraction_methods/Extraction_files/REF/Amatrix_order'+str(orden)+'_lane1_ancho'+str(ancho_str)+'.pkl'
+		nombre='extraction_methods/Extraction_files/REF/Amatrix_order'+str(orden)+'_lane1_ancho'+str(ancho_str)+'_simu.pkl'
 		f=open(nombre,'r')
 		matriz=pickle.load(f)
 		Acompleta=matriz['Amatrix']#.toarray()
@@ -415,76 +415,76 @@ for ancho_str in ancho_list :
 	
 		""" Calculs """
 # DEBUT COMMENTAIRE
-# 		a = time.time()
-# 		plt.figure(1)
-# 		print("ooooo Computing spectrum ooooo")
-# 		thar_result = conjugate_grad_prec_sparse(A,Y3) #"extraction_methods/Extraction_files/temp/x0thar_ancho0_order_"+str(orden))
-# 		print("ooooo Computing flat ooooo")
-# 		flat_result = conjugate_grad_prec_sparse(A,Y3Flat) #"extraction_methods/Extraction_files/temp/x0flat_ancho0_order_"+str(orden))
-# 		thar = thar_result[0]
-# 		#tharnaif = thar_result[1]
-# 		flat = flat_result[0]
-# 		#flatnaif = flat_result[1]
-# 		thar = thar / np.max(thar)
-# 		flat = flat / np.max(flat)
-# 		thar2 = thar/flat 
-# 		thar2 = thar2 - np.min(thar2)
-# 		thar2 = thar2 / np.max(thar2)
-# 		#plt.plot(thar2,color = 'green')
-# 		#tharnaif2 = tharnaif/flatnaif
-# 		#tharnaif2 = tharnaif2 / np.max(tharnaif2)
-# 		#plt.plot(tharnaif2,color = 'black')
-# 		#plt.figure(2)
-# 		#plt.plot(thar2,color = 'red')
-# 		#plt.plot(Solw,SolI,'black')
-# 		#plt.show()
-# 		
-# 		fout = open("extraction_methods/Extraction_files/reduced/reduced_thar_"+str(orden)+"_ancho"+str(ancho_str)+".pkl",'w')
-# 		pickle.dump(thar_result[0],fout)
-# 		fout.close()
-# 		all_thar_brut.extend(thar)
-# 		all_thar.extend(thar2)
-# 		all_w.extend(w)
-# 		all_flat.extend(flat)
-# 		# all_Solw.extend(Solw)
-# 		# all_SolI.extend(SolI)
-# 		
-# 		print("_______________ TEMPS TOTAL ORDRE ________________")
-# 		print(time.time() - a)
-# 			
-# 	plt.figure(3)
-# 	graph3, = plt.plot(all_w,all_thar,label='Ancho ='+str(ancho_str))
-# 	plt.legend(handles=[graph3])
-# 	#plt.plot(all_Solw,all_SolI,color='black')
-# 	plt.show()
-# 	plt.figure(4)
-# 	graph4, = plt.plot(all_thar,label='Ancho ='+str(ancho_str))
-# 	plt.legend(handles=[graph4])
-# 	plt.show()
-# 	
-# 	print("=_=_=_=_=_=_=_= TEMPS TOTAL GLOBAL =_=_=_=_=_=_=_=_=")
-# 	print(time.time()-to)
-# 	
-# 	
-# 	graphs3.append(graph3)
-# 	graphs4.append(graph4)
-# 	ancho_spectra.append(all_thar)
-# 	ancho_flat.append(all_flat)
-# 	ancho_thar_brut.append(all_thar_brut)
-# 
-# plt.figure(10)
-# for i in range(len(ancho_list)) :
-# 	plt.plot(ancho_spectra[i])
-# 	#plt.plot(ancho_flat[i],color='black')
-# 	#plt.plot(ancho_thar_brut[i])
-# plt.legend([g for g in graphs4],[ancho for ancho in ancho_list])
-# plt.show()
-# 
-# plt.figure(11)
-# for i in range(len(ancho_list)) :
-# 	plt.plot(all_w, ancho_spectra[i])
-# plt.legend([g for g in graphs3],[ancho for ancho in ancho_list])
-# plt.show()
+		a = time.time()
+		plt.figure(1)
+		print("ooooo Computing spectrum ooooo")
+		thar_result = conjugate_grad_prec_sparse(A,Y3) #"extraction_methods/Extraction_files/temp/x0thar_ancho0_order_"+str(orden))
+		print("ooooo Computing flat ooooo")
+		#flat_result = conjugate_grad_prec_sparse(A,Y3Flat) #"extraction_methods/Extraction_files/temp/x0flat_ancho0_order_"+str(orden))
+		thar = thar_result[0]
+		#tharnaif = thar_result[1]
+		#flat = flat_result[0]
+		#flatnaif = flat_result[1]
+		thar = thar / np.max(thar)
+		#flat = flat / np.max(flat)
+		#thar2 = thar/flat 
+		#thar2 = thar2 - np.min(thar2)
+		#thar2 = thar2 / np.max(thar2)
+		#plt.plot(thar2,color = 'green')
+		#tharnaif2 = tharnaif/flatnaif
+		#tharnaif2 = tharnaif2 / np.max(tharnaif2)
+		#plt.plot(tharnaif2,color = 'black')
+		#plt.figure(2)
+		#plt.plot(thar2,color = 'red')
+		#plt.plot(Solw,SolI,'black')
+		#plt.show()
+		
+		fout = open("extraction_methods/Extraction_files/reduced/reduced_thar_"+str(orden)+"_ancho"+str(ancho_str)+".pkl",'w')
+		pickle.dump(thar_result[0],fout)
+		fout.close()
+		all_thar_brut.extend(thar)
+		#all_thar.extend(thar2)
+		all_w.extend(w)
+		#all_flat.extend(flat)
+		# all_Solw.extend(Solw)
+		# all_SolI.extend(SolI)
+		
+		print("_______________ TEMPS TOTAL ORDRE ________________")
+		print(time.time() - a)
+			
+	# plt.figure(3)
+	# graph3, = plt.plot(all_w,all_thar,label='Ancho ='+str(ancho_str))
+	# plt.legend(handles=[graph3])
+	# plt.plot(all_Solw,all_SolI,color='black')
+	# plt.show()
+	plt.figure(4)
+	graph4, = plt.plot(all_thar_brut,label='Ancho ='+str(ancho_str))
+	plt.legend(handles=[graph4])
+	plt.show()
+	
+	print("=_=_=_=_=_=_=_= TEMPS TOTAL GLOBAL =_=_=_=_=_=_=_=_=")
+	print(time.time()-to)
+	
+	
+	graphs3.append(graph3)
+	graphs4.append(graph4)
+	ancho_spectra.append(all_thar)
+	#ancho_flat.append(all_flat)
+	ancho_thar_brut.append(all_thar_brut)
+
+plt.figure(10)
+for i in range(len(ancho_list)) :
+	plt.plot(ancho_spectra[i])
+	#plt.plot(ancho_flat[i],color='black')
+	#plt.plot(ancho_thar_brut[i])
+plt.legend([g for g in graphs4],[ancho for ancho in ancho_list])
+plt.show()
+
+plt.figure(11)
+for i in range(len(ancho_list)) :
+	plt.plot(all_w, ancho_spectra[i])
+plt.legend([g for g in graphs3],[ancho for ancho in ancho_list])
+plt.show()
 # FIN COMMENTAIRE
 
 

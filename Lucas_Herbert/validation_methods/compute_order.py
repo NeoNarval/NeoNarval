@@ -12,21 +12,22 @@ import validation_methods.compute_offset as cpoffset
 """
 All this script is written to open the file we need to compute,and then to compute each order.
 """
-file_path = '/home/stagiaire/Documents/Données utiles/th_calibered.fits' # current path computed
+file_path = 'validation_methods/Validation_files/th_calibered.fits' # current path computed
 
 
 
-"""
-A little function which opens the ".fits" file which we want to reduce in a table.
-Input :
-- file_path : name of the file.
-Outputs :
-- lambdas : list of wavelengths of the file
-- intensities : list of the associated intensities ( = spectrum )
-"""    
+
     
 def read_fits(file_path):
     
+    """
+    A little function which opens the ".fits" file which we want to reduce in a table.
+    Input :
+    - file_path : name of the file.
+    Outputs :
+    - lambdas : list of wavelengths of the file
+    - intensities : list of the associated intensities ( = spectrum )
+    """    
     data_file = pyfits.open(file_path)
     
     # We search for our data in the .fits file : the wawelenghts and intensities of the thorium argon spectrum, it is in the first extension of the .fits file
@@ -41,21 +42,22 @@ def read_fits(file_path):
     return(lambdas,intensities)
     
     
-"""
-The following function will record the lambdas and intensities from the original ThAr_calibered.fits) in a pickle so that we can use it in an easier way than beofre (with the fits file).
-Inputs :
-None
-Output : 
-None
-"""    
 
 def fits_to_pkl():
         
+    """
+    The following function will record the lambdas and intensities from the original ThAr_calibered.fits) in a pickle so that we can use it in an easier way than beofre (with the fits file).
+    Inputs :
+    None
+    Output : 
+    None
+    """    
+
     lambdas = read_fits(file_path)[0]
     intensities = read_fits(file_path)[1]
     
-    lambdas_file = open("ThAr_calibered_lambdas.pkl",'w')
-    intensities_file = open("ThAr_calibered_original_intensitites.pkl",'w')
+    lambdas_file = open("validation_methods/Validation_files/ThAr_calibered_lambdas.pkl",'w')
+    intensities_file = open("validation_methods/Validation_files/ThAr_calibered_original_intensitites.pkl",'w')
     
     lambdas_pkl = pickle.dump(lambdas,lambdas_file)
     intensities_pkl = pickle.dump(intensities,intensities_file)
@@ -67,17 +69,18 @@ def fits_to_pkl():
     return(None)
 
 
-"""
-This function uses two path to lists as an input. The first path is leading to the list of wavelengths and the second to the list of associated intensities. Since the orders are not isolated from each other, we need to build several lists, one for each order, representing the wavelengths and intensities of each order. This function does the job by returning the wavelengths and intensities of each order. 
-Inputs: 
-- lambdas_pkl_path : path of the file containing the list of wavelengths
-- intensities : path of the file containing the list of the associated intensities ( = spectrum )
-Outputs :
-- orders : list of lists containing each order wavelengths and intensities
-"""
+
 
 def search_orders(lambdas_pkl_path,intensities_pkl_path):
     
+    """
+    This function uses two path to lists as an input. The first path is leading to the list of wavelengths and the second to the list of associated intensities. Since the orders are not isolated from each other, we need to build several lists, one for each order, representing the wavelengths and intensities of each order. This function does the job by returning the wavelengths and intensities of each order. 
+    Inputs: 
+    - lambdas_pkl_path : path of the file containing the list of wavelengths
+    - intensities : path of the file containing the list of the associated intensities ( = spectrum )
+    Outputs :
+    - orders : list of lists containing each order wavelengths and intensities
+    """
     # ThAr_calibered_lambdas = read_fits(file_path)[0]
     lambdas = pickle.load(open(lambdas_pkl_path,'r'))
     # We have to complete the two lasts order of the wavelengths list with the ThAr list because when we convert a new wavelengths list we don't have values in those two order due to the lack of spikes in the red wavelengths. You can refer to the comments of the module called "calibration_methods" and "matching.py" to understand.
@@ -117,18 +120,19 @@ def search_orders(lambdas_pkl_path,intensities_pkl_path):
     return(orders)
 
 
-    
-"""
-Once an order has been defined thanks to search_orders, we can compute its offset and return the precise normalized spectrum we want to study. That's the role of this function. You can notice that we will always the "ThAr_calibered_lambdas.pkl" file because we don't care about which wavelengths we choose.
-Input :
-- n : int, number of the order to compute
-Output :
-- order_normalized_spectrum : list of the normalized intensities of the computed order.
-"""
+
 
 def compute_order(n) :
     
-    orders = search_orders("calibration_methods/Calibration_files/ThAr_calibered_lambdas.pkl","calibration_methods/Calibration_files/ThAr_calibered_original_intensitites.pkl")
+    
+    """
+    Once an order has been defined thanks to search_orders, we can compute its offset and return the precise normalized spectrum we want to study. That's the role of this function. You can notice that we will always the "ThAr_calibered_lambdas.pkl" file because we don't care about which wavelengths we choose.
+    Input :
+    - n : int, number of the order to compute
+    Output :
+    - order_normalized_spectrum : list of the normalized intensities of the computed order.
+    """
+    orders = search_orders("validation_methods/Validation_files//ThAr_calibered_lambdas.pkl","validation_methods/Validation_files/ThAr_calibered_original_intensitites.pkl")
     order_lambdas = orders[n][0]
     order_indices = orders[n][1]
     order_intensities = orders[n][2]
@@ -144,32 +148,32 @@ def compute_order(n) :
     
     
 
-"""
-We can also plot an order after its computation.
-Input :
-- n : int, number of the order to plot.
-Output :
-None.
-"""
 def plot_order(n):
     
-    orders = search_orders("calibration_methods/Calibration_files/ThAr_calibered_lambdas.pkl","calibration_methods/Calibration_files/ThAr_calibered_original_intensitites.pkl")
+    
+    """
+    We can also plot an order after its computation.
+    Input :
+    - n : int, number of the order to plot.
+    Output :
+    None.
+    """
+    orders = search_orders("validation_methods/Validation_files/ThAr_calibered_lambdas.pkl","validation_methods/Validation_files/ThAr_calibered_original_intensitites.pkl")
     order_lambdas = orders[n][0]
     order_intensities = orders[n][2]
     order_indices = orders[n][1]
     computed_order_intensities = compute_order(n)
     # plt.figure(1)
-    # plt.plot(order_lambdas,order_intensities, color='black')
+    #plt.plot(order_lambdas,order_intensities, color='black')
     # plt.plot(order_lambdas, computed_order_intensities, color='red')
     # plt.xlabel("Wavelengths(Angstrom)")
     
     plt.figure(4)
     plt.plot(order_indices,order_intensities, color='black')
-    #plt.plot(order_indices, computed_order_intensities, color='purple')
+    plt.figure(5)
+    plt.plot(order_indices, computed_order_intensities, color='purple')
     
     
     plt.show()
 
     
-for k in range(35):
-    plot_order(k)
