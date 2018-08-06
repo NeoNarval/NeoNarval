@@ -75,7 +75,7 @@ def matching_reader(path):
 
 def select_order(spikes_lambdas,spikes_indices,n):
     """
-    This function will reconstitute each order's indices and associated wavelengths, knowing the fact that there is exactly  values (and thus also indices) per order.
+    This function will reconstitute each order's indices and associated wavelengths, knowing the fact that there is exactly order_len values (and thus also indices) per order.
     Input : 
     - spikes_lambdas : list of the spikes wavelengths
     - spikes_indices : list of the corresponding indices
@@ -274,13 +274,13 @@ def convert_to_pickle(path):
 
 
 
-path = "calibration_methods/Calibration_files/matching_data_0.1_ultra_wide_selection_0.03Itreshold_Angstrom.pkl"
-
-data = matching_reader(path)    
-spikes_lambdas = data['Spikes_wavelengths']
-spikes_indices = data['Spikes_indices']
-
-arturo_convert_angstroms_order(spikes_lambdas,spikes_indices,10)
+# path = "calibration_methods/Calibration_files/matching_data_0.1_ultra_wide_selection_0.03Itreshold_Angstrom.pkl"
+# 
+# data = matching_reader(path)    
+# spikes_lambdas = data['Spikes_wavelengths']
+# spikes_indices = data['Spikes_indices']
+# 
+# arturo_convert_angstroms_order(spikes_lambdas,spikes_indices,10)
 
 
 

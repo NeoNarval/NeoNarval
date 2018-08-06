@@ -41,17 +41,17 @@ HDUlist = pyfits.open("calibration_methods/Calibration_files/Narval_20161004_053
 data = HDUlist[1].data
 S2 = data['intensity_lane1'][0:4612*36]
 
-"""
-The following function is used to test chelli algorithm. It takes a rerefrence spectrum and shift it from the given delta.
-Inputs :
-- Sr : reference spectrum
-- delta : shift to compute
-Outputs :
-- S : shifted spectrum
-"""
+
 
 def shifter(Sr, shift):
-    
+    """
+    The following function is used to test chelli algorithm. It takes a rerefrence spectrum and shift it from the given delta.
+    Inputs :
+    - Sr : reference spectrum
+    - delta : shift to compute
+    Outputs :
+    - S : shifted spectrum
+    """
     fSr = np.fft.rfft(Sr)
     iList = np.arange(len(fSr))
     k = -2j*np.pi*iList*1.0/order_len/order_total*shift
@@ -126,17 +126,7 @@ def chelli_shift(Sr, S, step, v=1):
                 break
             else:
                 Qfinal = Qtest
-# # Then, let's grab some more accuracy (1/100 of a pixel)
-    # jlist = [i*1.0/100.0 for i in range(-11,12)]
-    # for j in jlist :
-    #     Srj = shifter(Sr,shift+j)
-    #     # Computing the current least square indicator for the current k shift    
-    #     Qj = np.sum( [ (Srj[i]-S[i])**2 for i in range(len(Srj)) ] )
-    #     # Updating only if the lq indicator is better ad recording the best found shift until here...
-    #     if  Qj < Q :
-    #         Q = Qj
-    #         shift = shift+j 
-    #         
+
         # Update of the condition
         condition = (abs(Qfinal-Qinit) > 1e-20) and cpt < cpt_max
 
@@ -148,11 +138,11 @@ def chelli_shift(Sr, S, step, v=1):
     return (v, Qfinal, sigma_noise)  # Case of convergence
 
 
-""" 
-Since chelli_shift seems to compute better results on small arays and relatively bad ones on big arays, we are going to write a function splitting the input into several parts, computing the shift on each part and then computing the average shift using the shifts computed no each part. We will use it in our algorithms. The Inputs and Outputs we be the same as chelli_shift.
-"""
+
 def chelli_shift_v2(Sr,S,step,shift0):
-    
+    """ 
+    Since chelli_shift seems to compute better results on small arays and relatively bad ones on big arays, we are going to write a function splitting the input into several parts, computing the shift on each part and then computing the average shift using the shifts computed no each part. We will use it in our algorithms. The Inputs and Outputs we be the same as chelli_shift.
+    """
     # We will suppose that the lengths of Sr and S are approximatively the same. We will only take a look at the length of Sr to determine if we need (or not) to split the spectrum and compute chelli_shift on smaller parts of it or directly on the global spectrum.
     if len(Sr) < 200 :
         return(chelli_shift(Sr,S,1,shift0))
@@ -179,17 +169,17 @@ def chelli_shift_v2(Sr,S,step,shift0):
         return(shift)
 
 
-"""
-The following function will find the shift between two spectrum but only with an error of 1 pixel : it is a way to find a big shift. Since chelli shift is only working on less than one pixel shifts we need to first find the shift with a precision of one pixel, then apply chelli shift. This function is made for this objective.
-Input :
-- Sr : reference spectrum.
-- S : shifted spectrum.
-Output :
-- shift : the shift in pixel with a precision of one pixel.
-"""
 
 def find_big_shift(Sr,S):
-    
+
+    """
+    The following function will find the shift between two spectrum but only with an error of 1 pixel : it is a way to find a big shift. Since chelli shift is only working on less than one pixel shifts we need to first find the shift with a precision of one pixel, then apply chelli shift. This function is made for this objective.
+    Input :
+    - Sr : reference spectrum.
+    - S : shifted spectrum.
+    Output :
+    - shift : the shift in pixel with a precision of one pixel.
+    """
     shift = 0
     
     # Initiating the least square indicator with an initial value
@@ -216,18 +206,18 @@ def find_big_shift(Sr,S):
     return(shift)
     
 
-"""
-The following function will do the job of shift_finder, but applied to our case with spectrum divided into several orders.
-Inputs :
-- Sr : the reference spectrum.
-- S : the shifted spectrum (which we want to identify accurately).
-Ouputs :
-- shift_results : the shift found with high accuracy in indices, in Angstroms and its equivalent in m/s
-"""
+
 S = shifter(Sr,1e-6)
     
 def find_shift(Sr,S,Lr):
-    
+    """
+    The following function will do the job of shift_finder, but applied to our case with spectrum divided into several orders.
+    Inputs :
+    - Sr : the reference spectrum.
+    - S : the shifted spectrum (which we want to identify accurately).
+    Ouputs :
+    - shift_results : the shift found with high accuracy in indices, in Angstroms and its equivalent in m/s
+    """
     plt.plot(Sr,color='black')
     plt.plot(S,color='red')
     plt.show()
@@ -281,16 +271,18 @@ def find_shift(Sr,S,Lr):
     return(shift_results)
     
 
-"""
-We can also fidnd a big shift with the help of a cross correlation function. This function will implement the finding of a shift thanks to the cross correlation.
-Inputs :
-- a : array or list
-- b : array or list (a with a shift which we want to comute)
-Output :
-- ind : the shift between a and b
-"""
+
 
 def correlator(a,b):
+    
+    """
+    We can also find a big shift with the help of a cross correlation function. This function will implement the finding of a shift thanks to the cross correlation.
+    Inputs :
+    - a : array or list
+    - b : array or list (a with a shift which we want to comute)
+    Output :
+    - ind : the shift between a and b
+    """
     plt.plot(a,'black')
     plt.plot(b,'red')
     plt.show()
@@ -309,17 +301,17 @@ def correlator(a,b):
             
     return( - (-len(a) + ind + 1) )
     
-    
-"""
-Same function as find_shift but using the correlator function to compute the approximate shift between Sr and S.
-- Sr : the reference spectrum.
-- S : the shifted spectrum (which we want to identify accurately).
-Ouputs :
-- shift_results : the shift found with high accuracy in indices, in Angstroms and its equivalent in m/s
-"""
+
 
 def find_shift2(Sr,S,Lr) :
-
+    
+    """
+    Same function as find_shift but using the correlator function to compute the approximate shift between Sr and S.
+    - Sr : the reference spectrum.
+    - S : the shifted spectrum (which we want to identify accurately).
+    Ouputs :
+    - shift_results : the shift found with high accuracy in indices, in Angstroms and its equivalent in m/s
+    """
     plt.plot(Sr,color='black')
     plt.plot(S,color='red')
     plt.show()
@@ -327,7 +319,7 @@ def find_shift2(Sr,S,Lr) :
     # Creation of the list which will contain the results of the computation.
     shift_results = []
     
-    # First of all, since chelli shift is only working on less than one pixel shifts we need to first find the shift with a precision of one pixel, then apply chelli shift. Actually, find_big_shift is more accurate than 1 pixel but it is bonus ofr chelli.
+    # First of all, since chelli shift is only working on less than one pixel shifts we need to first find the shift with a precision of one pixel, then apply chelli shift. Actually, find_big_shift is more accurate than 1 pixel but it is bonus for chelli.
     
     global_approx_shift = correlator(Sr,S)
     print(" Approximate shift for the global spectrum : "+str(global_approx_shift)+" pixels")
