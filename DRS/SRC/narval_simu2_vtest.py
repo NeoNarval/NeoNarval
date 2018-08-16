@@ -27,15 +27,16 @@ f = open(file, 'r')
 a = reader(f, delimiter=';')
 PSF = np.zeros((320, 320))
 i = 0
+
 for row in a:
-    PSF[i, :] =  20  #np.asarray(map(float,row))
+    PSF[i, :] = np.asarray(map(float,row))
     i = i + 1
 f.close()
 
 # CALCUL DE LA PSF SOUS-ECHANTILLONNEE
 rapport = 15  # rapport entre la taille d'un pixel image et d'un pixel PSF
 # Taille de la PSF en pixel image
-taillex_pxlimg = 50 #6
+taillex_pxlimg = 6 #6
 tailley_pxlimg = 14
 
 # La PSF est créée selon les dimensions et le rapport donnés ci-dessus, en partant du centre,

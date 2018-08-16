@@ -35,20 +35,22 @@ Norders=len(interorden)
 
 datafile = "extraction_methods/Extraction_files/"
 
-datafileSimu = datafile + "simu00_20180724_074450_fp0.fts"
-datafileFlat = datafile + "temp/Narval_20180313_180054_f10.fts"
+datafileSimu = datafile + "Simulation_Antony_FP.fts"
+datafileFlat = datafile + "Simulation_Antony_Flat.fts"
 datafileStar = datafile + "13mar18/Narval_20180314_003846_st0.fts"
 datafileThar = datafile + "13mar18/Narval_20180313_181059_th0.fts"
-datafileFP = datafile + "13mar18/Narval_20180313_181342_fp0.fts"
+datafileFP = datafile + "Simulation_Antony_FP.fts"
 f=pyfits.open(datafileThar)
 img=f[0].data
-
 f.close()
 f = pyfits.open(datafileFlat)
 imgFlat=f[0].data
 f.close()
-f=pyfits.open(datafileSimu)
+f=pyfits.open(datafileFP)
 imgFP=f[0].data
+f.close()
+f=pyfits.open(datafileSimu)
+imgSimu=f[0].data
 f.close()
 
 
@@ -72,11 +74,355 @@ Orderlimit=np.concatenate(([0],np.where(np.diff(a['wavelength_lane1'])<0)[0],[le
 wvl=a['wavelength_lane1']
 spectrum = a['intensity_lane1']
 
-# Code  pour afficher le vecteur CCD en matrice 2D
 
-ep_voie = interpol # liste des epaisseurs de chaque voie 
-ord_centres= interorden # liste des ordonnees du centre de chaque ordre (axe Y allant de 0 a 2098)
-delta_courb = mapa # matrice des listes (par ordre) des delta_pixel de courbure de l'ordre par rapport à la colonne centrale
+""" 
+Ce code retrouve la localisation de chaque ordre dans l'image CCD 2D et la renvoie sous forme de liste.
+"""
+# 
+# # On commence par retrouver la position des ordres en trouvant l'ordonnee du pixel de la colonne centrale de chaque ordre grâce au code qui suit.
+# 
+# x_central = int(order_len/2)
+# 
+# colonne_centrale = [] # liste des pixels de la colonne centrale
+# 
+# for y in range(np.shape(imgFlat)[1]) :
+#     colonne_centrale.append(imgFlat[x_central,y])
+# 
+# ordre_centres = [58,89,119,150,181,212,244,276,310,344,378,414,451,489,528,568,609,650,695,740,786,834,883,934,987,1041,1096,1154,1213,1274,1338,1403,1470,1540,1612,1687,1763,1843,1926,2012]
+# epaisseurs = [15 for i in range(len(ordre_centres))]
+# 
+# f = open("extraction_methods/Extraction_files/REF/reference_simu",'w')
+# pickle.dump(ordre_centres,f)
+# f.close()
+# 
+# f = open("extraction_methods/Extraction_files/REF/epaisseurs",'w')
+# pickle.dump(epaisseurs,f)
+# f.close()
+# 
+# 
+# plt.figure(1)
+# plt.plot(colonne_centrale)
+# for i in range(len(ordre_centres)) :
+#     plt.axvline(ordre_centres[i],color='red')
+#     y = ordre_centres[i] + epaisseurs[i]
+#     plt.axvline(y,color='green')
+# plt.show()
+# 
+# # Puis il nous faut trouver la forme de chaque ordre : le decalage en y suivant l'indice x. Pour cela on va utilise la colonne centrale du flat que l'on va intercorreler avec la meme colonne decalee en indices (abscisses). Le shift obtenu sera notre decalage. Pour chaque ordre on retiendra donc le decalage pour chaque indice nous donnant une liste de decalages de longueur order_len.
+
+def correlator(a,b):
+    
+    """
+    We can also find a big shift with the help of a cross correlation function. This function will implement the finding of a shift thanks to the cross correlation.
+    Inputs :
+    - a : array or list
+    - b : array or list (a with a shift which we want to comute)
+    Output :
+    - ind : the shift between a and b
+    """
+    plt.plot(a,'black')
+    plt.plot(b,'red')
+    plt.show()
+    
+    r = np.correlate(a,b,"full")
+    
+    max = r[0]
+    ind = 0
+    
+    for k in range(len(r)):
+        
+        if r[k] > max :
+            max= r[k]
+            ind = k
+            
+            
+    return( - (-len(a) + ind + 1) )
+    
+    
+def shifter(Sr, shift):
+    """
+    The following function is used to test chelli algorithm. It takes a rerefrence spectrum and shift it from the given delta.
+    Inputs :
+    - Sr : reference spectrum
+    - delta : shift to compute
+    Outputs :
+    - S : shifted spectrum
+    """
+    fSr = np.fft.rfft(Sr)
+    iList = np.arange(len(fSr))
+    k = -2j*np.pi*iList*1.0/len(Sr)*shift
+    fS = np.exp(k)*fSr
+    S = np.fft.irfft(fS)
+    return(S)
+    
+
+
+def chelli_shift(Sr, S, step, v=1):
+    """
+        Function to derive the Doppler shift between two spectrales rays, based on Chelli(2000). The arguments are :
+            Sr : spectrum of reference
+            S : shift spectrum
+            step : spatial discretization step
+            v : initial value of the shift
+        Return the shift in pixels, the error
+    """
+    # I hat
+    I = np.fft.rfft(Sr)*np.conjugate(np.fft.rfft(S))
+    lenI = len(I)
+
+    # List of Q, the quantity to minimize
+    Qinit = 0.
+    Qfinal = 1.
+
+    cpt = 0
+    cpt_max = 2000
+    # Stop condition on Q and the cpt_max
+    condition = (abs(Qfinal-Qinit) > 1e-20) and cpt < cpt_max 
+    # Qi,Qf = [Qinit],[Qfinal]
+    iList = np.arange(lenI)
+    k = -2j*np.pi*iList*v/(2*step*lenI)
+
+    C = I*np.exp(k)
+
+    while (condition):
+        # Sigma2 represents the variance of Im(C). We use a constant value,
+        # this one can be modified to matches Chelli's method
+        Sigma2 = 0.5 + np.abs(C)
+        # Derive of Deltav to add to v
+        Num = np.sum(iList*C.real*C.imag / Sigma2**2)
+        Den = np.sum((iList*C.real)**2 / Sigma2**2)
+
+        DeltaV = Num / Den
+        sigma_noise = 1/np.sum(iList**2 * np.abs(C))
+        v += DeltaV
+
+        k = -2j * np.pi * iList * v /(2*step*lenI)
+        C = I * np.exp(k)
+        # Update of Q
+        Qinit = Qfinal
+        Qfinal = np.sum(C.imag**2 / Sigma2)
+
+        while (Qfinal >= Qinit and abs(DeltaV) > 1e-20):
+            v -= DeltaV
+            DeltaV *= 0.1
+            v += DeltaV  # we change the step for V if Q increase
+            k = -2j*np.pi*iList*v/(2*step*lenI)
+            C = I*np.exp(k)
+
+            Qtest = np.sum(C.imag**2 / Sigma2)
+            if (Qtest > Qfinal):
+                v -= DeltaV
+                DeltaV *= 10
+                v += DeltaV
+                break
+            else:
+                Qfinal = Qtest
+
+        # Update of the conditionJe joins à ce mail un CV et une lettre de motivation expliquant ma situation et mes disponibilités.
+        condition = (abs(Qfinal-Qinit) > 1e-20) and cpt < cpt_max
+
+        cpt += 1
+
+    if (cpt == cpt_max):             # Case of non convergence
+        return (-1, 0, 0)
+        print(" /!\ Chelli has not converged! ")
+    return (v, Qfinal, sigma_noise)  # Case of convergence
+
+
+def find_shift(Sr,S):
+
+    """
+    The following function will find the shift between two spectrum but only with an error of 1 pixel : it is a way to find a big shift. Since chelli shift is only working on less than one pixel shifts we need to first find the shift with a precision of one pixel, then apply chelli shift. This function is made for this objective.
+    Input :
+    - Sr : reference spectrum.
+    - S : shifted spectrum.
+    Output :
+    - shift : the shift in pixel with a precision of one pixel.
+    """    
+    shift = 0
+    shiftj = 0
+    # Initiating the least square indicator with an initial value
+    Q = np.sum( [ (Sr[i]-S[i])**2 for i in range(len(Sr)) ] )
+    
+    # We are going to improve the accuracy step by step, dividing it by 10 in each loop... We start between -110 and 110, then -11 to 11, the -1.1 to 1.1 so we don't miss anything.
+    for precision in range(1,6):
+        
+        jlist = [ i*10**-(precision-1) for i in range(-11,12) ]
+        for j in jlist :
+            
+            Srj = shifter(Sr,shift+j)
+            # Computing the current least square indicator for the current j shift    
+            Qj = np.sum( [ (Srj[i]-S[i])**2 for i in range(len(Srj)) ] )
+            # Updating only if the lq indicator is better ad recording the best found shift until here...
+            if  Qj < Q :
+                Q = Qj
+                shiftj = j
+                
+        # updating the shift by adding the new shift we have just computed    
+        shift += shiftj
+
+    return(shift)
+
+"""
+Code ayant deja ete execute calculant la position des ordres, voies et pics.
+"""
+# Maintenant, on peut trouver le decalage etre deux colonnes du ccd grace aux fonctions ci dessus on va donc pouvoir retrouver la courbure d'un ordre. 
+
+# pour chaque ordre on va selectionner le morceau de colonne lui correspondant sur la colonne centrale et trouver le shift entre ce morceau de colonne et celui de chaque colonne du ccd pour voir comment chaque colonne est decalee. Pour chaque colonne, pour chaque ordre, on retiendra ce shift nous donnant une liste de 4612 shifts pour chaque ordre, sur laquelle sera fitte un polynome de degre 2 ou 3 qui nous donnera la forme precise de la courbure de l'ordre. Ces resultats permettront ensuite de retrouver nos ordres et poursuivre le travail en construisant nos matrices, etc.
+# 
+# for order in range(0,32) :
+#     # code pour un ordre : par exemple l'ordre 10 :
+#     #order = 10
+#     ref = ordre_centres[order]
+#     ep = epaisseurs[order]
+#     marge = 20
+#     colonne_centrale_ordre = colonne_centrale[ref - marge : ref + 2*ep + marge]
+#     
+#     courbure = [] # liste des shifts 
+#     # Detection des shifts a gauche du pixel central
+#     shift = 0
+#     for x in range(0,-int(order_len/2),-1):
+#         colonne_x = imgFlat[x_central+x, int(shift) + ref-marge : int(shift) + ref +2*ep+marge]
+#         plt.figure(2)
+#         plt.plot(colonne_centrale_ordre,'black')
+#         plt.plot(colonne_x,'red')
+#         plt.show()
+#         if ( np.abs(find_shift(colonne_centrale_ordre,colonne_x)) < ep ) :
+#             shift += find_shift(colonne_centrale_ordre,colonne_x) 
+#         courbure.insert(0,shift)
+#     
+#     # Detection des shifts a droite du pixel central
+#     shift = 0
+#     for x in range(0,int(order_len/2)):
+#         colonne_x = imgFlat[x_central+x,int(shift) + ref-marge : int(shift) + ref +2*ep+marge]
+#         plt.figure(2)
+#         plt.plot(colonne_centrale_ordre,'black')
+#         plt.plot(colonne_x,'red')
+#         plt.show()
+#         if ( np.abs(find_shift(colonne_centrale_ordre,colonne_x)) <= ep ) :
+#             shift += find_shift(colonne_centrale_ordre,colonne_x) 
+#         courbure.append(shift)
+#     plt.figure(3)
+#     plt.plot(courbure,'black')
+#     plt.show()
+#     
+#     # Nous avons la liste des shifts pout un ordre donne : on va interpoler avec un polynome 
+#     
+#     indices = [i for i in range(4612) ]
+#     
+#     coeffs = np.polyfit(indices,courbure,3)
+#     
+#     pol_courb = np.poly1d(coeffs)
+#     courbure_interp = pol_courb(indices)
+#     plt.figure(3)
+#     plt.plot(courbure_interp,'red')
+#     plt.show()
+#     
+#     # Cette liste est constituee de floats, or on va l'utiliser pour se balader dans une matrice, donc on doit tout transformer en indices entiers.
+#     courbure_ordre = [ int(round(shift)) for shift in courbure_interp ]
+#     
+#     # Il nous reste a enregistrer tous ces parametres
+#     f = open("extraction_methods/Extraction_files/REF/courbure_ordre_"+str(order),'w')
+#     pickle.dump(courbure_ordre,f)
+#     f.close()
+#     print("Order "+str(order)+" : recorded!")
+#     
+#     
+#     # Il nous faut maintenant faire le mapping des psf de fabry perot sur le CCD FP (imgFP). On sait ou chercher les ordres donc pour chaque ordre on va retouver sommer toutes les lignes et detecter automatiquement tous les pics d'intensite qui correspondent aux raies du fabry perot. 
+#     
+#     y0 = ref
+#     epaisseur = epaisseurs[order]
+#     
+#     Y_fp = []
+#     
+#     for x in range(4612) :
+#             
+#         value = np.sum([ imgFP[x, ref + courbure_ordre[x] + i] for i in range(epaisseur) ])
+#         
+#         Y_fp.insert(x,value)
+#     
+#     plt.figure(4)
+#     plt.plot(Y_fp,'green')
+#     plt.show()
+#     
+#     # Nous devons maintenant detecter les pics de fp et les localiser dans une liste qu'on reutilisera plus tard.
+#     
+#     pics_FP = [] #liste des indices des pics de fp
+#     
+#     # On va detecter ces pics mathematiquement en parcourant la liste
+#     
+#     for i in range(10,4602) :
+#         
+#         local_mean = np.mean([Y_fp[k] for k in range(i-10,i+10) ])
+#         
+#         if ( Y_fp[i-1] < Y_fp[i] and Y_fp[i+1] < Y_fp[i] and Y_fp[i] > local_mean ) :
+#             pics_FP.append(i)
+#     
+#     plt.figure(4)
+#     for pic in pics_FP :
+#         plt.axvline(pic)
+#     plt.show()
+#     
+#     # Enregistrement de notre liste de pics :
+#     f = open("extraction_methods/Extraction_files/REF/pics_FP_order_"+str(order),'w')
+#     pickle.dump(pics_FP,f)
+#     f.close()
+
+# courbures_simu = []
+# pics_FP_simu = []
+# 
+# for order in range(0,32):
+#     
+#     fcourb = open("extraction_methods/Extraction_files/REF/courbure_ordre_"+str(order),'r')
+#     courbure_ordre = pickle.load(fcourb)
+#     fcourb.close()
+#     courbures_simu.append(courbure_ordre)
+# 
+#     fpics = open("extraction_methods/Extraction_files/REF/pics_FP_order_"+str(order),'r')
+#     pics_ordre = pickle.load(fpics)
+#     fpics.close()
+#     pics_FP_simu.append(pics_ordre)
+# 
+# f = open("extraction_methods/Extraction_files/REF/courbures_simu",'w')
+# pickle.dump(courbures_simu,f)
+# f.close()
+# 
+# f = open("extraction_methods/Extraction_files/REF/pics_FP_simu",'w')
+# pickle.dump(pics_FP_simu,f)
+# f.close()
+
+
+f = open("extraction_methods/Extraction_files/REF/courbures_simu",'r')
+courbures_simu = pickle.load(f)
+f.close()
+
+f = open("extraction_methods/Extraction_files/REF/pics_FP_simu",'r')
+pics_FP_simu = pickle.load(f)
+f.close()
+
+f = open("extraction_methods/Extraction_files/REF/epaisseurs",'r')
+epaisseurs = pickle.load(f)
+f.close()
+
+f = open("extraction_methods/Extraction_files/REF/reference_simu",'r')
+ref_ordres = pickle.load(f)
+f.close()
+
+
+
+
+
+
+
+# Code  pour afficher le vecteur CCD en matrice 2D
+# 
+# ep_voie = epaisseurs #interpol # liste des epaisseurs de chaque voie 
+# ord_centres= ordre_centres#interorden # liste des ordonnees du centre de chaque ordre (axe Y allant de 0 a 2098)
+# delta_courb = mapa # matrice des listes (par ordre) des delta_pixel de courbure de l'ordre par rapport à la colonne centrale
+
+ep_voie = epaisseurs
+ord_centres = ref_ordres
+delta_courb = courbures_simu
 M = np.zeros((4612,2098)) # matrice representant le CCD complet
 
 def conjugate_grad_prec_sparse(A,Y):
@@ -220,111 +566,12 @@ def print_CCD(order,Y,beg,end):
 
     
     
-# 
-# 
-# # Code pour multiplier le spectre choisi par A et obtenir le vecteur CCD correspondant
-# ancho_str = '0_flat_edge'
-# CCD_brut_all = []
-# CCD_reduced_all = []
-# 
-# 
-# for orden in range(10,20):
-#     
-#     
-#     #print("Ordre : "+str(orden))
-#     o0=interorden[orden]
-#     o1=interorden[orden+1]
-#     ov=interpol[orden]
-#     
-#     fout=open("extraction_methods/Extraction_files/REF/FP_map_new.pkl","r")
-#     a=pickle.load(fout)
-#     FPpics=a['picos']
-#     fout.close()
-#     
-#     picos=FPpics[orden]
-#     
-#     Y=np.zeros(CCDsize*(ov+1))
-#     YFlat = np.zeros(CCDsize*(ov+1))
-#     arturos=np.shape(mapa)[1]
-#     Souv=np.zeros((arturos,ov+1))
-#     
-#     nombre='extraction_methods/Extraction_files/REF/Amatrix_order'+str(orden)+'_lane1_ancho'+str(ancho_str)+'.pkl'
-#     f=open(nombre,'r')
-#     matriz=pickle.load(f)
-#     Acompleta=matriz['Amatrix']#.toarray()
-#     f.close()
-#     jini,jfin=matriz['Limits']
-#     ancho=matriz['Width']
-#     lambda_max=0.33 #matriz['Lambda_max']
-#     f.close()
-# 
-#     
-#     cual0=int(np.floor(picos[jini+2]))
-#     cualf=int(np.floor(picos[jfin-2]))
-#     
-#     
-#     Yccd = np.zeros(order_len*ov)
-#     Yccd_flat = np.zeros(order_len*ov)
-#     for j in np.arange(0,arturos):
-#         desp=mapa[orden,j]
-#         B=img[j,int(o0+np.floor(desp)):int(o0+ov+np.floor(desp)+1)]
-#         BFlat = img2[j,int(o0+np.floor(desp)):int(o0+ov+np.floor(desp)+1)]
-#         Y[(ov+1)*j:(ov+1)*(j+1)]=img[j,int(o0+np.floor(desp)):int(o0+ov+np.floor(desp)+1)]
-#         YFlat[(ov+1)*j:(ov+1)*(j+1)]=img2[j,int(o0+np.floor(desp)):int(o0+ov+np.floor(desp)+1)]
-#         Souv[j,:]=img[j,int(o0+np.floor(desp)):int(o0+ov+np.floor(desp)+1)]
-#         Yccd[ov*j:ov*(j+1)]=img[j,int(o0+np.floor(desp)):int(o0+ov+np.floor(desp))]
-#         Yccd_flat[ov*j:ov*(j+1)]=img2[j,int(o0+np.floor(desp)):int(o0+ov+np.floor(desp))]
-#     
-#     A=Acompleta[(cual0-ancho)*(ov+1):(cualf+ancho+1)*(ov+1),cual0:cualf]#[(cual0-ancho)*(ov+1):cualf*(ov+1),cual0:cualf]
-#     #Y2=Y[int((cual0-ancho)*(ov+1)):int(cualf*(ov+1))]
-#     Y2=Y[int((cual0-ancho)*(ov+1)):int((cualf+ancho+1)*(ov+1))]
-#     Y2Flat=YFlat[int((cual0-ancho)*(ov+1)):int((cualf+ancho+1)*(ov+1))]
-#     #Y3 = sparse.csr_matrix(Y2)
-#     #Y3Flat = sparse.csr_matrix(Y2Flat)
-#     
-#     Yccd = Yccd/np.max(Yccd)
-#     Yccd_flat = Yccd_flat/np.max(Yccd_flat)
-#     Yccd2 = Yccd / Yccd_flat
-#     #plt.figure(1)
-#     #print_CCD(orden,Yccd)
-#     # plt.figure(2)
-#     # print_CCD(orden,Yccd_flat)
-#     # plt.figure(3)
-#     # print(np.shape(Yccd2))
-#     # print_CCD(orden,Yccd2,cual0,cualf)
-#     
-#     # f = open("extraction_methods/Extraction_files/reduced/reduced_thar_"+str(orden)+"_ancho"+str(ancho_str)+".pkl",'r')
-#     # thar_reduced = np.array(pickle.load(f))
-#     # f.close()
-#     
-#     spectrum_order = spectrum[orden*order_len : (orden+1)*order_len]
-#     spectrum_order = spectrum_order[cual0:cualf]
-#     spectrum_order /= np.max(spectrum_order)
-#     spectrum_order = sparse.csr_matrix(spectrum_order)
-#     
-#     # CCD reduit : on multiplie le spectre reduit par A pour retrouver le vecteur pixe CCD    
-#     CCD_reversed = A.dot(spectrum_order.T)
-#     #plt.figure(2)
-#     CCD_reversed = CCD_reversed.toarray()
-#     # print(np.shape(CCD_reversed))
-#     # print_CCD(orden,CCD_reversed,cual0,cualf)
-#     # thar_reduced = sparse.csr_matrix(thar_reduced)
-#     # ccd_reduced = A.dot(thar_reduced.T)
-#     # ccd_reduced = ccd_reduced - np.min(ccd_reduced)
-#     # ccd_reduced = ccd_reduced.toarray() / np.max(ccd_reduced.toarray())
-#     # ccd_brut = Y2 - np.min(Y2)
-#     # ccd_brut = ccd_brut / np.max(ccd_brut)
-#     # CCD_brut_all.extend(ccd_brut)
-#     # CCD_reduced_all.extend(ccd_reduced)
-# 
-
-    
 
 # Code pour construire un CCD en 1D a partir du CCD en 2D
 
-ep_voie = interpol # liste des epaisseurs de chaque voie 
-ord_centres= interorden # liste des ordonnees du centre de chaque ordre (axe Y allant de 0 a 2098)
-delta_courb = mapa # matrice des listes (par ordre) des delta_pixel de courbure de l'ordre par rapport à la colonne centrale
+# ep_voie = interpol # liste des epaisseurs de chaque voie 
+# ord_centres= interorden # liste des ordonnees du centre de chaque ordre (axe Y allant de 0 a 2098)
+# delta_courb = mapa # matrice des listes (par ordre) des delta_pixel de courbure de l'ordre par rapport à la colonne centrale
 
 def build_Yccd(ccd2d,order):
     """ Cette fonction construit le vecteur ccd second membre a partir du fits ouvert et pour l'ordre donné.
@@ -378,11 +625,11 @@ def build_Yccd_1row(ccd2d,order):
 
 # Code pour remplir A 
 
-fout=open("extraction_methods/Extraction_files/REF/FP_map_new.pkl","r")
-a=pickle.load(fout)
-FPpics=a['picos']
-fout.close()
-
+# fout=open("extraction_methods/Extraction_files/REF/FP_map_new.pkl","r")
+# a=pickle.load(fout)
+# FPpics=a['picos']
+# fout.close()
+FPpics = pics_FP_simu
 
 def fill_A(ccd2d,order,largeur):
     """ Cette fonction construit la matrice de convolution A pour un order donne, sans interpoler entre les raies de FP.
@@ -398,8 +645,8 @@ def fill_A(ccd2d,order,largeur):
     epaisseur = ep_voie[order]
     picos=FPpics[order]
     Yccd = build_Yccd(ccd2d,order)
-    M = np.zeros((order_len,len(Yccd)))
-    M = sparse.lil_matrix(M)
+    #M = np.zeros((order_len,len(Yccd)))
+    M = sparse.lil_matrix((order_len,len(Yccd)))
     for k in range(len(picos)):
         x = int(round(picos[k]))
         beg = (x-largeur)*epaisseur
@@ -452,8 +699,8 @@ def fill_A_1row(ccd2d,order,largeur):
     delta_courb_order = delta_courb[order]
     picos=FPpics[order]
     Yccd = build_Yccd_1row(ccd2d,order)
-    M = np.zeros((order_len,len(Yccd)))
-    M = sparse.lil_matrix(M)
+    #M = np.zeros((order_len,len(Yccd)))
+    M = sparse.lil_matrix((order_len,len(Yccd)))
     for k in range(len(picos)):
         x = int(round(picos[k]))
         beg = x-largeur
@@ -490,61 +737,19 @@ def interpol_A_1row(Abrut,order,largeur):
     Ainterp = Ainterp.tocsr().T
     return(Ainterp)
 
-# imgFlat = imgFlat/np.max(imgFlat)
-# img = img/imgFlat
-# 
-# order =15
-# ini = int(round(FPpics[order][0]))
-# end = int(round(FPpics[order][-1]))
-# 
-# Yccdflat_1row = build_Yccd_1row(imgFlat,order)[ini:end]
-# Yccd1row = build_Yccd_1row(img,order)[ini:end]
-# Yccd = build_Yccd(img,order)[ini:end]
-# plt.figure(1)
-# Yccd1rown = Yccd1row / np.max(Yccd1row)
-# #plt.plot(Yccd,'black')
-# plt.plot(Yccd1rown,'blue')
-# plt.show()
-# 
-# A = fill_A_1row(imgFP,order,10)
-# # plt.figure(3)
-# # plt.imshow(A.toarray(),aspect='auto')
-# A = interpol_A_1row(A,order,10)
-# A = A.toarray()[ini:end,ini:end]
-# A = sparse.csr_matrix(A)
-# plt.figure(2)
-# plt.imshow(A.toarray(),aspect='auto')
-# plt.show()
-# 
-# Yccd1row = sparse.csr_matrix(Yccd1row)
-# Yccdflat_1row = sparse.csr_matrix(Yccdflat_1row)
-# Thar_sp1row = conjugate_grad_prec_sparse(A,Yccd1row)[0]
-# Flat_sp1row = conjugate_grad_prec_sparse(A,Yccdflat_1row)[0]
-# #Thar_sp1row = Thar_sp1row/np.max(Thar_sp1row)
-# #Flat_sp1row = Flat_sp1row/np.max(Flat_sp1row)
-# plt.figure(1)
-# #plt.plot(Thar_sp1row,'red')
-# #plt.plot(Flat_sp1row,'black')
-# sp = Thar_sp1row/(Flat_sp1row+1e-12)
-# #sp = [ k[0] for k in sp]
-# for k in range(len(sp)) :
-#     if np.isnan(sp[k]) :
-#         sp[k] = 0
-# sp = sp / np.max(sp)
-# plt.plot(sp,'purple')
-# plt.show()
+##
+
+
 
 
 
 # Construction et enregistrement de la matrice A
-ancho = 8
-spectra = []
-flats = []
-for order in range(14,15):
+ancho = 5
+for order in range(10,11):
     if True :
         print("###### ORDER : "+str(order)+" ######")
         t0 = time.time()
-        A = fill_A(imgFP,order,ancho)
+        A = fill_A(imgSimu,order,ancho)
         print("Temps de construction de A : ",time.time()-t0)
         
         plt.figure(1)
@@ -565,7 +770,7 @@ for order in range(14,15):
         picos=FPpics[order]
         jini=5
         jfin=len(picos)-5
-        f = 'extraction_methods/Extraction_files/REF/Amatrix_order'+str(order)+'_lane1_ancho'+str(ancho)+'_new_test'
+        f = 'extraction_methods/Extraction_files/REF/Amatrix_order'+str(order)+'_lane1_ancho'+str(ancho)+'_test_simu'
         f = open(f,'w')
         pickle.dump({'Amatrix':Ainterp,'Limits':(jini,jfin),'Width':10,'Lambda_max':1},f)
         f.close()
@@ -574,51 +779,29 @@ for order in range(14,15):
 
         # test de reduction en utilisant A construite au dessus
         plt.figure(3)
-        YccdThar = build_Yccd(img,order)
-        plt.plot(YccdThar,'red')
+        YccdSimu = build_Yccd(imgSimu,order)
+        plt.plot(YccdSimu,'red')
         plt.show()
-        YccdThar = sparse.csr_matrix(YccdThar)
-        YccdFlat = build_Yccd(imgFlat,order)
-        for k in range(len(YccdFlat)) :
-            if YccdFlat[k] != 0 :
-                YccdFlat[k] = YccdFlat[k] - 32768.0  # On retire l'offset decrit dans les headers du fit : B0 = 2**15
-        plt.plot(YccdFlat,'black')
-        plt.show()
-        YccdFlat = sparse.csr_matrix(YccdFlat)
+        YccdSimu = sparse.csr_matrix(YccdSimu)
         
-        f = 'extraction_methods/Extraction_files/REF/Amatrix_order'+str(order)+'_lane1_ancho'+str(ancho)+'_new_test'
+        f = 'extraction_methods/Extraction_files/REF/Amatrix_order'+str(order)+'_lane1_ancho'+str(ancho)+'_test_simu'
         f = open(f,'r')
         Adata = pickle.load(f)
         f.close()
         A = Adata['Amatrix']
         
-        Thar_spectrum = conjugate_grad_prec_sparse(A,YccdThar)[1]
-        #Thar_spectrum = Thar_spectrum/np.max(Thar_spectrum)
-        Flat_spectrum = conjugate_grad_prec_sparse(A,YccdFlat)[1]
-        #Flat_spectrum = Flat_spectrum/np.max(Flat_spectrum)
-        #Thar_normalized_spectrum = Thar_spectrum / Flat_spectrum
+        Simu_spectrum = conjugate_grad_prec_sparse(A,YccdSimu)[1]
+        Simu_spectrum = Simu_spectrum/np.max(Simu_spectrum)
         plt.figure(4)
-        plt.plot(Thar_spectrum,'blue')
-        plt.plot(Flat_spectrum,'black')
-        #plt.plot(Thar_normalized_spectrum,'red')
+        plt.plot(Simu_spectrum,'blue')
         plt.show()
         
         
-        Thar_spectrum2 = conjugate_grad_prec_sparse(A,YccdThar)[0]
-        Flat_spectrum2 = conjugate_grad_prec_sparse(A,YccdFlat)[0]
-        #Thar_normalized_spectrum = Thar_spectrum / Flat_spectrum
+        Simu_spectrum2 = conjugate_grad_prec_sparse(A,YccdSimu)[0]
         plt.figure(5)
-        plt.plot(Thar_spectrum2,'blue')
-        plt.plot(Flat_spectrum2,'black')
-        #plt.plot(Thar_normalized_spectrum,'red')
+        plt.plot(Simu_spectrum2,'blue')
         plt.show()
-        
-        spectra.extend(Thar_spectrum)
-        flats.extend(Flat_spectrum)
+
     else :
         print("Problem with order "+str(order))
-plt.figure(6)
-plt.plot(flats,'black')
-plt.plot(spectra,'red')
-plt.show()
-    
+
