@@ -13,8 +13,6 @@ import time as time
 import numpy.ma as ma
 #import extraction_methods.DRS_extraction_Lucas as DRS_Lucas
 
-for k in range(100) :
-    plt.close(k)
 
 CCDsize=4640
 ref=2320 
@@ -652,7 +650,7 @@ def fill_A(ccd2d,order,largeur):
         beg = (x-largeur)*epaisseur
         end = (x+largeur)*epaisseur
         M.rows[x] = np.arange(beg,end)
-        M.data[x] = Yccd[beg:end] - np.min(Yccd[beg:end])
+        M.data[x] = Yccd[beg:end] #- np.min(Yccd[beg:end])
     return(M)
 
 
@@ -737,8 +735,6 @@ def interpol_A_1row(Abrut,order,largeur):
     Ainterp = Ainterp.tocsr().T
     return(Ainterp)
 
-##
-
 
 
 
@@ -751,22 +747,22 @@ for order in range(10,11):
         t0 = time.time()
         A = fill_A(imgSimu,order,ancho)
         print("Temps de construction de A : ",time.time()-t0)
-        
-        plt.figure(1)
-        B = A.toarray()[2000:3000,:]
-        plt.imshow(B,aspect='auto')
-        plt.show()
-        
+        # 
+        # plt.figure(1)
+        # B = A.toarray()[2000:3000,:]
+        # plt.imshow(B,aspect='auto')
+        # plt.show()
+        # 
         t1 = time.time()
         Ainterp = interpol_A(A,order,ancho)
         print("Temps d'interpolation de A :",time.time()-t1)
         
-        plt.figure(2)
-        C = Ainterp.toarray()[:,2000:3000]
-        plt.imshow(C,aspect='auto')
-        plt.show()
+        # plt.figure(2)
+        # C = Ainterp.toarray()[:,2000:3000]
+        # plt.imshow(C,aspect='auto')
+        # plt.show()
+        # 
         
-       
         picos=FPpics[order]
         jini=5
         jfin=len(picos)-5
@@ -791,16 +787,16 @@ for order in range(10,11):
         A = Adata['Amatrix']
         
         Simu_spectrum = conjugate_grad_prec_sparse(A,YccdSimu)[1]
-        Simu_spectrum = Simu_spectrum/np.max(Simu_spectrum)
+        #Simu_spectrum = Simu_spectrum/np.max(Simu_spectrum)
         plt.figure(4)
-        plt.plot(Simu_spectrum,'blue')
+        plt.plot(Simu_spectrum,'red')
         plt.show()
         
         
-        Simu_spectrum2 = conjugate_grad_prec_sparse(A,YccdSimu)[0]
-        plt.figure(5)
-        plt.plot(Simu_spectrum2,'blue')
-        plt.show()
+        # Simu_spectrum2 = conjugate_grad_prec_sparse(A,YccdSimu)[0]
+        # plt.figure(5)
+        # plt.plot(Simu_spectrum2,'blue')
+        # plt.show()
 
     else :
         print("Problem with order "+str(order))
