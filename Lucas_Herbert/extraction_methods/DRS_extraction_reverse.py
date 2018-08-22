@@ -740,14 +740,14 @@ def interpol_A_1row(Abrut,order,largeur):
 
 
 # Construction et enregistrement de la matrice A
-ancho = 5
+ancho = 3
 for order in range(10,11):
     if True :
         print("###### ORDER : "+str(order)+" ######")
         t0 = time.time()
         A = fill_A(imgSimu,order,ancho)
         print("Temps de construction de A : ",time.time()-t0)
-        # 
+         
         # plt.figure(1)
         # B = A.toarray()[2000:3000,:]
         # plt.imshow(B,aspect='auto')
