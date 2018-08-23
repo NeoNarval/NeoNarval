@@ -434,7 +434,35 @@ def ajout_psf_gaussienne(ccd,sigma_psf,cen_psf,larg_psf,hau_psf,ampl_psf) :
         for y in range(5,5+hau_psf):
             ccd[y,x] += psf[y-5,x-cen_psf-int(larg_psf/2)] - np.min(psf)
 
-
+def ajout_psf_gaussienne_inclinee(ccd,sigma_psf,cen_psf,larg_psf,hau_psf,ampl_psf) :
+    #cree une psf gaussienne 2D comme la fonction ci dessus mais en deux parties avec l'une decalee par rapport a l'autre comme si cette psf etait inclinee.
+    #creation psf
+    psf = np.zeros((hau_psf,larg_psf))
+    ampl = ampl_psf
+    largeur = sigma_psf
+    cen = int(larg_psf/2)
+    # construction du profil 1D de la psf
+    x = [i for i in range(larg_psf) ]
+    y = [ ampl*np.exp( -(i - cen)**2/(2*largeur**2) ) for i in range(larg_psf)]
+    
+    # construction de la psf 2D
+    for i in range(int(hau_psf/2)) :
+        psf[i] = y
+        
+    y_shifted = np.zeros(len(y))
+    for i in range(len(y)):
+        if i == len(y)-1 :
+            y_shifted[i] = y[0]
+        else :
+            y_shifted[i] = y[i+1]
+                
+    for i in range(int(hau_psf/2),hau_psf) :
+        psf[i] = y_shifted
+    
+    # ajout psf
+    for x in range(cen_psf-int(larg_psf/2),cen_psf+int(larg_psf/2)):
+        for y in range(5,5+hau_psf):
+            ccd[y,x] += psf[y-5,x-cen_psf-int(larg_psf/2)] - np.min(psf)
 
 
 
@@ -447,15 +475,10 @@ plotter2D(ccd1,2)
 local_th = local_th / 10000
 local_FP = local_FP / 1000
 
-ajout_psf_gaussienne(ccd2,1.5,80,21,8,1)
-ajout_psf_gaussienne(ccd2,0.5,90,21,8,1)
-ajout_psf_gaussienne(ccd2,4,50,21,8,1)
-ajout_psf_gaussienne(ccd2,2,20,21,8,1)
-ajout_psf_gaussienne(ccd2,2,60,21,8,1)
-ajout_img_ccd(ccd2,60,10,local_th)
-ajout_psf_gaussienne(ccd2,0.8,30,21,8,1)
-ajout_img_ccd(ccd2,10,10,local_th/0.5/np.max(local_th))
-ajout_img_ccd(ccd2,50,10,local_FP/0.5/np.max(local_FP))
+
+ajout_img_ccd(ccd2,15,10,local_th)
+ajout_psf_gaussienne_inclinee(ccd2,0.8,90,21,8,1)
+ajout_img_ccd(ccd2,65,10,local_FP)
 plotter2D(ccd2,-2)
 
 # construction du vecteur ccd1 qui fera donc 20*100 utile pour construire A
@@ -521,8 +544,8 @@ plt.show()
 # plt.show()
 
 
-begpic = 31
-endpic = 39
+begpic = 85
+endpic = 95
 lambdas = [ i for i in range(begpic,endpic) ]
 pic_ligne_10 = ligne_10[begpic:endpic]
 pic_red = spectre[begpic:endpic]
