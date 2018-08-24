@@ -186,7 +186,7 @@ def conjugate_grad_prec_sparse(A,Y):
     
     iter = 1000 # pour eviter d'iterer dans le vide
     
-    Morozov=0.0001*np.median(1 / np.sqrt( Y.toarray() )) # critere d'arret de Morozov
+    Morozov= 0.0000001 #*np.median(1 / np.sqrt( Y.toarray() )) # critere d'arret de Morozov
     print("Morozov : "+ str(Morozov))
     
     diff = 1 # initialisation
@@ -230,7 +230,7 @@ def conjugate_grad_prec_sparse(A,Y):
 
 
 # on fait de la place
-#clean()
+clean()
 
 
 
@@ -238,11 +238,18 @@ def conjugate_grad_prec_sparse(A,Y):
 
 #  generation des ccd avant ajout psf
 
+ep = 40
+length = 100
+
+
 ccd1 = np.zeros((20,100))
 ccd2 = np.zeros((20,100))
 ccdFP = np.zeros((20,100))
-ccdth = np.zeros((20,100))
-ccdth_red = np.zeros((20,100))
+
+
+ccdth = np.zeros((ep,length))
+ccdth2 = np.zeros((ep,length))
+ccdth_red = np.zeros((ep,length))
 
 
 
@@ -254,12 +261,25 @@ f = pyfits.open("extraction_methods/Extraction_files/FP_test.fts")
 img_FP = f[0].data
 local_FP = img_FP[2632:2677,546:562] - np.min(img_FP[2632:2677,546:562])
 local_FP = local_FP 
+local_FP1 = local_FP[0:15,:]
 
 # allons chercher une raie ThAr sur un fits :
 f = pyfits.open("extraction_methods/Extraction_files/th0_test")
 img_th = f[0].data
 local_th = img_th[1782:1790,791:807] - np.min(img_th[1782:1790,791:807])
 local_th = local_th 
+
+# allons chercher trois raies proches de ThAr sur un fits :
+f = pyfits.open("extraction_methods/Extraction_files/th0_test")
+triple_th = f[0].data
+triple_th = triple_th[1662:1732,1380:1415] - np.min(triple_th[1662:1732,1380:1415])
+
+
+f = pyfits.open("extraction_methods/Extraction_files/th0_test")
+quadruple_th = f[0].data
+quadruple_th = quadruple_th[986:1075,646:684] - np.min(quadruple_th[986:1075,646:684])
+
+
 
 
 def ajout_img_ccd(ccd,posX,posY,img) :
@@ -269,121 +289,107 @@ def ajout_img_ccd(ccd,posX,posY,img) :
         for y in range(posY-int(haut/2),posY+int(haut/2)):
             ccd[y,x] += img[x - posX- int(larg/2) ,y - posY - int(haut/2)]
             
-ajout_img_ccd(ccdFP,50,10,local_FP)
-plotter2D(ccdFP,10)
+            
+          
+ajout_img_ccd(ccdth2,50,20,quadruple_th)
+plotter2D(ccdth2,2)
+
+ccdth_red = ccdth2
 
 
 
-ajout_img_ccd(ccdth,10,10,local_th)
-ajout_img_ccd(ccdth,90,10,local_th)
-plotter2D(ccdth,70)
-
-ajout_img_ccd(ccdth_red,50,10,local_FP)
-ajout_img_ccd(ccdth_red,53,10,local_th)
-plotter2D(ccdth_red,700)
-
-
-# version naive de la reduction
-somme_yFP = []
-for i in range(100) :
-    somme_yFP.append(np.mean([ccdFP[j,i] for j in range(20)]))
-# plt.figure(100)
-# plt.title("Somme sur Y des intensites ccdFP")
-# plt.plot(np.arange(100),somme_yFP)
-# plt.show()
+# # version naive de la reduction
+# somme_yFP = []
+# for i in range(100) :
+#     somme_yFP.append(np.mean([ccdFP[j,i] for j in range(20)]))
+# # plt.figure(100)
+# # plt.title("Somme sur Y des intensites ccdFP")
+# # plt.plot(np.arange(100),somme_yFP)
+# # plt.show()
 
 
 somme_yth = []
-for i in range(100) :
-    somme_yth.append(np.mean([ccdth[j,i] for j in range(20)]))
-plt.figure(71)
-plt.title("Somme sur Y des intensites ccdth")
-plt.plot(np.arange(100),somme_yth)
-plt.show()
-
-# somme yth_red reduit par la matrice Ath
 somme_yth_red = []
-for i in range(100) :
-    somme_yth_red.append(ccdth_red[10,i])
-plt.figure(711)
-plt.title("Ligne 10 du ccdth_red")
-plot = somme_yth_red / np.max(somme_yth_red)
-plt.plot(np.arange(80),plot[10:90],'blue')
+ligne_milieu_th = []
+
+for i in range(length) :
+    somme_yth.append(np.mean([ccdth2[j,i] for j in range(ep)]))
+    somme_yth_red.append(np.mean([ccdth_red[j,i] for j in range(ep)]))
+    ligne_milieu_th.append(ccdth2[25,i])
+plt.figure(3)
+plt.title("Somme sur Y des intensites ccdth")
+plt.plot(somme_yth,'black')
+plt.plot(ligne_milieu_th,'green')
 plt.show()
 
 
-
-# detection des indices des pics_FP sur somme_yFP
-pics_FP = []
-for i in range(1,len(somme_yFP)-1):
-    if somme_yFP[i-1]<somme_yFP[i] and somme_yFP[i+1]<somme_yFP[i] :
-        pics_FP.append(i)
         
 # detection des indices des pics_th sur somme_yth
-pics_th = []
-for i in range(1,len(somme_yth)-1):
-    if somme_yth[i-1]<somme_yth[i] and somme_yth[i+1]<somme_yth[i] :
-        pics_th.append(i)
-        
+# pics_th = []
+# for i in range(1,length - 1):
+#     if somme_yth[i-1]<somme_yth[i] and somme_yth[i+1]<somme_yth[i] :
+#         pics_th.append(i)
+# print(pics_th)
+pics_th = [12,87]
 
-# construction du vecteur YccdFP
-YccdFP = np.zeros(20*100)
-for x in range(100):
-    for y in range(20) :
-        YccdFP[20*x + y] = ccdFP[y,x]
 
-            
 # construction du vecteur Yccdth
-Yccdth = np.zeros(20*100)
-for x in range(100):
-    for y in range(20) :
-        Yccdth[20*x + y] = ccdth[y,x]   
-        
+Yccdth = np.zeros(ep*length)
+for x in range(length):
+    for y in range(ep) :
+        Yccdth[ep*x + y] = ccdth2[y,x]   
+plt.figure(31)
+plt.plot(Yccdth,'red')
+plt.show()
+
 # construction du vecteur Yccdth_red a reduire
-Yccdth_red = np.zeros(20*100)
-for x in range(100):
-    for y in range(20) :
-        Yccdth_red[20*x + y] = ccdth_red[y,x]
+Yccdth_red = np.zeros(ep*length)
+for x in range(length):
+    for y in range(ep) :
+        Yccdth_red[ep*x + y] = ccdth_red[y,x]
+plt.figure(32)
+plt.plot(Yccdth_red,'red')
+plt.show()
         
-# construction de la matrice AFP :
-AFP = np.zeros((20*100,100))
-fen_X = 5
-for x in pics_FP:
-    AFP[20*(x-fen_X) : 20*(x+fen_X) ,x] = YccdFP[20*(x-fen_X) : 20*(x+fen_X)] - np.min( YccdFP[20*(x-fen_X) : 20*(x+fen_X)] )
-# plt.figure(14)
-# plt.imshow(AFP,aspect='auto')
-# plt.show()
+# # construction de la matrice AFP :
+# AFP = np.zeros((20*100,100))
+# fen_X = 5
+# for x in pics_FP:
+#     AFP[20*(x-fen_X) : 20*(x+fen_X) ,x] = YccdFP[20*(x-fen_X) : 20*(x+fen_X)] - np.min( YccdFP[20*(x-fen_X) : 20*(x+fen_X)] )
+# # plt.figure(14)
+# # plt.imshow(AFP,aspect='auto')
+# # plt.show()
 
 # construction de la matrice Ath :
-Ath = np.zeros((20*100,100))
+Ath = np.zeros((ep*length,length))
 fen_X = 5
 for x in pics_th:
-    Ath[20*(x-fen_X) : 20*(x+fen_X) ,x] = Yccdth[20*(x-fen_X) : 20*(x+fen_X)] - np.min( Yccdth[20*(x-fen_X) : 20*(x+fen_X)] )
-plt.figure(72)
+    Ath[ep*(x-fen_X) : ep*(x+fen_X) ,x] = Yccdth[ep*(x-fen_X) : ep*(x+fen_X)] - np.min( Yccdth[ep*(x-fen_X) : ep*(x+fen_X)] )
+plt.figure(4)
 plt.imshow(Ath,aspect='auto')
 plt.show()
 
 
-# interpolation entre les raies de  fabry perots de AFP
-pics_FP = [35,64]
-epaisseur = 20
-largeur = fen_X   
-x1 = pics_FP[0]
-x2 = pics_FP[1]
-for x in range(x1+1,x2):
-    alpha = (x-x1)/(x2-x1)
-    beg = (x-largeur)*epaisseur 
-    end = (x+largeur)*epaisseur
-    for y in range(beg,end) :
-        yx1 = y - (x-x1)*epaisseur
-        yx2 = y + (x2-x)*epaisseur 
-        AFP[y,x] = alpha*AFP[yx2,x2] + (1-alpha)*AFP[yx1,x1]
-# plt.figure(15)
-# plt.imshow(AFP,aspect='auto')
-# plt.show()
+# # interpolation entre les raies de  fabry perots de AFP
+# pics_FP = [35,64]
+# epaisseur = 20
+# largeur = fen_X   
+# x1 = pics_FP[0]
+# x2 = pics_FP[1]
+# for x in range(x1+1,x2):
+#     alpha = (x-x1)/(x2-x1)
+#     beg = (x-largeur)*epaisseur 
+#     end = (x+largeur)*epaisseur
+#     for y in range(beg,end) :
+#         yx1 = y - (x-x1)*epaisseur
+#         yx2 = y + (x2-x)*epaisseur 
+#         AFP[y,x] = alpha*AFP[yx2,x2] + (1-alpha)*AFP[yx1,x1]
+# # plt.figure(15)
+# # plt.imshow(AFP,aspect='auto')
+# # plt.show()
 
-# interpolation entre les raies de  fabry perots de Ath
-epaisseur = 20
+# interpolation entre les raies de th Ath
+epaisseur = ep
 largeur = fen_X   
 x1 = pics_th[0]
 x2 = pics_th[1]
@@ -395,23 +401,44 @@ for x in range(x1+1,x2):
         yx1 = y - (x-x1)*epaisseur
         yx2 = y + (x2-x)*epaisseur 
         Ath[y,x] = alpha*Ath[yx2,x2] + (1-alpha)*Ath[yx1,x1]
-plt.figure(73)
+plt.figure(5)
 plt.imshow(Ath,aspect='auto')
 plt.show()
 
 
 # test de reduction
-Ath_test = Ath[200:1800,10:90]
-Cth_test = Ath_test.T.dot(Ath_test)
-Yccdth_red_test = Ath_test.T.dot(Yccdth_red[200:1800])
-spectre_th_red = np.linalg.solve(Cth_test,Yccdth_red_test)
-plt.figure(74)
-plt.plot(spectre_th_red,'red')
+beg = 20
+end = 82
+Cth = Ath.T.dot(Ath)
+Y = Ath.T.dot(Yccdth_red)
+Cth = Cth[beg:end,beg:end]
+Y = Y[beg:end]
+spectre = np.linalg.solve(Cth,Y)
+
+ligne_milieu_th = np.array(ligne_milieu_th[beg:end])
+somme_yth_red = np.array(somme_yth_red[beg:end])
+spectre = spectre / float(np.max(spectre))
+somme_yth_red = somme_yth_red / float(np.max(somme_yth_red))
+ligne_milieu_th = ligne_milieu_th / float(np.max(ligne_milieu_th))
+plt.figure(100)
+plt.title("En rouge : spectre reduit, en bleu : coupe du ccd")
+plt.plot(spectre,'red')
+plt.plot(ligne_milieu_th,'blue')
 plt.show()
 
-clean()
 
+# begpic = 7
+# endpic = 17
+# lambdas = [ i for i in range(begpic,endpic) ]
+# pic_somme = somme_yth_red[begpic:endpic]
+# pic_red = spectre[begpic:endpic]
+# result_somme = gaussian_fit(lambdas,pic_somme)
+# result_red = gaussian_fit(lambdas,pic_red)
+# larg_somme = result_ligne_10[1]
+# larg_red = result_red[1]
+# print(larg_somme,larg_red)
 
+##
 # # # # # # # # # # # # # # # # # # # # # ## # # # # # # # # # # ## # # # # # # ## # # # #
 
 def ajout_psf_gaussienne(ccd,sigma_psf,cen_psf,larg_psf,hau_psf,ampl_psf) :
@@ -465,20 +492,49 @@ def ajout_psf_gaussienne_inclinee(ccd,sigma_psf,cen_psf,larg_psf,hau_psf,ampl_ps
             ccd[y,x] += psf[y-5,x-cen_psf-int(larg_psf/2)] - np.min(psf)
 
 
+def ajout_psf_gaussienne_triple(ccd,sigma_psf,posX,posY,ampl_psf) :
+    
+    larg_psf = 21
+    hau_psf = 14
+    
+    #creation psf
+    psf = np.zeros((hau_psf,larg_psf))
+    ampl = ampl_psf
+    largeur = sigma_psf
+    cen = int(larg_psf/2)
+    # construction du profil 1D de la psf
+    x = [i for i in range(larg_psf) ]
+    y = [ ampl*np.exp( -(i - cen)**2/(2*largeur**2) ) for i in range(larg_psf)]
+    
+    # construction de la psf 2D + pour chaque ligne, multiplication par un poids pour representer une triple gaussienne qui ressemble plus a une psf
+    
+    poids = local_th[4,:] / float(np.max(local_th[4,1:15]))
+    plt.plot(poids)
+    plt.show()
+    for i in range(hau_psf) :
+        psf[i] = [y[k] * poids[i] for k in range(len(y))]
+    # ajout psf
+    for x in range(posX-int(larg_psf/2),posX+int(larg_psf/2)):
+        for y in range(posY - int(hau_psf/2) ,posY+ int(hau_psf/2)):
+            ccd[y,x] += psf[y-posY,x-posX-int(larg_psf/2)] - np.min(psf)
+    
 
+    
 
+##
 # # # # # # # # # # # # # # # # # # # # # ## # # # # # # # # # # ## # # # # # # ## # # # #
 # tests gaussiens ! 
-ajout_psf_gaussienne(ccd1,0.1,cen_psf_cons+1,21,10,1)
+#ajout_psf_gaussienne_inclinee(ccd1,0.1,cen_psf_cons+1,21,10,1)
+ajout_img_ccd(ccd1,50,10,local_th)
+#ajout_img_ccd(ccd1,50,10,local_FP1)
 plotter2D(ccd1,2)
 
-local_th = local_th / 10000
-local_FP = local_FP / 1000
 
-
+ajout_psf_gaussienne_inclinee(ccd2,2,30,21,10,10000)
 ajout_img_ccd(ccd2,15,10,local_th)
-ajout_psf_gaussienne_inclinee(ccd2,0.8,90,21,8,1)
-ajout_img_ccd(ccd2,65,10,local_FP)
+#ajout_img_ccd(ccd2,17,10,local_th)
+ajout_psf_gaussienne(ccd2,2,90,21,13,10000)
+ajout_img_ccd(ccd2,65,10,local_FP1)
 plotter2D(ccd2,-2)
 
 # construction du vecteur ccd1 qui fera donc 20*100 utile pour construire A
@@ -498,14 +554,16 @@ for x in range(100) :
 somme_y = []
 for i in range(100) :
     somme_y.append(np.mean([ccd2[j,i] for j in range(20)]))
+somme_y = somme_y/np.max(somme_y)
 plt.figure(3)
 plt.title("Somme sur Y des intensites")
-plt.plot(somme_y)
+plt.plot(somme_y,'blue')
 plt.show()
 
 ligne_10 = []
 for i in range(100) :
     ligne_10.append(ccd2[10,i])
+ligne_10 = ligne_10/np.max(ligne_10)
 plt.figure(3)
 plt.title("Somme sur Y des intensites")
 plt.plot(ligne_10,'green')
@@ -528,12 +586,13 @@ C = A.T.dot(A)
 Y = A.T.dot(Yccd2)
 # resolution python 
 spectre = np.linalg.solve(C,Y)
+spectre = spectre/np.max(spectre)
 plt.figure(3)
 plt.title("Spectre reduit")
 plt.plot(spectre,'red')
 plt.show()
 
-# resolution gradient conjugue
+#resolution gradient conjugue
 # Asparse = sparse.csr_matrix(A)
 # Ysparse = sparse.csr_matrix(Yccd2)
 # spectre_grad = conjugate_grad_prec_sparse(Asparse,Ysparse)
@@ -544,8 +603,9 @@ plt.show()
 # plt.show()
 
 
-begpic = 85
-endpic = 95
+plt.figure(3)
+begpic = 55
+endpic = 75
 lambdas = [ i for i in range(begpic,endpic) ]
 pic_ligne_10 = ligne_10[begpic:endpic]
 pic_red = spectre[begpic:endpic]
